@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBS Studio: Advanced &amp; Integrations — Tech &amp; Worship Academy</title>
+<meta name="description" content="Multi-camera, NDI lyrics, Zoom and StreamYard bridging, streaming licensing, and captions for church broadcast volunteers.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="OBS Studio: Advanced &amp; Integrations — Tech &amp; Worship Academy">
+<meta property="og:description" content="Multi-camera, NDI lyrics, Zoom and StreamYard bridging, streaming licensing, and captions for church broadcast volunteers.">
+<meta property="og:image" content="../../social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OBS Studio: Advanced &amp; Integrations — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Multi-camera, NDI lyrics, Zoom and StreamYard bridging, streaming licensing, and captions for church broadcast volunteers.">
+<meta name="twitter:image" content="../../social-preview.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;650;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #F1EEE5;
+  --paper-raised: #FAF8F2;
+  --paper-line: #DAD4C4;
+
+  /* ink */
+  --ink: #1C2B2E;
+  --ink-soft: #4A5A5C;
+  --ink-faint: #7C8886;
+
+  /* accents */
+  --brass: #A6782C;
+  --brass-deep: #8A611F;
+  --teal: #3E6259;
+  --teal-deep: #2C4B44;
+  --cue-live: #B5432E;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#F1EEE5; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="obs-advanced">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/livestream-broadcast/index.html">Livestream &amp; Broadcast</a> / OBS Advanced</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 3 · Channel 02</span>
+    <h1>OBS Studio: Advanced &amp; Integrations</h1>
+    <p class="hero-lede">Once a basic service streams cleanly, these topics extend it — more camera angles, lyrics on screen, remote platforms, and the legal and accessibility details that don't show up until someone asks about them.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">On this stream</div>
+      <a class="rail-link" data-lesson-link="ndi" href="#lesson-ndi"><span class="rail-led"></span>FreeShow lyrics over NDI</a>
+      <a class="rail-link" data-lesson-link="multicam" href="#lesson-multicam"><span class="rail-led"></span>Multi-camera switching</a>
+      <a class="rail-link" data-lesson-link="phonecam" href="#lesson-phonecam"><span class="rail-led"></span>Phone as a camera</a>
+      <a class="rail-link" data-lesson-link="zoom" href="#lesson-zoom"><span class="rail-led"></span>Bridging to Zoom</a>
+      <a class="rail-link" data-lesson-link="streamyard" href="#lesson-streamyard"><span class="rail-led"></span>StreamYard workflows</a>
+      <a class="rail-link" data-lesson-link="licensing" href="#lesson-licensing"><span class="rail-led"></span>Copyright &amp; streaming licensing</a>
+      <a class="rail-link" data-lesson-link="captions" href="#lesson-captions"><span class="rail-led"></span>Closed captioning</a>
+      <a class="rail-link" data-lesson-link="graduation" href="#lesson-graduation"><span class="rail-led"></span>Advanced troubleshooting &amp; graduation</a>
+      <div class="rail-progress-label">0 of 8 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-ndi" data-lesson="ndi">
+        <div class="lesson-head-top"><span>Lesson 1 · 25 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>FreeShow lyrics over NDI</h2>
+        <p>FreeShow sends slides and lyrics to OBS over the network using NDI, rather than a heavy screen-capture. To receive that feed, OBS needs the <strong>DistroAV</strong> plugin (formerly obs-ndi) installed, plus the NDI 6 Runtime.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> OBS Studio is version 31.0 or newer</li>
+          <li><input type="checkbox"> DistroAV plugin installed from its official GitHub releases page</li>
+          <li><input type="checkbox"> NDI 6 Runtime installed and computer rebooted</li>
+        </ul>
+        <p>In FreeShow, build a style with the background disabled so it outputs transparent — a checkerboard pattern in the output thumbnail confirms transparency is working. In OBS, add an <strong>NDI Source</strong> in your worship scene, select the FreeShow output, and place it <em>above</em> your camera source in the Sources list so lyrics render on top of the picture instead of under it.</p>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="GT7NngI6d20">
+            <img src="https://img.youtube.com/vi/GT7NngI6d20/hqdefault.jpg" alt="FreeShow to OBS via NDI Setup video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>FreeShow to OBS via NDI Setup — GarryBJr</span>
+            <a href="https://www.youtube.com/watch?v=GT7NngI6d20" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="4dL8p0_OIqY">
+            <img src="https://img.youtube.com/vi/4dL8p0_OIqY/hqdefault.jpg" alt="FreeShow Full Setup Guide OBS compositing video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>FreeShow Tutorials: Full Setup Guide (OBS source compositing)</span>
+            <a href="https://www.youtube.com/watch?v=4dL8p0_OIqY&t=480" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-multicam" data-lesson="multicam">
+        <div class="lesson-head-top"><span>Lesson 2 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Multi-camera switching</h2>
+        <p>A second angle keeps a stream from feeling static. Add each camera as its own <strong>Video Capture Device</strong> source, either in separate scenes (cut between them like the pre-built service scenes) or layered in one scene as picture-in-picture. Give each camera's "switch to scene" or "show source" its own hotkey — the same way you set hotkeys for service scenes — so switching angles doesn't mean hunting through menus live.</p>
+        <div class="callout warn"><strong>Bandwidth note:</strong> multiple USB cameras can compete for the same USB controller's bandwidth. If a second camera looks choppy, try a different USB port or a powered USB hub before assuming the camera itself is the problem.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="o_1lYj8raWI">
+            <img src="https://img.youtube.com/vi/o_1lYj8raWI/hqdefault.jpg" alt="How to Add Multiple Webcam Angles in OBS Studio video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Add Multiple Webcam Angles in OBS Studio (Easy Guide)</span>
+            <a href="https://www.youtube.com/watch?v=o_1lYj8raWI" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-phonecam" data-lesson="phonecam">
+        <div class="lesson-head-top"><span>Lesson 3 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Phone as a camera</h2>
+        <p>A spare smartphone can become a wireless second angle without buying a capture card — using the same NDI protocol FreeShow already uses. Install an NDI camera app (such as NDI HX Camera) on the phone, connect it to the same Wi-Fi network as the booth computer, and it appears as an NDI Source in OBS just like the FreeShow feed does.</p>
+        <div class="callout">This works best on a 5GHz Wi-Fi network, or wired if possible — a crowded 2.4GHz network is the most common cause of a laggy phone camera.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="DyfMwXs4tKM">
+            <img src="https://img.youtube.com/vi/DyfMwXs4tKM/hqdefault.jpg" alt="OBS NDI Plugin Setup phone as webcam video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>OBS NDI Plugin Setup | Your Phone is a KILLER Webcam!</span>
+            <a href="https://www.youtube.com/watch?v=DyfMwXs4tKM" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-zoom" data-lesson="zoom">
+        <div class="lesson-head-top"><span>Lesson 4 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Bridging to Zoom</h2>
+        <p><strong>Video:</strong> click <strong>Start Virtual Camera</strong> in OBS's Controls dock, then in Zoom go to <strong>Settings → Video</strong> and choose <strong>OBS Virtual Camera</strong>.</p>
+        <p><strong>Audio</strong> needs a virtual cable, since Zoom can't pick up OBS's program audio directly. Install <strong>VB-Audio Virtual Cable</strong>, set OBS's <strong>Settings → Audio → Advanced → Monitoring Device</strong> to the Cable Input, and set each active channel's Advanced Audio Properties to <strong>Monitor and Output</strong>. In Zoom, set the microphone to the Cable Output and enable <strong>Original Sound for Musicians</strong> so Zoom's noise filter doesn't suppress the worship music.</p>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="szDBXQQ1kZY">
+            <img src="https://img.youtube.com/vi/szDBXQQ1kZY/hqdefault.jpg" alt="Connecting OBS to Zoom video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Connecting OBS to Zoom — Marcus Sepila (Virtual Camera)</span>
+            <a href="https://www.youtube.com/watch?v=szDBXQQ1kZY" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="AGMxJSjW7Bg">
+            <img src="https://img.youtube.com/vi/AGMxJSjW7Bg/hqdefault.jpg" alt="Zoom Audio Routing via VB Cable video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Zoom Audio Routing via VB Cable — Marcus Sepila</span>
+            <a href="https://www.youtube.com/watch?v=AGMxJSjW7Bg" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-streamyard" data-lesson="streamyard">
+        <div class="lesson-head-top"><span>Lesson 5 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>StreamYard workflows</h2>
+        <p>StreamYard is useful for remote guest speakers and posting to several platforms at once. Two setups:</p>
+        <table>
+          <tr><th>Workflow</th><th>How it works</th></tr>
+          <tr><td>OBS canvas into StreamYard</td><td>Start Virtual Camera in OBS, select it as StreamYard's camera source — StreamYard keeps your lyrics and scene switches while adding guest links and chat overlays</td></tr>
+          <tr><td>Custom RTMP relay</td><td>StreamYard → Destinations → Add a Destination → Custom RTMP, paste the target platform's Server URL and Stream Key</td></tr>
+        </table>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="sdr1MuJG0gU">
+            <img src="https://img.youtube.com/vi/sdr1MuJG0gU/hqdefault.jpg" alt="StreamYard OBS Integration video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>StreamYard OBS Integration — Michael Fire Jr</span>
+            <a href="https://www.youtube.com/watch?v=sdr1MuJG0gU" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-licensing" data-lesson="licensing">
+        <div class="lesson-head-top"><span>Lesson 6 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Copyright &amp; streaming licensing</h2>
+        <p>This one isn't a software setting, but it's easy for a tech volunteer to never hear about it until a video gets flagged. Streaming a service that includes copyrighted worship music — even performed live by your own musicians — needs a licensing agreement on top of any in-building copyright license your church already holds.</p>
+        <div class="callout">A CCLI Streaming License (or an equivalent like OneLicense) is what specifically authorizes including live-performed worship music in a stream or webcast. It's separate from a standard Church Copyright License, which only covers printing and displaying lyrics in the room.</div>
+        <p>A few things worth knowing as the person running the stream:</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> I know whether our church holds a current streaming license</li>
+          <li><input type="checkbox"> I know it only covers songs <em>performed live</em>, not pre-recorded tracks or videos</li>
+          <li><input type="checkbox"> I know who to ask before streaming a pre-recorded video or music track</li>
+        </ul>
+        <p style="font-size:.85rem;color:var(--ink-faint);">This is a general orientation, not legal advice — check your church's actual license and its current terms directly with the licensor (e.g. ccli.com) before streaming anything you're unsure about.</p>
+      </section>
+
+      <section class="lesson" id="lesson-captions" data-lesson="captions">
+        <div class="lesson-head-top"><span>Lesson 7 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Closed captioning</h2>
+        <p>Captions make the stream usable for viewers who are hard of hearing or watching without sound. The easiest option needs no extra software: on YouTube, when you go live, open <strong>Stream settings → Additional settings → Closed captions</strong> and choose <strong>Automatic captions</strong>. Facebook Live has a similar automatic-caption toggle under its live viewing settings.</p>
+        <div class="callout warn">Automatic captions are speech-recognition based — they'll misfire on unusual names, overlapping speech, or heavy background music, so treat them as a baseline rather than something to rely on word-for-word.</div>
+        <p>If you need captions independent of the platform (for example, embedding the stream on the church's own site), a separate tool such as Web Captioner can generate a caption overlay that OBS displays as a browser source.</p>
+      </section>
+
+      <section class="lesson" id="lesson-graduation" data-lesson="graduation">
+        <div class="lesson-head-top"><span>Lesson 8 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Advanced troubleshooting &amp; graduation</h2>
+        <table>
+          <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+          <tr><td>NDI source missing or frozen</td><td>Network subnet mismatch, or the NDI runtime isn't running</td><td>Confirm both devices are on the same network (wired if possible) and restart OBS</td></tr>
+          <tr><td>Audio echo/feedback in Zoom bridge</td><td>Double audio monitoring loop</td><td>Confirm Desktop Audio is Disabled and channels are set to Monitor and Output only</td></tr>
+          <tr><td>Audio/video out of sync</td><td>Capture card processing delay</td><td>Add a Sync Offset in that source's Advanced Audio Properties</td></tr>
+        </table>
+        <div class="quiz">
+          <div class="quiz-q">A remote musician joining over Zoom says their instrument sounds muffled and thin. What's most likely to fix it?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-correct="false">Lower the OBS output bitrate</button>
+            <button class="quiz-opt" data-correct="true">Enable Original Sound for Musicians in Zoom</button>
+            <button class="quiz-opt" data-correct="false">Add a Sync Offset to the audio source</button>
+          </div>
+          <div class="quiz-explain">Zoom's default noise suppression is tuned for speech and can flatten music. "Original Sound for Musicians" turns that processing off so instruments and full-range audio pass through cleanly.</div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> I can bring FreeShow lyrics onto a live camera feed without help</li>
+          <li><input type="checkbox"> I can switch between at least two camera angles smoothly</li>
+          <li><input type="checkbox"> I can bridge audio and video into a Zoom or StreamYard session</li>
+          <li><input type="checkbox"> I know our church's streaming license terms and our captioning setup</li>
+        </ul>
+        <div class="callout">Once all four are checked, you're ready to run an integrated, multi-platform service alongside a more experienced volunteer nearby.</div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/livestream-broadcast/index.html">← Back to Livestream &amp; Broadcast</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>

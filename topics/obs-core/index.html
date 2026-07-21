@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBS Studio: Core Operations — Tech &amp; Worship Academy</title>
+<meta name="description" content="Onboarding for new broadcast volunteers learning OBS Studio, from install to running a solo Sunday stream.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="OBS Studio: Core Operations — Tech &amp; Worship Academy">
+<meta property="og:description" content="Onboarding for new broadcast volunteers learning OBS Studio, from install to running a solo Sunday stream.">
+<meta property="og:image" content="../../social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OBS Studio: Core Operations — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Onboarding for new broadcast volunteers learning OBS Studio, from install to running a solo Sunday stream.">
+<meta name="twitter:image" content="../../social-preview.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;650;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #F1EEE5;
+  --paper-raised: #FAF8F2;
+  --paper-line: #DAD4C4;
+
+  /* ink */
+  --ink: #1C2B2E;
+  --ink-soft: #4A5A5C;
+  --ink-faint: #7C8886;
+
+  /* accents */
+  --brass: #A6782C;
+  --brass-deep: #8A611F;
+  --teal: #3E6259;
+  --teal-deep: #2C4B44;
+  --cue-live: #B5432E;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#F1EEE5; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="obs-core">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/livestream-broadcast/index.html">Livestream &amp; Broadcast</a> / OBS Core</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 3 · Channel 01</span>
+    <h1>OBS Studio: Core Operations</h1>
+    <p class="hero-lede">This walks you through OBS from a blank install to running a solo Sunday stream — no broadcast background assumed. Work through it in order, or jump to the pre-flight checklist if service starts in thirty minutes.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">On this stream</div>
+      <a class="rail-link" data-lesson-link="install" href="#lesson-install"><span class="rail-led"></span>Install &amp; Auto-Config</a>
+      <a class="rail-link" data-lesson-link="interface" href="#lesson-interface"><span class="rail-led"></span>Interface tour</a>
+      <a class="rail-link" data-lesson-link="scene" href="#lesson-scene"><span class="rail-led"></span>Building your first scene</a>
+      <a class="rail-link" data-lesson-link="audio" href="#lesson-audio"><span class="rail-led"></span>Audio setup &amp; gain staging</a>
+      <a class="rail-link" data-lesson-link="compressor" href="#lesson-compressor"><span class="rail-led"></span>Compressor &amp; limiter</a>
+      <a class="rail-link" data-lesson-link="format" href="#lesson-format"><span class="rail-led"></span>Choosing a recording format</a>
+      <a class="rail-link" data-lesson-link="studiomode" href="#lesson-studiomode"><span class="rail-led"></span>Service scenes &amp; Studio Mode</a>
+      <a class="rail-link" data-lesson-link="live" href="#lesson-live"><span class="rail-led"></span>Going live</a>
+      <a class="rail-link" data-lesson-link="solo" href="#lesson-solo"><span class="rail-led"></span>Hotkeys &amp; backing up your setup</a>
+      <a class="rail-link" data-lesson-link="graduation" href="#lesson-graduation"><span class="rail-led"></span>Pre-flight &amp; graduation</a>
+      <div class="rail-progress-label">0 of 10 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-install" data-lesson="install">
+        <div class="lesson-head-top"><span>Lesson 1 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Installing OBS &amp; the Auto-Config Wizard</h2>
+        <p>OBS Studio is free and open-source, downloaded from obsproject.com. It needs a Windows 10/11 or macOS 12+ machine with admin rights, since it needs low-level access to capture hardware and audio drivers.</p>
+        <p>The first time you open OBS, the Auto-Configuration Wizard checks your computer and network, then sets safe defaults for you. When it asks, choose <strong>Optimize for streaming, recording is secondary</strong>, and let it run its bandwidth test against your streaming platform.</p>
+        <table>
+          <tr><th>Setting</th><th>Recommended baseline</th></tr>
+          <tr><td>Base (canvas) resolution</td><td>1920×1080</td></tr>
+          <tr><td>Framerate</td><td>30 FPS</td></tr>
+          <tr><td>Video encoder</td><td>Hardware (NVENC / Apple Silicon VT) if available</td></tr>
+        </table>
+        <div class="callout">If your church runs OBS on more than one booth computer, run the wizard fresh on each machine — hardware and network conditions differ per computer, so settings shouldn't just be copied over.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="jYexniWG5SA">
+            <img src="https://img.youtube.com/vi/jYexniWG5SA/hqdefault.jpg" alt="OBS for Churches Guide video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>OBS for Churches Guide — REACHRIGHT Studios (software first look &amp; Auto-Config Wizard)</span>
+            <a href="https://www.youtube.com/watch?v=jYexniWG5SA&t=106" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-interface" data-lesson="interface">
+        <div class="lesson-head-top"><span>Lesson 2 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Interface tour</h2>
+        <p>The OBS window is a central preview canvas with five control docks along the bottom: the <strong>Scenes</strong> dock (your complete layout presets), the <strong>Sources</strong> dock (the individual pieces inside the active scene), the <strong>Audio Mixer</strong> (live peak meters and per-channel filter gears), the <strong>Scene Transitions</strong> dock, and the <strong>Controls</strong> dock — Start Streaming, Start Recording, Start Virtual Camera, and Settings.</p>
+        <div class="callout">Sources render top-to-bottom: whatever sits at the top of the Sources list draws over everything listed beneath it. This is how lower thirds end up "on top of" a camera feed later on.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="9z9GiEM4uvA">
+            <img src="https://img.youtube.com/vi/9z9GiEM4uvA/hqdefault.jpg" alt="How to Use OBS Studio Like a Pro video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Use OBS Studio Like a Pro! — Primal Video (interface docks)</span>
+            <a href="https://www.youtube.com/watch?v=9z9GiEM4uvA&t=15" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-scene" data-lesson="scene">
+        <div class="lesson-head-top"><span>Lesson 3 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Building your first scene</h2>
+        <p>Scenes are top-level layout containers; Sources are the individual elements inside them. To build a baseline "Worship Service" scene: add a new scene and name it <code>01_Main_Service</code>, then add a <strong>Video Capture Device</strong> source named <code>Main USB Camera</code>. Select your camera from the dropdown, then apply <strong>Transform → Fit to Screen</strong> so the picture fills the canvas without black bars.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> New scene created and named clearly</li>
+          <li><input type="checkbox"> Camera source added and showing a live picture</li>
+          <li><input type="checkbox"> Fit to Screen applied — no black bars, no stretching</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="9z9GiEM4uvA">
+            <img src="https://img.youtube.com/vi/9z9GiEM4uvA/hqdefault.jpg" alt="How to Use OBS Studio Like a Pro video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Use OBS Studio Like a Pro! — Primal Video (setting up scenes)</span>
+            <a href="https://www.youtube.com/watch?v=9z9GiEM4uvA&t=410" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-audio" data-lesson="audio">
+        <div class="lesson-head-top"><span>Lesson 4 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Audio setup &amp; gain staging</h2>
+        <p>Audio mistakes are the single biggest failure point in volunteer-run broadcasts. OBS captures your whole computer's system audio by default — that means notification pings and browser tabs can end up live. Go to <strong>Settings → Audio</strong> and set <strong>Desktop Audio</strong> to <strong>Disabled</strong> immediately.</p>
+        <p>Then set your real audio source under <strong>Settings → Audio → Mic/Auxiliary Audio</strong> — usually the USB output of the church's mixing console. Watch the Audio Mixer's peak meters during a soundcheck: spoken ministry should sit consistently in the yellow zone. Audio hitting red is clipping and needs to come down immediately.</p>
+        <div class="callout warn"><strong>Common mistake:</strong> leaving Desktop Audio enabled "just in case." It's the most common source of an accidental system-sound or feedback loop going live.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="9z9GiEM4uvA">
+            <img src="https://img.youtube.com/vi/9z9GiEM4uvA/hqdefault.jpg" alt="How to Use OBS Studio Like a Pro video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Use OBS Studio Like a Pro! — Primal Video (audio setup)</span>
+            <a href="https://www.youtube.com/watch?v=9z9GiEM4uvA&t=840" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-compressor" data-lesson="compressor">
+        <div class="lesson-head-top"><span>Lesson 5 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Compressor &amp; limiter: a safety net for clipping</h2>
+        <p>Gain staging gets you close, but a sudden loud moment — someone bumping a mic, an enthusiastic "Amen!" — can still clip and distort. Two audio filters guard against this. Click the gear on your audio source in the Mixer, choose <strong>Filters</strong>, then add:</p>
+        <table>
+          <tr><th>Filter</th><th>What it does</th><th>Where it sits</th></tr>
+          <tr><td>Compressor</td><td>Evens out loud and quiet moments so the mix stays consistent</td><td>Earlier in the filter chain</td></tr>
+          <tr><td>Limiter</td><td>A hard ceiling that stops any spike from clipping, no matter what</td><td>Always last in the chain</td></tr>
+        </table>
+        <div class="callout">Think of the Limiter as the master fader's backup: gain staging and the compressor handle the normal range, the limiter catches anything that gets past both.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="1QnuTCMNXIk">
+            <img src="https://img.youtube.com/vi/1QnuTCMNXIk/hqdefault.jpg" alt="OBS Compressor Limiter and Noise Gate Explained video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>OBS Compressor, Limiter and Noise Gate EXPLAINED</span>
+            <a href="https://www.youtube.com/watch?v=1QnuTCMNXIk" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-format" data-lesson="format">
+        <div class="lesson-head-top"><span>Lesson 6 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Choosing a recording format</h2>
+        <p>Whenever you're recording locally (see the next lesson for why you always should), OBS lets you pick the file format under <strong>Settings → Output → Recording Format</strong>. The two that matter for a volunteer team:</p>
+        <table>
+          <tr><th>Format</th><th>What happens if OBS crashes mid-recording</th><th>Use it when</th></tr>
+          <tr><td>MKV</td><td>File stays playable — MKV is built to survive an interrupted write</td><td>You want the safest default</td></tr>
+          <tr><td>MP4 (plain)</td><td>The whole file can become unplayable if the recording didn't finish cleanly</td><td>You need a file that opens anywhere without an extra step</td></tr>
+        </table>
+        <div class="callout warn"><strong>Recommendation:</strong> record in MKV, then use OBS's built-in <strong>File → Remux Recordings</strong> afterward to create a matching MP4 — it takes seconds and loses no quality, and you keep the crash-safety of MKV either way.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="lp868ff1uOs">
+            <img src="https://img.youtube.com/vi/lp868ff1uOs/hqdefault.jpg" alt="MP4 vs MKV vs FLV in OBS best recording format video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>MP4 vs MKV vs FLV in OBS – Best Recording Format in OBS Explained!</span>
+            <a href="https://www.youtube.com/watch?v=lp868ff1uOs" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-studiomode" data-lesson="studiomode">
+        <div class="lesson-head-top"><span>Lesson 7 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Service scenes &amp; Studio Mode</h2>
+        <p>Pre-building a scene for each phase of the service means no manual adjustments live. A typical Sunday scene list:</p>
+        <table>
+          <tr><th>Scene</th><th>Purpose</th></tr>
+          <tr><td>01_PreService</td><td>Holding graphics and prelude music before the service starts</td></tr>
+          <tr><td>02_Worship</td><td>Camera feed with lyrics overlaid on top (see the Advanced topic for how)</td></tr>
+          <tr><td>03_Pastoral</td><td>Full-screen camera for preaching, communion, baptism</td></tr>
+          <tr><td>04_Sermon_Slides</td><td>Slide deck with a small picture-in-picture of the speaker</td></tr>
+          <tr><td>05_PostService</td><td>A clean closing graphic with service times and links</td></tr>
+        </table>
+        <p><strong>Studio Mode</strong> splits the screen into a Preview (left, what you're staging) and Program (right, what's actually live) so you can set up the next scene without viewers seeing it. Cut for fast camera changes; use a short Fade for prayers and readings.</p>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="x1eFj8zSOcA">
+            <img src="https://img.youtube.com/vi/x1eFj8zSOcA/hqdefault.jpg" alt="Church Livestream Setup Studio Mode video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Church Livestream Setup — Gospel Media Tutorials (Studio Mode &amp; scene transitions)</span>
+            <a href="https://www.youtube.com/watch?v=x1eFj8zSOcA&t=63" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-live" data-lesson="live">
+        <div class="lesson-head-top"><span>Lesson 8 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Going live</h2>
+        <p>Enter your platform's Stream Key under <strong>Settings → Stream</strong>. Then, under <strong>Settings → Output</strong> (switch Output Mode to <strong>Advanced</strong>), set:</p>
+        <table>
+          <tr><th>Setting</th><th>Recommended value</th></tr>
+          <tr><td>Rate Control</td><td>CBR (Constant Bitrate)</td></tr>
+          <tr><td>Target Bitrate</td><td>Per your platform's recommendation for your resolution/framerate</td></tr>
+          <tr><td>Keyframe Interval</td><td>2 seconds (required for most platforms to ingest cleanly)</td></tr>
+          <tr><td>Encoder Preset</td><td>Quality or Balanced</td></tr>
+        </table>
+        <div class="quiz">
+          <div class="quiz-q">Your stream status indicator is showing a solid green light before you go live. What does that confirm?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-correct="false">Your audio levels are gain-staged correctly</button>
+            <button class="quiz-opt" data-correct="true">OBS has a stable connection to your streaming platform</button>
+            <button class="quiz-opt" data-correct="false">Your scene collection has been backed up</button>
+          </div>
+          <div class="quiz-explain">The stream status light reflects connection health to the platform — it doesn't check your audio or your local backups. Those need separate checks.</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="x1eFj8zSOcA">
+            <img src="https://img.youtube.com/vi/x1eFj8zSOcA/hqdefault.jpg" alt="Church Livestream Setup platform stream ingest video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Church Livestream Setup — Gospel Media Tutorials (platform stream ingest)</span>
+            <a href="https://www.youtube.com/watch?v=x1eFj8zSOcA&t=950" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-solo" data-lesson="solo">
+        <div class="lesson-head-top"><span>Lesson 9 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Hotkeys &amp; backing up your setup</h2>
+        <p>Clicking through a scene list live is slow and easy to fumble. Under <strong>Settings → Hotkeys</strong>, filter for "switch to scene" and assign each scene its own key — most booths use the number row (1, 2, 3...) matching scene order.</p>
+        <p>Just as important: your whole setup — scenes, sources, filters — lives in a <strong>Scene Collection</strong> file. Export it from <strong>Scene Collection → Export</strong> and keep a copy somewhere safe (a shared drive, not just the booth laptop). If that computer ever needs replacing or reinstalling, importing the file rebuilds your entire show in seconds instead of from scratch.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> A hotkey is set for every scene you use on a Sunday</li>
+          <li><input type="checkbox"> Scene Collection exported and saved outside the booth computer</li>
+          <li><input type="checkbox"> Someone other than you knows where that backup file lives</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="jDhr_zwNBFI">
+            <img src="https://img.youtube.com/vi/jDhr_zwNBFI/hqdefault.jpg" alt="How to Switch Scenes in OBS with Hotkeys video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How To Switch Scenes In OBS With Hotkeys</span>
+            <a href="https://www.youtube.com/watch?v=jDhr_zwNBFI" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="mUn692XeAD0">
+            <img src="https://img.youtube.com/vi/mUn692XeAD0/hqdefault.jpg" alt="How to Export Scenes in OBS Studio video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Export Scenes in OBS Studio - Import Scene Collections Tutorial</span>
+            <a href="https://www.youtube.com/watch?v=mUn692XeAD0" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-graduation" data-lesson="graduation">
+        <div class="lesson-head-top"><span>Lesson 10 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Pre-flight checklist &amp; graduation</h2>
+        <p>Run this every week, starting thirty minutes before the service:</p>
+        <table>
+          <tr><th>Time</th><th>Check</th></tr>
+          <tr><td>T-30</td><td>Network cabling, power, and switches all connected</td></tr>
+          <tr><td>T-20</td><td>Camera picture sharp; live mic test hits the yellow zone</td></tr>
+          <tr><td>T-10</td><td>Any lyrics/graphics feed renders correctly in the OBS preview</td></tr>
+          <tr><td>T-5</td><td>Short local test recording; stream status light solid green</td></tr>
+          <tr><td>T-0</td><td>Select 01_PreService, press Start Streaming, confirm the feed live on the platform</td></tr>
+        </table>
+        <p><strong>If something breaks live:</strong> a black camera source usually means a dropped hardware handshake — right-click the source, Properties, Deactivate, wait a moment, then Activate again. Dropped frames usually mean network congestion — lower the bitrate and check nothing else is using the connection.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> I can run the full pre-flight checklist without help</li>
+          <li><input type="checkbox"> I can recover a frozen camera source live</li>
+          <li><input type="checkbox"> I've exported and located our Scene Collection backup</li>
+          <li><input type="checkbox"> I've run at least one full service under a mentor's supervision</li>
+        </ul>
+        <div class="callout">Once all four are checked, you're ready to run a service solo alongside a more experienced volunteer nearby.</div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/livestream-broadcast/index.html">← Back to Livestream &amp; Broadcast</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>
