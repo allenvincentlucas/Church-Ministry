@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoom LiveTrak L12next — Tech &amp; Worship Academy</title>
+<meta name="description" content="Onboarding for new tech volunteers learning the Zoom LiveTrak L12next mixer, from unboxing to running a solo Sunday mix.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zoom LiveTrak L12next — Tech &amp; Worship Academy">
+<meta property="og:description" content="Onboarding for new tech volunteers learning the Zoom LiveTrak L12next mixer, from unboxing to running a solo Sunday mix.">
+<meta property="og:image" content="../../social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zoom LiveTrak L12next — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Onboarding for new tech volunteers learning the Zoom LiveTrak L12next mixer, from unboxing to running a solo Sunday mix.">
+<meta name="twitter:image" content="../../social-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;650;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #F1EEE5;
+  --paper-raised: #FAF8F2;
+  --paper-line: #DAD4C4;
+
+  /* ink */
+  --ink: #1C2B2E;
+  --ink-soft: #4A5A5C;
+  --ink-faint: #7C8886;
+
+  /* accents */
+  --brass: #A6782C;
+  --brass-deep: #8A611F;
+  --teal: #3E6259;
+  --teal-deep: #2C4B44;
+  --cue-live: #B5432E;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#F1EEE5; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="l12next">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/tech-media/index.html">Tech &amp; Media</a> / L12next</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 1 · Channel 01</span>
+    <h1>Console 101: Zoom LiveTrak L12next</h1>
+    <p class="hero-lede">This walks you through the board from a cold start to running a solo Sunday mix — no audio background assumed. Work through it in order, or jump to the panic-button sequence if service starts in ten minutes.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">On this board</div>
+      <a class="rail-link" data-lesson-link="overview" href="#lesson-overview"><span class="rail-led"></span>Overview &amp; unboxing</a>
+      <a class="rail-link" data-lesson-link="channels" href="#lesson-channels"><span class="rail-led"></span>Channel strip basics</a>
+      <a class="rail-link" data-lesson-link="routing" href="#lesson-routing"><span class="rail-led"></span>Routing &amp; monitor sends</a>
+      <a class="rail-link" data-lesson-link="recording" href="#lesson-recording"><span class="rail-led"></span>Recording to SD card</a>
+      <a class="rail-link" data-lesson-link="app" href="#lesson-app"><span class="rail-led"></span>Wireless app control</a>
+      <a class="rail-link" data-lesson-link="live" href="#lesson-live"><span class="rail-led"></span>Running a live service</a>
+      <a class="rail-link" data-lesson-link="graduation" href="#lesson-graduation"><span class="rail-led"></span>Troubleshooting &amp; graduation</a>
+      <div class="rail-progress-label">0 of 7 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-overview" data-lesson="overview">
+        <div class="lesson-head-top"><span>Lesson 1 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Overview &amp; unboxing</h2>
+        <p>The L12next is a 12-channel digital mixer that also records to an SD card and streams over Bluetooth/USB — it's the one box doing front-of-house sound, a multitrack recorder, and an audio interface at the same time. You'll usually find it already mounted at the booth; you rarely unbox it yourself, but knowing its layout matters more than knowing how it shipped.</p>
+        <p>The top row of knobs controls each channel's gain and EQ. The center touchscreen is where routing, effects, and recording live. The channel faders along the bottom are what you'll touch most during a service — they control how loud each mic or instrument is in the main mix.</p>
+        <div class="callout"><strong>Before you touch anything live:</strong> find the master fader (far right) and the mute buttons for each channel. Those two controls solve 90% of "something's too loud" or "I can't hear the pastor" problems.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="_1fKJ3ikDYk">
+            <img src="https://img.youtube.com/vi/_1fKJ3ikDYk/hqdefault.jpg" alt="Zoom LiveTrak L12next Overview video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Zoom LiveTrak L12next — official overview</span>
+            <a href="https://www.youtube.com/watch?v=_1fKJ3ikDYk" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-channels" data-lesson="channels">
+        <div class="lesson-head-top"><span>Lesson 2 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Channel strip basics</h2>
+        <p>Each channel strip has four things you'll adjust every week:</p>
+        <table>
+          <tr><th>Control</th><th>What it does</th><th>When you touch it</th></tr>
+          <tr><td>Gain</td><td>Sets how hot the incoming signal is before any processing</td><td>Once, during soundcheck</td></tr>
+          <tr><td>EQ</td><td>Shapes tone — cuts muddiness or boosts clarity</td><td>Rarely, once dialed in</td></tr>
+          <tr><td>Fader</td><td>Sets that channel's volume in the mix</td><td>Constantly, live</td></tr>
+          <tr><td>Mute</td><td>Instantly silences the channel</td><td>Whenever that mic isn't in use</td></tr>
+        </table>
+        <div class="callout warn"><strong>Common mistake:</strong> riding the gain knob during service instead of the fader. Gain changes can introduce clipping or noise; the fader is the safe control to move live.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="wwY4Lfjp7ds">
+            <img src="https://img.youtube.com/vi/wwY4Lfjp7ds/hqdefault.jpg" alt="Zoom LiveTrak L-12 EQ and monitor tutorial video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>L-12 series basic tutorial: EQ, headphone mix &amp; monitor section</span>
+            <a href="https://www.youtube.com/watch?v=wwY4Lfjp7ds" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <p style="font-size:.85rem;color:var(--ink-faint);">This tutorial covers the L-12, the L12next's predecessor — the channel strip controls and EQ workflow are the same family of controls you'll use on the L12next.</p>
+      </section>
+
+      <section class="lesson" id="lesson-routing" data-lesson="routing">
+        <div class="lesson-head-top"><span>Lesson 3 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Routing &amp; monitor sends</h2>
+        <p>"Routing" is just deciding where each channel's signal goes. The L12next lets you send any channel to the main mix (what the room hears) and, separately, to monitor mixes (what the stage hears) at a completely different volume balance. A vocalist might want more of themselves and less of the drums — that's a monitor send, and it never has to match the main mix.</p>
+        <p>On the touchscreen, tap a channel, then choose which mix bus you're editing before moving that channel's level. It's easy to accidentally edit the main mix when you meant to edit a monitor send — always check which bus is selected first.</p>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="DGi1Pfa7lQ8">
+            <img src="https://img.youtube.com/vi/DGi1Pfa7lQ8/hqdefault.jpg" alt="LiveTrak L12next How to Set Up Monitor Mixes video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>LiveTrak L12next — how to set up monitor mixes (Monitor Outs A–E)</span>
+            <a href="https://www.youtube.com/watch?v=DGi1Pfa7lQ8" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-recording" data-lesson="recording">
+        <div class="lesson-head-top"><span>Lesson 4 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Recording to SD card</h2>
+        <p>The L12next records every channel individually to an SD card, which is how most churches capture multitrack audio for later mixing or podcast/broadcast use. Insert a formatted SD card before service, confirm the record indicator is active, and never remove the card while a recording is running — it can corrupt the file.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> SD card inserted and shows free space on screen</li>
+          <li><input type="checkbox"> Recording started before the first live mic is unmuted</li>
+          <li><input type="checkbox"> Recording stopped and confirmed saved after service ends</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="e7n8-C2_vCg">
+            <img src="https://img.youtube.com/vi/e7n8-C2_vCg/hqdefault.jpg" alt="Zoom LiveTrak L-12 recording and exporting to an SD card video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>L-12 series: recording &amp; exporting to an SD card</span>
+            <a href="https://www.youtube.com/watch?v=e7n8-C2_vCg" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-app" data-lesson="app">
+        <div class="lesson-head-top"><span>Lesson 5 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Wireless app control</h2>
+        <p>The companion app lets you adjust monitor mixes from a phone on stage instead of walking back to the booth every time a musician asks for more of themselves. Connect to the mixer's Wi-Fi network (check with your tech lead for the current network name), open the app, and you'll see the same channel strips as the touchscreen — just touch-friendly and mobile.</p>
+        <div class="callout">Musicians can often control their own monitor mix from their own phone once you've set this up for them — worth doing for anyone leading regularly.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="nsdmtL0cBss">
+            <img src="https://img.youtube.com/vi/nsdmtL0cBss/hqdefault.jpg" alt="Hands-on Zoom LiveTrak L12next demo video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Hands-on L12next walkthrough (covers wireless control among its features)</span>
+            <a href="https://www.youtube.com/watch?v=nsdmtL0cBss" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-live" data-lesson="live">
+        <div class="lesson-head-top"><span>Lesson 6 · 20 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Running a live service</h2>
+        <p>A typical Sunday flow: arrive early to power on and confirm every channel shows signal, run a quick soundcheck with anyone on stage, start the SD recording, then ride faders through the service — unmuting mics just before they're needed and muting them right after. Keep one hand near the master fader for any sudden feedback.</p>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="dvXmC9CCbQE">
+            <img src="https://img.youtube.com/vi/dvXmC9CCbQE/hqdefault.jpg" alt="Zoom LiveTrak L-12 fader mode and scenes tutorial video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>L-12 series: fader modes &amp; saving scenes for repeatable mixes</span>
+            <a href="https://www.youtube.com/watch?v=dvXmC9CCbQE" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <div class="quiz">
+          <div class="quiz-q">A vocalist is too quiet in the main room but says their monitor is fine. What do you adjust?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-correct="false">The gain knob on their channel</button>
+            <button class="quiz-opt" data-correct="true">Their channel's fader on the main mix</button>
+            <button class="quiz-opt" data-correct="false">Their monitor send level</button>
+          </div>
+          <div class="quiz-explain">The main mix and monitor mixes are independent. Since the monitor is fine, the fix is the main-mix fader for that channel — not gain (which affects both) or the monitor send (which they said is fine).</div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-graduation" data-lesson="graduation">
+        <div class="lesson-head-top"><span>Lesson 7 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Troubleshooting &amp; graduation checklist</h2>
+        <p>Most live issues trace back to one of three things: a muted channel, a channel routed to the wrong bus, or a cable. Check the obvious before assuming the mixer is broken.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> I can find and use the master fader and every channel mute without help</li>
+          <li><input type="checkbox"> I can set up a basic monitor mix for a vocalist</li>
+          <li><input type="checkbox"> I can start and safely stop an SD card recording</li>
+          <li><input type="checkbox"> I've run at least one soundcheck under a mentor's supervision</li>
+        </ul>
+        <div class="callout">Once all four are checked, you're ready to run a service solo alongside a more experienced volunteer nearby.</div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/tech-media/index.html">← Back to Tech &amp; Media Ministry</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>
