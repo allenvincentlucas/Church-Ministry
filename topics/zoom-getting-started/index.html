@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoom Service Hub: Getting Started — Tech &amp; Worship Academy</title>
+<meta name="description" content="Onboarding for first-time volunteers hosting the online side of a live service on Zoom.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zoom Service Hub: Getting Started — Tech &amp; Worship Academy">
+<meta property="og:description" content="Onboarding for first-time volunteers hosting the online side of a live service on Zoom.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/tech-worship-academy/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zoom Service Hub: Getting Started — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Onboarding for first-time volunteers hosting the online side of a live service on Zoom.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/tech-worship-academy/social-preview.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;650;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #F1EEE5;
+  --paper-raised: #FAF8F2;
+  --paper-line: #DAD4C4;
+
+  /* ink */
+  --ink: #1C2B2E;
+  --ink-soft: #4A5A5C;
+  --ink-faint: #7C8886;
+
+  /* accents */
+  --brass: #A6782C;
+  --brass-deep: #8A611F;
+  --teal: #3E6259;
+  --teal-deep: #2C4B44;
+  --cue-live: #B5432E;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#F1EEE5; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="zoom-getting-started">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/livestream-broadcast/index.html">Livestream &amp; Broadcast</a> / Zoom: Getting Started</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 3 · Channel 03</span>
+    <h1>Zoom Service Hub: Getting Started</h1>
+    <p class="hero-lede">Seven short lessons to take a first-time volunteer from "never opened Zoom" to hosting the online side of a live service with confidence. No experience assumed.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">On this stream</div>
+      <a class="rail-link" data-lesson-link="before" href="#lesson-before"><span class="rail-led"></span>Before you open Zoom</a>
+      <a class="rail-link" data-lesson-link="starting" href="#lesson-starting"><span class="rail-led"></span>Starting the meeting</a>
+      <a class="rail-link" data-lesson-link="screen" href="#lesson-screen"><span class="rail-led"></span>Knowing your screen</a>
+      <a class="rail-link" data-lesson-link="admitting" href="#lesson-admitting"><span class="rail-led"></span>Letting people in</a>
+      <a class="rail-link" data-lesson-link="muting" href="#lesson-muting"><span class="rail-led"></span>Muting made simple</a>
+      <a class="rail-link" data-lesson-link="sharing" href="#lesson-sharing"><span class="rail-led"></span>Sharing FreeShow on screen</a>
+      <a class="rail-link" data-lesson-link="chat" href="#lesson-chat"><span class="rail-led"></span>Saying hello in chat</a>
+      <div class="rail-progress-label">0 of 7 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-before" data-lesson="before">
+        <div class="lesson-head-top"><span>Lesson 1 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Before you open Zoom</h2>
+        <p>Get everything ready so the service doesn't start with a scramble.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Arrive at least <strong>20 minutes early</strong> — technical hiccups always take longer to fix than you expect</li>
+          <li><input type="checkbox"> Internet is steady — a quick way to check: open any video site and see if it plays smoothly without pausing</li>
+          <li><input type="checkbox"> Laptop charger plugged in — a dead battery mid-service is one of the most avoidable problems</li>
+          <li><input type="checkbox"> FreeShow open ahead of time, with today's slides confirmed loaded</li>
+          <li><input type="checkbox"> Unneeded apps and browser tabs closed — fewer things running means a smoother Zoom experience</li>
+          <li><input type="checkbox"> A backup plan in mind — a phone hotspot or a second device, in case the main connection drops</li>
+        </ul>
+        <div class="callout">If you only do one thing before service: test your internet and charge your laptop. Everything else can be fixed live — a dead laptop can't.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="hC_-DrUmF40">
+            <img src="https://img.youtube.com/vi/hC_-DrUmF40/hqdefault.jpg" alt="How to test your internet speed video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to test your internet speed</span>
+            <a href="https://www.youtube.com/watch?v=hC_-DrUmF40" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-starting" data-lesson="starting">
+        <div class="lesson-head-top"><span>Lesson 2 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Starting the meeting</h2>
+        <p>Understand the difference between joining and starting, so you have full control from the first minute.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Signed in to the Zoom app with the <strong>church's host account</strong> — not just any account</li>
+          <li><input type="checkbox"> Today's scheduled service found on the Zoom home screen</li>
+          <li><input type="checkbox"> Clicked <strong>Start</strong>, not Join — starting the meeting makes you the host, which gives you the controls this training covers</li>
+          <li><input type="checkbox"> Camera and microphone on, and checked to look and sound right before anyone joins</li>
+          <li><input type="checkbox"> Confirmed with your AV partner that sound is clear and FreeShow is ready to share</li>
+          <li><input type="checkbox"> Meeting started about <strong>10–15 minutes early</strong> so early arrivals have somewhere to land</li>
+        </ul>
+        <div class="callout warn">If you ever join a meeting instead of starting it, you won't have host controls like muting others or sharing your screen properly. When in doubt, check you clicked Start.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="SZTa7GcNYYU">
+            <img src="https://img.youtube.com/vi/SZTa7GcNYYU/hqdefault.jpg" alt="How to host a Zoom meeting step by step video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to host a Zoom meeting, step by step</span>
+            <a href="https://www.youtube.com/watch?v=SZTa7GcNYYU" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-screen" data-lesson="screen">
+        <div class="lesson-head-top"><span>Lesson 3 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Knowing your screen</h2>
+        <p>What each button on the Zoom toolbar actually does, in plain terms.</p>
+        <table>
+          <tr><th>Button</th><th>What it does</th></tr>
+          <tr><td>Mute / Unmute</td><td>Turns your own microphone on or off</td></tr>
+          <tr><td>Stop Video / Start Video</td><td>Turns your own camera on or off</td></tr>
+          <tr><td>Participants</td><td>Opens the list of everyone in the meeting — where you admit, mute, or remove people</td></tr>
+          <tr><td>Chat</td><td>Opens the text chat box, where people type messages and questions</td></tr>
+          <tr><td>Share Screen</td><td>Lets you show something from your computer (like FreeShow) to everyone in the meeting</td></tr>
+          <tr><td>Record</td><td>Starts or stops recording the service — only used when asked (see Lesson 9 in the next topic)</td></tr>
+          <tr><td>End</td><td>The red button on the far right — how the service officially closes (see Lesson 11)</td></tr>
+        </table>
+        <div class="callout">You don't need to memorize every corner of Zoom. These seven buttons cover almost everything you'll touch during a service.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="NMlNarPnFK4">
+            <img src="https://img.youtube.com/vi/NMlNarPnFK4/hqdefault.jpg" alt="How to use Zoom meeting controls video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to use Zoom meeting controls</span>
+            <a href="https://www.youtube.com/watch?v=NMlNarPnFK4" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-admitting" data-lesson="admitting">
+        <div class="lesson-head-top"><span>Lesson 4 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Letting people in</h2>
+        <p>Move people from the waiting room into the service smoothly.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Open Participants — if the Waiting Room is on, you'll see a separate list of people waiting to be let in</li>
+          <li><input type="checkbox"> Click <strong>Admit</strong> next to a name, or <strong>Admit All</strong> to let everyone in at once</li>
+          <li><input type="checkbox"> Check the waiting room every minute or two during the first 10–15 minutes — this is when most people arrive</li>
+          <li><input type="checkbox"> If a name looks unusual or spam-like, hold off admitting and flag it to your AV partner or coordinator</li>
+          <li><input type="checkbox"> Once service has properly started, you can slow down — most latecomers can be admitted quietly without disrupting anything</li>
+        </ul>
+        <div class="callout">It's okay to admit people in small batches rather than all at once — it gives you a moment to notice anything unusual before it's in the room.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="hhlZ5EAST5M">
+            <img src="https://img.youtube.com/vi/hhlZ5EAST5M/hqdefault.jpg" alt="How to use the Zoom waiting room video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to use the Zoom waiting room</span>
+            <a href="https://www.youtube.com/watch?v=hhlZ5EAST5M" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-muting" data-lesson="muting">
+        <div class="lesson-head-top"><span>Lesson 5 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Muting made simple</h2>
+        <p>Keep the service audio clean without cutting anyone off from participating.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Open Participants — each person has a microphone icon next to their name</li>
+          <li><input type="checkbox"> Click the microphone icon next to a name to mute just that person</li>
+          <li><input type="checkbox"> Use <strong>Mute All</strong> at the bottom of the Participants list to mute everyone at once</li>
+          <li><input type="checkbox"> Unmute someone individually if they need to speak, or ask them to unmute themselves</li>
+          <li><input type="checkbox"> Remember to unmute <strong>yourself</strong> before you speak — the single most common on-air mistake</li>
+        </ul>
+        <div class="callout">Default to keeping the congregation muted during the message to avoid background noise. It's easy to unmute someone the moment they need to speak.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="D1laZY5hvyQ">
+            <img src="https://img.youtube.com/vi/D1laZY5hvyQ/hqdefault.jpg" alt="How to mute everyone in a Zoom meeting video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to mute everyone in a Zoom meeting</span>
+            <a href="https://www.youtube.com/watch?v=D1laZY5hvyQ" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-sharing" data-lesson="sharing">
+        <div class="lesson-head-top"><span>Lesson 6 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Sharing FreeShow on screen</h2>
+        <p>Get the right FreeShow window on everyone's screen — and know how to take it down cleanly.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Click <strong>Share Screen</strong> in the Zoom toolbar</li>
+          <li><input type="checkbox"> Choose the <strong>FreeShow output window</strong> — the one showing the actual slide, not the editor with all the buttons and menus</li>
+          <li><input type="checkbox"> Click <strong>Share</strong> to confirm</li>
+          <li><input type="checkbox"> Double check with your AV partner that what's showing on Zoom matches what's meant to be on screen</li>
+          <li><input type="checkbox"> Click <strong>Stop Share</strong> when it's no longer needed, to return to normal view</li>
+        </ul>
+        <div class="callout warn">The most common slide mistake is sharing the FreeShow editor window by accident, so the congregation sees your menus and buttons instead of the slide. Always pick the output window.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="lSG__6F1a74">
+            <img src="https://img.youtube.com/vi/lSG__6F1a74/hqdefault.jpg" alt="How to share your screen with sound in Zoom video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to share your screen (with sound) in Zoom</span>
+            <a href="https://www.youtube.com/watch?v=lSG__6F1a74" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="lesson" id="lesson-chat" data-lesson="chat">
+        <div class="lesson-head-top"><span>Lesson 7 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Saying hello in chat</h2>
+        <p>Make people feel welcomed and looked after through the chat box.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Greet people warmly as they join — a short "Welcome, glad you're here!" goes a long way</li>
+          <li><input type="checkbox"> Keep an eye on chat throughout the service for simple questions like "can you hear us?" or "what's today's reading?"</li>
+          <li><input type="checkbox"> Answer what you comfortably can yourself, with a warm, unhurried tone — this is still part of the service</li>
+          <li><input type="checkbox"> Pass technical problems (no sound, frozen screen) to your AV partner, or check the Troubleshooting topic</li>
+          <li><input type="checkbox"> Avoid getting pulled into long conversations in chat — a brief, kind reply is enough; you still need to watch the room</li>
+        </ul>
+        <div class="quiz">
+          <div class="quiz-q">A participant messages "we can't hear anything!" during the sermon. What's the most likely fix?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-correct="false">Click Admit All in Participants</button>
+            <button class="quiz-opt" data-correct="true">Check whether you (the host) accidentally left your own mic muted</button>
+            <button class="quiz-opt" data-correct="false">Lock the meeting</button>
+          </div>
+          <div class="quiz-explain">The host forgetting to unmute themselves before speaking is the single most common on-air audio complaint. Check your own mic status first before assuming a wider issue.</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="Cy7VCFcErrY">
+            <img src="https://img.youtube.com/vi/Cy7VCFcErrY/hqdefault.jpg" alt="How to use Zoom chat during a meeting video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to use Zoom chat during a meeting</span>
+            <a href="https://www.youtube.com/watch?v=Cy7VCFcErrY" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/livestream-broadcast/index.html">← Back to Livestream &amp; Broadcast</a> · <a href="../../topics/zoom-troubleshooting/index.html">Next: Troubleshooting &amp; Reference →</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>
