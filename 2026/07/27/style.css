@@ -210,8 +210,8 @@ a {
 /* ---------- videos / music ---------- */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 32px;
 }
 .video-card iframe {
   width: 100%;
