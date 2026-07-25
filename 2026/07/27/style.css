@@ -13,6 +13,15 @@
   --font-body: 'Karla', -apple-system, sans-serif;
 }
 
+/* ---------- reset ---------- */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 /* ---------- base ---------- */
 body {
   background: #FBF6E9;
