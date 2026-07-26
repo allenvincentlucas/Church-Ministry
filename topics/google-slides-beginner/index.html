@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Slides for Worship: Beginner — Tech &amp; Worship Academy</title>
+<meta name="description" content="Onboarding for new tech volunteers learning Google Slides for church slides: Theme Builder templates, typography and spacing, Presenter View, live shortcuts, and Audience Tools.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Google Slides for Worship: Beginner — Tech &amp; Worship Academy">
+<meta property="og:description" content="Onboarding for new tech volunteers learning Google Slides for church slides: Theme Builder templates, typography and spacing, Presenter View, live shortcuts, and Audience Tools.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/tech-worship-academy/topics/google-slides-beginner/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google Slides for Worship: Beginner — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Onboarding for new tech volunteers learning Google Slides for church slides: Theme Builder templates, typography and spacing, Presenter View, live shortcuts, and Audience Tools.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/tech-worship-academy/topics/google-slides-beginner/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;650;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #F1EEE5;
+  --paper-raised: #FAF8F2;
+  --paper-line: #DAD4C4;
+
+  /* ink */
+  --ink: #1C2B2E;
+  --ink-soft: #4A5A5C;
+  --ink-faint: #7C8886;
+
+  /* accents */
+  --brass: #A6782C;
+  --brass-deep: #8A611F;
+  --teal: #3E6259;
+  --teal-deep: #2C4B44;
+  --cue-live: #B5432E;
+
+  /* type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#F1EEE5; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="google-slides-beginner">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/presentation-software/index.html">Presentation Software</a> / Google Slides Beginner</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 4 · Channel 04</span>
+    <h1>Templates that survive a live edit.</h1>
+    <p class="hero-lede">Locking your church branding into Theme Builder, spacing and typography rules built for the back row, and running Presenter View, live shortcuts, and Audience Tools during service — the foundation every new Google Slides operator needs before a live service.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">Setlist</div>
+      <a class="rail-link" data-lesson-link="gs1-01" href="#lesson-gs1-01"><span class="rail-led"></span>GS1-01 Typography &amp; spacing</a>
+      <a class="rail-link" data-lesson-link="gs1-02" href="#lesson-gs1-02"><span class="rail-led"></span>GS1-02 Theme Builder templates</a>
+      <a class="rail-link" data-lesson-link="gs1-03" href="#lesson-gs1-03"><span class="rail-led"></span>GS1-03 Lyric &amp; scripture slides</a>
+      <a class="rail-link" data-lesson-link="gs1-04" href="#lesson-gs1-04"><span class="rail-led"></span>GS1-04 Presenter View setup</a>
+      <a class="rail-link" data-lesson-link="gs1-05" href="#lesson-gs1-05"><span class="rail-led"></span>GS1-05 Live service shortcuts</a>
+      <a class="rail-link" data-lesson-link="gs1-06" href="#lesson-gs1-06"><span class="rail-led"></span>GS1-06 Audience Tools</a>
+      <div class="rail-progress-label">0 of 6 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-gs1-01" data-lesson="gs1-01">
+        <div class="lesson-head-top"><span>GS1-01 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Typography &amp; spacing for worship screens</h2>
+        <p>Like the rest of your church's slide toolkit, Google Slides lives in the cloud — decks sync instantly across the booth, the pastor's office, and home, so edits made anywhere show up everywhere. But sync doesn't fix a hard-to-read slide. Readability on a sanctuary screen still comes down to three settings: line spacing, paragraph spacing, and indentation.</p>
+        <table>
+          <tr><th>Setting</th><th>What it controls</th></tr>
+          <tr><td>Line spacing</td><td>Vertical space between lines within the same verse or paragraph</td></tr>
+          <tr><td>Paragraph spacing (before/after)</td><td>Vertical space between distinct stanzas, verses, or bullet points</td></tr>
+          <tr><td>Hanging indent (ruler)</td><td>Alignment between a bullet symbol and the wrapped text beneath it</td></tr>
+        </table>
+        <div class="callout"><strong>Skip the blank-line workaround:</strong> use Format → Line &amp; paragraph spacing → Add space after paragraph instead of empty line breaks — blank lines create gaps that shift unpredictably across different screen resolutions.</div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Set line spacing to 1.15–1.5 on lyric and scripture body text</li>
+          <li><input type="checkbox"> Use Tab to demote a sermon point to a sub-bullet, Shift+Tab to promote it back</li>
+          <li><input type="checkbox"> Show the ruler (View → Show ruler) before adjusting any hanging indent</li>
+          <li><input type="checkbox"> Drag the top triangle marker to set where the bullet symbol starts, the bottom marker to set where wrapped text aligns</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="lesson-gs1-02" data-lesson="gs1-02">
+        <div class="lesson-head-top"><span>GS1-02 · 15 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Building your church template with Theme Builder</h2>
+        <p>Theme Builder (View → Theme Builder) is a two-tier system: a top-level Theme slide controls global branding — logo, background, fonts — while Layout Slides beneath it define specific content types like lyric slides, scripture slides, and lower-thirds. In a volunteer-run booth, it doubles as protection: anything anchored inside Theme Builder is locked into the slide background, safe from being accidentally dragged during a live text edit.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="KUBkYYkeiVk">
+            <img src="https://img.youtube.com/vi/KUBkYYkeiVk/hqdefault.jpg" alt="Create Your Own Slides Using Theme Builder in Google Slides video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Create Your Own Slides Using Theme Builder in Google Slides</span>
+            <a href="https://www.youtube.com/watch?v=KUBkYYkeiVk" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <table>
+          <tr><th>Attribute</th><th>Theme Layout Placeholder</th><th>Independent Text Box</th></tr>
+          <tr><td>Created where</td><td>Theme Builder</td><td>Directly on the slide canvas</td></tr>
+          <tr><td>Style inheritance</td><td>Inherits church fonts, colors, margins automatically</td><td>Needs manual styling every time</td></tr>
+          <tr><td>Position stability</td><td>Locked, protected from accidental dragging</td><td>Free-floating, easy to bump mid-edit</td></tr>
+          <tr><td>Updating many slides</td><td>Edit the template once, every slide updates</td><td>Must edit slide-by-slide</td></tr>
+        </table>
+        <ul class="checklist">
+          <li><input type="checkbox"> Set your church's font pairing, background, and logo on the top-level Theme slide</li>
+          <li><input type="checkbox"> Build separate Layout Slides for lyric slides, scripture slides, sermon-point slides, and lower-thirds</li>
+          <li><input type="checkbox"> Anchor logos and background graphics inside the Theme or Layout — never as a loose canvas element</li>
+          <li><input type="checkbox"> Type new slide content into a layout placeholder, not a hand-drawn text box</li>
+        </ul>
+        <div class="quiz">
+          <div class="quiz-q">Which element is safest from being accidentally dragged during a live text edit?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" data-correct="false">An independent text box drawn on the canvas</button>
+            <button class="quiz-opt" data-correct="true">A Theme Layout Placeholder</button>
+          </div>
+          <div class="quiz-explain">Correct — layout placeholders are locked into position by the template; text boxes are free-floating.</div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-gs1-03" data-lesson="gs1-03">
+        <div class="lesson-head-top"><span>GS1-03 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Formatting lyric &amp; scripture slides</h2>
+        <p>Lyric and scripture slides are the most-seen content in any service, and both should be built from the layout placeholders you set up in the last lesson — never a fresh text box.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Build a dedicated Lyric layout with centered, high-contrast body text inherited from your Theme</li>
+          <li><input type="checkbox"> Build a dedicated Scripture layout with the citation (book, chapter, verse) placed in the same spot every time</li>
+          <li><input type="checkbox"> Type directly into the layout placeholder so paragraph spacing and font styling apply automatically</li>
+          <li><input type="checkbox"> Apply the paragraph-spacing rule from Lesson 1 between verses instead of blank lines</li>
+        </ul>
+        <div class="callout">Because media embeds directly into the canvas, worship background videos, testimony clips, and baptism footage can live inside the same lyric layout without leaving Slides — insert them once, not slide-by-slide each Sunday.</div>
+      </section>
+
+      <section class="lesson" id="lesson-gs1-04" data-lesson="gs1-04">
+        <div class="lesson-head-top"><span>GS1-04 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Presenter View &amp; sanctuary display setup</h2>
+        <p>Presenter View splits your screen into a private control console — speaker notes, a preview of the upcoming slide, a live timer, and a slide-jump dropdown — while the audience display shows only the full-screen presentation.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="wwgo9eAwunA">
+            <img src="https://img.youtube.com/vi/wwgo9eAwunA/hqdefault.jpg" alt="How to View Speaker Notes While Presenting in Google Slides video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to View Speaker Notes While Presenting in Google Slides</span>
+            <a href="https://www.youtube.com/watch?v=wwgo9eAwunA" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Click the dropdown next to Present and choose Presenter view</li>
+          <li><input type="checkbox"> Confirm the booth laptop is set to Extended display, not Mirrored</li>
+          <li><input type="checkbox"> Route the audience-facing window to the sanctuary projector or LED in full-screen mode</li>
+          <li><input type="checkbox"> Use the slide-jump dropdown to skip directly to a slide number instead of clicking through every slide</li>
+        </ul>
+        <div class="callout warn"><strong>Mirrored-display leak:</strong> Presenter View only works cleanly on an extended display. On a mirrored display, your private speaker notes get projected straight to the congregation.</div>
+      </section>
+
+      <section class="lesson" id="lesson-gs1-05" data-lesson="gs1-05">
+        <div class="lesson-head-top"><span>GS1-05 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Live service shortcuts</h2>
+        <p>Fast, silent navigation keeps a service feeling seamless. Memorize these before your first live shift.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="D1j6LvP0fqc">
+            <img src="https://img.youtube.com/vi/D1j6LvP0fqc/hqdefault.jpg" alt="Keyboard Shortcuts during your Google Slides Presentations video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Keyboard Shortcuts during your Google Slides Presentations! (Turn on Laser)</span>
+            <a href="https://www.youtube.com/watch?v=D1j6LvP0fqc" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <table>
+          <tr><th>Shortcut</th><th>Action</th></tr>
+          <tr><td>B</td><td>Blank the screen to black — instant blackout during prayer or a video change</td></tr>
+          <tr><td>W</td><td>Blank the screen to white — refocuses congregation attention</td></tr>
+          <tr><td>L</td><td>Toggle the laser pointer</td></tr>
+          <tr><td>S</td><td>Toggle speaker notes in the booth</td></tr>
+          <tr><td>A</td><td>Toggle Audience Tools (Q&amp;A)</td></tr>
+          <tr><td>Number + Enter</td><td>Jump directly to a specific slide — e.g. back to re-sing a chorus</td></tr>
+          <tr><td>Ctrl/Cmd + Shift + C</td><td>Toggle real-time captions</td></tr>
+          <tr><td>F11 / Cmd + Shift + F</td><td>Toggle full screen</td></tr>
+        </table>
+        <div class="callout">On-screen Pen Tool and laser pointer annotations are temporary — they clear automatically the moment you exit presentation mode, leaving the original deck untouched.</div>
+      </section>
+
+      <section class="lesson" id="lesson-gs1-06" data-lesson="gs1-06">
+        <div class="lesson-head-top"><span>GS1-06 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Audience Tools — live Q&amp;A</h2>
+        <p>Audience Tools opens a web URL banner at the top of the main screen so attendees can submit questions from their own devices — useful for Sunday school classes, elder Q&amp;A nights, or any interactive teaching session.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="Rx-__mfe2rM">
+            <img src="https://img.youtube.com/vi/Rx-__mfe2rM/hqdefault.jpg" alt="Make Slides Interactive: Audience Q&A and Blank/White Screen Tricks video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Make Slides Interactive: Audience Q&amp;A &amp; Blank/White Screen Tricks</span>
+            <a href="https://www.youtube.com/watch?v=Rx-__mfe2rM" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Press A, or click Audience tools in Presenter view, to open the Q&amp;A dashboard</li>
+          <li><input type="checkbox"> Share the on-screen URL banner so attendees can submit questions from their phones</li>
+          <li><input type="checkbox"> Use the upvote count to choose which questions to display on the main screen</li>
+          <li><input type="checkbox"> Reserve this for interactive formats — Sunday school, testimony nights — not a standard main-service sermon</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/presentation-software/index.html">← Back to Presentation Software</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>
