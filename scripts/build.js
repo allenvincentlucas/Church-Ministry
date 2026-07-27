@@ -11,7 +11,7 @@ const SITE_DIR = path.join(ROOT, 'site');
 const CARDS_DIR = path.join(SITE_DIR, 'assets', 'cards');
 
 // >>> Set this to your published GitHub Pages URL (no trailing slash) <<<
-const SITE_URL = 'https://your-username.github.io/your-repo';
+const SITE_URL = 'https://allenvincentlucas.github.io/worship-chord-library';
 
 function callNumber(key, capo) {
   const k = key ? key.replace('#', 'S') : 'XX';
