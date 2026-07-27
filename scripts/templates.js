@@ -1,7 +1,12 @@
 const HEAD_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">`;
 
-const FAVICON = `<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">`;
+// assetPrefix is relative, not absolute, because GitHub Pages project sites
+// are served under a subpath (e.g. /worship-chord-library/). "" for pages at
+// site root (index.html), "../" for pages one level down (songs/*.html).
+function favicon(assetPrefix) {
+  return `<link rel="icon" type="image/svg+xml" href="${assetPrefix}assets/favicon.svg">`;
+}
 
 function youtubeEmbed(url) {
   if (!url) return '';
@@ -30,9 +35,9 @@ function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title} — Chord Library</title>
-${FAVICON}
+${favicon('../')}
 ${HEAD_FONTS}
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="../assets/style.css">
 
 <!-- Social preview -->
 <meta property="og:title" content="${title}${artist ? ' — ' + artist : ''}">
@@ -45,12 +50,12 @@ ${HEAD_FONTS}
 <body>
 
 <header class="site-header">
-  <a href="/" class="eyebrow">Worship Tech · Song Catalog</a>
+  <a href="../" class="eyebrow">Worship Tech · Song Catalog</a>
   <h1>Chord Library</h1>
 </header>
 
 <div class="wrap">
-  <a href="/" class="back-link">&larr; Back to catalog</a>
+  <a href="../" class="back-link">&larr; Back to catalog</a>
 
   <div class="song-card">
     <div class="viewer-head">
@@ -77,7 +82,7 @@ ${HEAD_FONTS}
 
 function indexPage({ songsByArtist, songsByTheme, totalCount }) {
   function cardHtml(song) {
-    return `<a class="card" href="/songs/${song.slug}.html">
+    return `<a class="card" href="songs/${song.slug}.html">
       <div class="dot"></div>
       <div class="title">${song.title}</div>
       <span class="callnum">${song.callnum}</span>
@@ -98,9 +103,9 @@ function indexPage({ songsByArtist, songsByTheme, totalCount }) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chord Library</title>
-${FAVICON}
+${favicon('')}
 ${HEAD_FONTS}
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
