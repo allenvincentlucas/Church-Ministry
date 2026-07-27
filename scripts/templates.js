@@ -131,8 +131,8 @@ function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info
 
   const suggestionBanner = capoSuggestion
     ? `<p class="capo-suggestion">
-        <strong>${key}</strong> has a lot of barre chords on guitar. For an easier feel that sounds identical,
-        try <strong>capo ${capoSuggestion.capo}</strong> and play it as <strong>${capoSuggestion.shapeKey}</strong> shapes
+        This chart is written for <strong>capo ${capoSuggestion.capo}</strong>, sounding in <strong>${key}</strong>.
+        Finger it as <strong>${capoSuggestion.shapeKey}</strong> shapes
         — the Capo picker below is already set to try this out.
       </p>`
     : '';
