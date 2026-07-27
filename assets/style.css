@@ -333,8 +333,13 @@ header.site-header{
 }
 .capo-picker select:hover{border-color:var(--teal);}
 
-/* Manuscript panel: the chord chart itself */
-.chord-sheet{
+/* Manuscript panel: the chord chart itself.
+   NOTE: named .chart-panel, not .chord-sheet — ChordSheetJS's own
+   HtmlTableFormatter output already wraps itself in a div with class
+   "chord-sheet" plus an <h1 class="title">, so reusing that name here
+   caused our panel styling (border/background) to apply twice, stacked,
+   with a duplicate title in between. */
+.chart-panel{
   font-family:'JetBrains Mono',monospace;
   font-size:0.95rem;
   line-height:1.7;
@@ -345,12 +350,15 @@ header.site-header{
   border-radius:8px;
   padding:1.25rem 1.5rem;
 }
-.chord-sheet .chord{ color:var(--teal); font-weight:600; }
-.chord-sheet .comment{ color:var(--ink-soft); font-style:italic; }
-.chord-sheet table.row{border-collapse:collapse; margin-bottom:0.15rem;}
-.chord-sheet td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
-.chord-sheet td{white-space:pre;}
-.chord-sheet .paragraph{margin-bottom:1.1rem;}
+/* Hide ChordSheetJS's auto-generated title/subtitle — we already render
+   the song title ourselves in .viewer-title. */
+.chart-panel h1.title, .chart-panel h2.subtitle{display:none;}
+.chart-panel .chord{ color:var(--teal); font-weight:600; }
+.chart-panel .comment{ color:var(--ink-soft); font-style:italic; }
+.chart-panel table.row{border-collapse:collapse; margin-bottom:0.15rem;}
+.chart-panel td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
+.chart-panel td{white-space:pre;}
+.chart-panel .paragraph{margin-bottom:1.1rem;}
 
 .back-link{
   display:inline-block;
@@ -421,11 +429,11 @@ footer.site-footer{
   body{background:#fff;}
   .wrap{padding:0; max-width:none;}
   .song-card{border:none; padding:0; border-radius:0;}
-  .chord-sheet{
+  .chart-panel{
     background:#fff;
     border:none;
     padding:0;
   }
-  .chord-sheet .chord{color:#000; font-weight:700;}
+  .chart-panel .chord{color:#000; font-weight:700;}
   .callnum, .tag{border:1px solid #999; background:none; color:#000;}
 }
