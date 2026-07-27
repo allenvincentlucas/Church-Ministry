@@ -79,6 +79,8 @@ function callNumber(key, capo) {
   return capo ? `${k}·CAPO${capo}` : k;
 }
 
+const { execSync } = require('child_process');
+
 // Song only exposes transposeUp()/transposeDown() (1 semitone each), not a
 // single transpose(delta) call, so chain them to reach the target delta.
 function transposeSong(song, delta) {
@@ -89,6 +91,55 @@ function transposeSong(song, delta) {
     for (let i = 0; i < -delta; i++) result = result.transposeDown();
   }
   return result;
+}
+
+// Looks up when a song file was last committed, for the homepage's
+// "Recently added" section. Returns null (rather than throwing) if git
+// isn't available or the repo history doesn't go back far enough to see
+// it — a shallow CI checkout only sees the most recent commit, so this
+// will only resolve for files touched in that commit unless the workflow
+// checkout step uses `fetch-depth: 0`.
+function getDateAdded(relativeFilePath) {
+  try {
+    const out = execSync(`git log -1 --format=%aI -- "${relativeFilePath}"`, {
+      cwd: ROOT,
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).toString().trim();
+    return out || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+// Builds a Nashville Number System rendering of the chord chart: each
+// chord symbol converted to its scale degree relative to `key`. Numbers
+// don't change with transposition or capo choice, so this is rendered
+// once, not once per frame like the letter-chord version.
+function buildNashvilleHtml(baseSong, key, formatter) {
+  if (!key) return '';
+  try {
+    const numericSong = baseSong.mapItems(item => {
+      if (item instanceof ChordSheetJS.ChordLyricsPair && item.chords) {
+        try {
+          const parsedChord = ChordSheetJS.Chord.parse(item.chords);
+          if (parsedChord) {
+            const numeric = parsedChord.toNumeric(key);
+            const clone = item.clone();
+            clone.chords = numeric.toString();
+            return clone;
+          }
+        } catch (e) {
+          // Leave this individual chord as a letter chord if it can't be
+          // converted (unusual notation, etc.) rather than failing the
+          // whole chart.
+        }
+      }
+      return item;
+    });
+    return formatter.format(numericSong);
+  } catch (e) {
+    return '';
+  }
 }
 
 async function build() {
@@ -145,6 +196,10 @@ async function build() {
       .map(f => `<div class="chord-sheet-frame" data-transpose="${f.index}" data-key="${f.frameKey}"${f.index === 0 ? '' : ' hidden'}>${f.html}</div>`)
       .join('\n');
 
+    // Nashville Number System rendering (letters vs numbers is a page
+    // toggle, not tied to the transpose/capo frames above).
+    const nashvilleHtml = buildNashvilleHtml(baseSong, key, formatter);
+
     // Default capo the picker starts on: whatever the chart specified, or
     // no capo (0) if it didn't say.
     const initialCapo = capo && !isNaN(parseInt(capo, 10)) ? parseInt(capo, 10) : 0;
@@ -152,6 +207,10 @@ async function build() {
     // If the song's stated key isn't guitar-friendly, suggest an easier
     // shape key + capo fret that sounds identical to the original key.
     const capoSuggestion = suggestCapoForKey(key);
+
+    // When was this chart added? Used for the homepage's recently-added
+    // list. See getDateAdded's caveat about shallow CI checkouts.
+    const dateAdded = getDateAdded(path.join('songs', file));
 
     // Generate the social card
     const cardFilename = `${slug}.png`;
@@ -168,13 +227,17 @@ async function build() {
     const cardImageUrl = `${SITE_URL}/assets/cards/${cardFilename}`;
     const html = songPage({
       title, artist, key, capo, tempo, time, callnum, themes, info, youtube,
-      chordSheetHtml, initialCapo, capoSuggestion,
+      chordSheetHtml, nashvilleHtml, initialCapo, capoSuggestion,
       cardImage: cardImageUrl, pageUrl, slug
     });
     fs.writeFileSync(path.join(SITE_DIR, 'songs', `${slug}.html`), html);
 
     // Index for the homepage
-    const entry = { title, artist, callnum, slug, themes };
+    const entry = {
+      title, artist, callnum, slug, themes, dateAdded,
+      friendly: key ? !capoSuggestion : null,
+      capoHint: capoSuggestion ? capoSuggestion.capo : null
+    };
     (songsByArtist[artist] ||= []).push(entry);
     for (const t of themes) {
       (songsByTheme[t] ||= []).push(entry);
@@ -188,7 +251,15 @@ async function build() {
     songsByArtist[artist].sort((a, b) => a.title.localeCompare(b.title));
   }
 
-  const html = indexPage({ songsByArtist, songsByTheme, totalCount: files.length });
+  // Recently added: only meaningful if at least one file resolved a real
+  // git date (see getDateAdded's shallow-checkout caveat).
+  const allEntries = Object.values(songsByArtist).flat();
+  const recentSongs = allEntries
+    .filter(e => e.dateAdded)
+    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
+    .slice(0, 5);
+
+  const html = indexPage({ songsByArtist, songsByTheme, totalCount: files.length, recentSongs });
   fs.writeFileSync(path.join(SITE_DIR, 'index.html'), html);
 
   // Save taxonomy indexes for reference / future tooling
