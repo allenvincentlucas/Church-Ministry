@@ -16,10 +16,6 @@ const SITE_URL = 'https://allenvincentlucas.github.io/worship-chord-library';
 const NOTES_SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const FLAT_TO_SHARP = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
-// Open-chord keys most guitarists find easiest to play without a capo.
-const FRIENDLY_MAJOR_ROOTS = ['C', 'D', 'E', 'G', 'A'];
-const FRIENDLY_MINOR_ROOTS = ['A', 'D', 'E']; // Am, Dm, Em
-
 // Splits a key label like "B", "F#m", "Bb", "C#m7" into its root note and
 // whatever suffix follows (m, 7, maj7, sus4, etc.), normalizing flats to
 // the equivalent sharp so everything indexes into NOTES_SHARP consistently.
@@ -41,37 +37,19 @@ function transposeKeyName(key, delta) {
   return NOTES_SHARP[newIdx] + parsed.suffix;
 }
 
-// A key is "minor" for this purpose if its suffix starts with m but isn't
-// "maj" (so "Bm" is minor, "Bmaj7" is major).
-function isMinorSuffix(suffix) {
-  return /^m(?!aj)/.test(suffix);
-}
-
-// If `key` isn't in the open-chord-friendly set, suggests the closest
-// friendly key of the same major/minor quality and the capo fret needed
-// to sound the original key while fingering that friendlier shape.
-// Returns null if the key is already friendly or can't be parsed.
-function suggestCapoForKey(key) {
-  if (!key) return null;
-  const parsed = parseKey(key);
-  if (!parsed) return null;
-  const minor = isMinorSuffix(parsed.suffix);
-  const friendlyRoots = minor ? FRIENDLY_MINOR_ROOTS : FRIENDLY_MAJOR_ROOTS;
-  const rootName = NOTES_SHARP[parsed.idx];
-  if (friendlyRoots.includes(rootName)) return null; // already friendly
-
-  let best = null;
-  for (const fr of friendlyRoots) {
-    const frIdx = NOTES_SHARP.indexOf(fr);
-    const capoNeeded = ((parsed.idx - frIdx) % 12 + 12) % 12;
-    if (capoNeeded === 0) continue;
-    if (!best || capoNeeded < best.capo) {
-      best = { capo: capoNeeded, shapeRoot: fr };
-    }
-  }
-  if (!best) return null;
-  const shapeKey = best.shapeRoot + (minor ? 'm' : '');
-  return { capo: best.capo, shapeKey };
+// Uses whatever capo the chart itself specifies (its {capo: ...}
+// directive) to work out what shape/key the guitarist is actually
+// fingering. A capo raises pitch, so the shape played is `capo` semitones
+// BELOW the sounding key — e.g. key Bb with {capo: 3} means the guitarist
+// fingers G shapes (Bb - 3 semitones = G) and the capo brings it up to Bb.
+// Returns null whenever the chart doesn't specify a capo (no directive,
+// blank, "0", or unparseable) — no suggestion is shown in that case.
+function suggestCapoFromChart(key, capo) {
+  if (!key || !capo) return null;
+  const capoNum = parseInt(capo, 10);
+  if (isNaN(capoNum) || capoNum <= 0) return null;
+  const shapeKey = transposeKeyName(key, -capoNum);
+  return { capo: capoNum, shapeKey };
 }
 
 function callNumber(key, capo) {
@@ -206,7 +184,7 @@ async function build() {
 
     // If the song's stated key isn't guitar-friendly, suggest an easier
     // shape key + capo fret that sounds identical to the original key.
-    const capoSuggestion = suggestCapoForKey(key);
+    const capoSuggestion = suggestCapoFromChart(key, capo);
 
     // When was this chart added? Used for the homepage's recently-added
     // list. See getDateAdded's caveat about shallow CI checkouts.
