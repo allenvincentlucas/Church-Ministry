@@ -20,57 +20,99 @@ function youtubeEmbed(url) {
   </div>`;
 }
 
-// Client-side toggler for the precomputed transpose frames build.js writes
-// into chordSheetHtml. No chord-parsing logic runs in the browser — it just
-// shows/hides the frame matching the current semitone offset.
-const TRANSPOSE_SCRIPT = `<script>
+// Client-side controller for the 12 precomputed chromatic frames build.js
+// writes into chordSheetHtml. No chord-parsing logic runs in the browser.
+//
+// Two independent dials:
+//   transposeSteps — how many semitones you want the song to actually
+//                    SOUND in, away from how it was originally charted.
+//   capoSteps      — the capo fret you'll physically use. Choosing a capo
+//                    does NOT change what the song sounds like; it changes
+//                    which SHAPES you finger, since the capo itself raises
+//                    the pitch back up.
+//
+// The shapes shown = (transposeSteps - capoSteps), reduced to one of the
+// 12 precomputed frames. The "Concert Key" label always reflects
+// transposeSteps alone, since that's what the song actually sounds like
+// regardless of capo choice.
+function buildTransposeScript(initialCapo) {
+  return `<script>
 (function(){
   var wrap = document.querySelector('.chord-sheet-wrap');
   if (!wrap) return;
   var frames = wrap.querySelectorAll('.chord-sheet-frame');
   var keyLabel = document.getElementById('current-key');
-  var capoLabel = document.getElementById('current-capo');
-  var current = 0;
+  var capoSelect = document.getElementById('capo-select');
 
-  function show(delta) {
+  var keyForIndex = {};
+  frames.forEach(function(f){
+    keyForIndex[parseInt(f.dataset.transpose, 10)] = f.dataset.key;
+  });
+
+  function norm(n) { return ((n % 12) + 12) % 12; }
+
+  var transposeSteps = 0;
+  var capoSteps = ${initialCapo};
+
+  function render() {
+    var shapeIndex = norm(transposeSteps - capoSteps);
     frames.forEach(function(f){
       var d = parseInt(f.dataset.transpose, 10);
-      if (d === delta) {
-        f.removeAttribute('hidden');
-        if (keyLabel && f.dataset.key) keyLabel.textContent = f.dataset.key;
-        if (capoLabel && f.dataset.capo !== undefined && f.dataset.capo !== '') {
-          var c = parseInt(f.dataset.capo, 10);
-          // Capo can't be negative or unreasonably high in practice;
-          // outside 0-11 there's no clean capo position for this shape.
-          capoLabel.textContent = (c >= 0 && c <= 11) ? c : 'n/a';
-        }
-      } else {
-        f.setAttribute('hidden', '');
-      }
+      f.toggleAttribute('hidden', d !== shapeIndex);
     });
-    current = delta;
+    if (keyLabel) {
+      var concertKey = keyForIndex[norm(transposeSteps)];
+      if (concertKey) keyLabel.textContent = concertKey;
+    }
+    if (capoSelect) capoSelect.value = String(capoSteps);
+  }
+
+  if (capoSelect) {
+    for (var c = 0; c <= 11; c++) {
+      var opt = document.createElement('option');
+      opt.value = String(c);
+      opt.textContent = c === 0 ? 'No capo' : 'Capo ' + c;
+      capoSelect.appendChild(opt);
+    }
+    capoSelect.addEventListener('change', function(){
+      capoSteps = parseInt(capoSelect.value, 10) || 0;
+      render();
+    });
   }
 
   var upBtn = document.getElementById('transpose-up');
   var downBtn = document.getElementById('transpose-down');
   var resetBtn = document.getElementById('transpose-reset');
 
-  if (upBtn) upBtn.addEventListener('click', function(){ if (current < 5) show(current + 1); });
-  if (downBtn) downBtn.addEventListener('click', function(){ if (current > -6) show(current - 1); });
-  if (resetBtn) resetBtn.addEventListener('click', function(){ show(0); });
+  if (upBtn) upBtn.addEventListener('click', function(){ transposeSteps += 1; render(); });
+  if (downBtn) downBtn.addEventListener('click', function(){ transposeSteps -= 1; render(); });
+  if (resetBtn) resetBtn.addEventListener('click', function(){
+    transposeSteps = 0;
+    capoSteps = ${initialCapo};
+    render();
+  });
+
+  render();
 })();
 </script>`;
+}
 
-function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, cardImage, pageUrl, slug }) {
+function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, initialCapo, capoSuggestion, cardImage, pageUrl, slug }) {
   const themeTags = themes.map(t => `<span class="tag theme">${t}</span>`).join('');
   const keyTag = key ? `<span class="tag">KEY <span id="current-key">${key}</span></span>` : '';
-  const capoTag = capo ? `<span class="tag">CAPO <span id="current-capo">${capo}</span></span>` : '';
   const metaTags = [
     keyTag,
-    capoTag,
     tempo ? `<span class="tag">${tempo} BPM</span>` : '',
     time ? `<span class="tag">${time}</span>` : ''
   ].join('');
+
+  const suggestionBanner = capoSuggestion
+    ? `<p class="capo-suggestion">
+        <strong>${key}</strong> has a lot of barre chords on guitar. For an easier feel that sounds identical,
+        try <strong>capo ${capoSuggestion.capo}</strong> and play it as <strong>${capoSuggestion.shapeKey}</strong> shapes
+        — the Capo picker below is already set to try this out.
+      </p>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -112,12 +154,17 @@ ${HEAD_FONTS}
 
     ${info ? `<p class="info-blurb">${info}</p>` : ''}
     ${youtubeEmbed(youtube)}
+    ${suggestionBanner}
 
     ${key ? `<div class="transpose-controls">
       <button type="button" class="transpose-btn" id="transpose-down" aria-label="Transpose down">&minus;</button>
       <span class="transpose-hint">Transpose</span>
       <button type="button" class="transpose-btn" id="transpose-up" aria-label="Transpose up">+</button>
       <button type="button" class="transpose-reset" id="transpose-reset">Reset</button>
+      <span class="capo-picker">
+        <label for="capo-select" class="transpose-hint">Capo</label>
+        <select id="capo-select"></select>
+      </span>
     </div>` : ''}
 
     <div class="chord-sheet chord-sheet-wrap">${chordSheetHtml}</div>
@@ -126,7 +173,7 @@ ${HEAD_FONTS}
 
 <footer class="site-footer">Chord Library · generated from /songs/${slug}.cho</footer>
 
-${key ? TRANSPOSE_SCRIPT : ''}
+${key ? buildTransposeScript(initialCapo || 0) : ''}
 
 </body>
 </html>`;
