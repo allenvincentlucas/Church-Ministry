@@ -1,0 +1,19 @@
+{title: Example Song}
+{artist: Sample Artist}
+{key: G}
+{capo: 2}
+{tempo: 72}
+{time: 4/4}
+{youtube: https://www.youtube.com/watch?v=dQw4w9WgXcQ}
+{info: A short blurb about why this song is in the set — what it's for, when it's used, or its background.}
+{theme: Praise & Celebration}
+
+{start_of_verse}
+[G]Amazing [G7]grace, how [C]sweet the [G]sound
+That [Em]saved a [D]wretch like [G]me
+{end_of_verse}
+
+{start_of_chorus}
+[C]I once was [G]lost but [D]now am [G]found
+Was [Em]blind but [D]now I [G]see
+{end_of_chorus}
