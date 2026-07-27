@@ -105,6 +105,30 @@ theme. This is the image that shows up when the song's page link is shared
 on social media or messaging apps (via the page's Open Graph tags).
 
 ---
+## A path gotcha to know about
+
+GitHub Pages project sites (like this one) are served under a subpath —
+`https://your-username.github.io/your-repo/` — not at the domain root. That
+means any link or asset reference starting with a leading `/` (e.g.
+`/assets/style.css`) resolves to `your-username.github.io/assets/style.css`,
+which doesn't exist, instead of the actual file inside your repo. The
+symptom is a page that loads but shows no styling (default browser fonts,
+no colors) — the HTML rendered fine, the CSS just 404'd silently.
+
+`scripts/templates.js` avoids this by using **relative paths** instead of
+absolute ones:
+- `site/index.html` (site root) links to `assets/style.css`
+- `site/songs/{slug}.html` (one folder down) links to `../assets/style.css`
+
+This is handled by the `favicon(assetPrefix)` helper and the explicit
+`../` prefixes in `songPage()` versus the bare paths in `indexPage()`. If
+you ever edit `templates.js` again — new nav links, new asset references,
+a new page type — keep using relative paths (`assets/...`, `../assets/...`)
+rather than reintroducing a leading `/`. If you add a page at a new folder
+depth, its relative prefix needs to match how many folders deep it sits
+relative to `/site`.
+
+---
 
 ## Favicon
 
