@@ -13,6 +13,27 @@ const CARDS_DIR = path.join(SITE_DIR, 'assets', 'cards');
 // >>> Set this to your published GitHub Pages URL (no trailing slash) <<<
 const SITE_URL = 'https://allenvincentlucas.github.io/worship-chord-library';
 
+// Precomputed transpose range: -6..+5 semitones covers all 12 possible keys
+// relative to whatever key the chart was originally written in.
+const TRANSPOSE_MIN = -6;
+const TRANSPOSE_MAX = 5;
+
+const NOTES_SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const FLAT_TO_SHARP = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
+
+// Transposes a key label like "B", "F#m", "Bb" by `delta` semitones,
+// preserving any suffix (m, 7, maj7, sus4, etc.) after the root note.
+function transposeKeyName(key, delta) {
+  const m = key.match(/^([A-G](?:#|b)?)(.*)$/);
+  if (!m) return key;
+  const [, root, suffix] = m;
+  const normalizedRoot = FLAT_TO_SHARP[root] || root;
+  const idx = NOTES_SHARP.indexOf(normalizedRoot);
+  if (idx === -1) return key;
+  const newIdx = ((idx + delta) % 12 + 12) % 12;
+  return NOTES_SHARP[newIdx] + suffix;
+}
+
 function callNumber(key, capo) {
   const k = key ? key.replace('#', 'S') : 'XX';
   return capo ? `${k}·CAPO${capo}` : k;
@@ -53,11 +74,41 @@ async function build() {
     const slug = slugify(title);
     const callnum = callNumber(key, capo);
 
-    // Render the chord chart body
+    // Render the chord chart body, precomputed at every transposition from
+    // TRANSPOSE_MIN to TRANSPOSE_MAX semitones, so the page can offer a
+    // transpose control without needing any chord-parsing logic client-side.
     const parser = new ChordSheetJS.ChordProParser();
-    const song = parser.parse(raw);
+    const baseSong = parser.parse(raw);
     const formatter = new ChordSheetJS.HtmlTableFormatter();
-    const chordSheetHtml = formatter.format(song);
+
+    // If a capo is specified, moving the capo by the same number of frets
+    // as the transpose delta keeps the same finger shapes usable at the
+    // new key. baseCapoNum is null when no capo directive is present.
+    const baseCapoNum = capo && !isNaN(parseInt(capo, 10)) ? parseInt(capo, 10) : null;
+
+    // Song only exposes transposeUp()/transposeDown() (1 semitone each),
+    // not a single transpose(delta) call, so chain them to reach delta.
+    function transposeSong(song, delta) {
+      let result = song;
+      if (delta > 0) {
+        for (let i = 0; i < delta; i++) result = result.transposeUp();
+      } else if (delta < 0) {
+        for (let i = 0; i < -delta; i++) result = result.transposeDown();
+      }
+      return result;
+    }
+
+    const transposedFrames = [];
+    for (let delta = TRANSPOSE_MIN; delta <= TRANSPOSE_MAX; delta++) {
+      const song = transposeSong(baseSong, delta);
+      const html = formatter.format(song);
+      const transposedKey = key ? transposeKeyName(key, delta) : '';
+      const transposedCapo = baseCapoNum !== null ? baseCapoNum + delta : null;
+      transposedFrames.push({ delta, html, transposedKey, transposedCapo });
+    }
+    const chordSheetHtml = transposedFrames
+      .map(f => `<div class="chord-sheet-frame" data-transpose="${f.delta}" data-key="${f.transposedKey}" data-capo="${f.transposedCapo !== null ? f.transposedCapo : ''}"${f.delta === 0 ? '' : ' hidden'}>${f.html}</div>`)
+      .join('\n');
 
     // Generate the social card
     const cardFilename = `${slug}.png`;
