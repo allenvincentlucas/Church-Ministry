@@ -93,11 +93,34 @@ function buildTransposeScript(initialCapo) {
   });
 
   render();
+
+  // Chords <-> Nashville numbers toggle. Numbers are key-relative, so they
+  // don't change with transpose/capo — hide those controls while active.
+  var chordsBtn = document.getElementById('notation-chords');
+  var numbersBtn = document.getElementById('notation-numbers');
+  var nashvilleWrap = document.querySelector('.chord-sheet-nashville');
+  var controls = document.querySelector('.transpose-controls');
+
+  function setNotation(mode) {
+    var showNumbers = mode === 'numbers';
+    if (nashvilleWrap) nashvilleWrap.toggleAttribute('hidden', !showNumbers);
+    wrap.toggleAttribute('hidden', showNumbers);
+    if (controls) controls.toggleAttribute('hidden', showNumbers);
+    if (chordsBtn) chordsBtn.classList.toggle('active', !showNumbers);
+    if (numbersBtn) numbersBtn.classList.toggle('active', showNumbers);
+  }
+
+  if (chordsBtn) chordsBtn.addEventListener('click', function(){ setNotation('chords'); });
+  if (numbersBtn) numbersBtn.addEventListener('click', function(){ setNotation('numbers'); });
+
+  // Print: make sure whichever notation/frame is on screen is what prints.
+  var printBtn = document.getElementById('print-chart');
+  if (printBtn) printBtn.addEventListener('click', function(){ window.print(); });
 })();
 </script>`;
 }
 
-function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, initialCapo, capoSuggestion, cardImage, pageUrl, slug }) {
+function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, nashvilleHtml, initialCapo, capoSuggestion, cardImage, pageUrl, slug }) {
   const themeTags = themes.map(t => `<span class="tag theme">${t}</span>`).join('');
   const keyTag = key ? `<span class="tag">KEY <span id="current-key">${key}</span></span>` : '';
   const metaTags = [
@@ -134,12 +157,15 @@ ${HEAD_FONTS}
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header no-print">
   <a href="../" class="eyebrow">Chord Library · Smart Chart Tool</a>
 </header>
 
 <div class="wrap">
-  <a href="../" class="back-link">&larr; Back to catalog</a>
+  <div class="page-actions no-print">
+    <a href="../" class="back-link">&larr; Back to catalog</a>
+    <button type="button" class="print-btn" id="print-chart">Print chart</button>
+  </div>
 
   <div class="song-card">
     <div class="viewer-head">
@@ -152,10 +178,15 @@ ${HEAD_FONTS}
     </div>
 
     ${info ? `<p class="info-blurb">${info}</p>` : ''}
-    ${youtubeEmbed(youtube)}
+    <div class="no-print">${youtubeEmbed(youtube)}</div>
     ${suggestionBanner}
 
-    ${key ? `<div class="transpose-controls">
+    ${key && nashvilleHtml ? `<div class="notation-toggle no-print">
+      <button type="button" class="notation-btn active" id="notation-chords">Chords</button>
+      <button type="button" class="notation-btn" id="notation-numbers">Numbers</button>
+    </div>` : ''}
+
+    ${key ? `<div class="transpose-controls no-print">
       <button type="button" class="transpose-btn" id="transpose-down" aria-label="Transpose down">&minus;</button>
       <span class="transpose-hint">Transpose</span>
       <button type="button" class="transpose-btn" id="transpose-up" aria-label="Transpose up">+</button>
@@ -167,10 +198,11 @@ ${HEAD_FONTS}
     </div>` : ''}
 
     <div class="chord-sheet chord-sheet-wrap">${chordSheetHtml}</div>
+    ${nashvilleHtml ? `<div class="chord-sheet chord-sheet-nashville" hidden>${nashvilleHtml}</div>` : ''}
   </div>
 </div>
 
-<footer class="site-footer">Chord Library · generated from /songs/${slug}.cho</footer>
+<footer class="site-footer no-print">Chord Library · generated from /songs/${slug}.cho</footer>
 
 ${key ? buildTransposeScript(initialCapo || 0) : ''}
 
@@ -178,13 +210,21 @@ ${key ? buildTransposeScript(initialCapo || 0) : ''}
 </html>`;
 }
 
-function indexPage({ songsByArtist, songsByTheme, totalCount }) {
+function indexPage({ songsByArtist, songsByTheme, totalCount, recentSongs }) {
+  function badgeHtml(song) {
+    if (song.friendly === true) return `<span class="tag friendly-hint">Open chords</span>`;
+    if (song.friendly === false && song.capoHint) return `<span class="tag capo-hint">Capo ${song.capoHint}</span>`;
+    return '';
+  }
+
   function cardHtml(song) {
-    return `<a class="card" href="songs/${song.slug}.html">
+    const searchIndex = [song.title, song.artist, ...(song.themes || [])].join(' ').toLowerCase();
+    return `<a class="card" href="songs/${song.slug}.html" data-search="${searchIndex.replace(/"/g, '&quot;')}">
       <div class="dot"></div>
       <div class="title">${song.title}</div>
       <span class="callnum">${song.callnum}</span>
       <div class="meta">${song.artist || ''}</div>
+      <div class="card-badges">${badgeHtml(song)}</div>
     </a>`;
   }
 
@@ -193,9 +233,18 @@ function indexPage({ songsByArtist, songsByTheme, totalCount }) {
   const artistSections = Object.entries(songsByArtist)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([artist, songs]) => `
-      <div class="section-label">${artist}</div>
+      <div class="section-label" data-artist-section>${artist}</div>
       ${songs.map(cardHtml).join('\n')}
     `).join('\n');
+
+  const recentSection = recentSongs && recentSongs.length
+    ? `<div class="catalog-head">
+        <h2>Recently added</h2>
+      </div>
+      <div class="recent-grid">
+        ${recentSongs.map(cardHtml).join('\n')}
+      </div>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -220,14 +269,52 @@ ${HEAD_FONTS}
 </section>
 
 <div class="wrap">
+  <input type="search" id="song-search" class="search-input" placeholder="Search by song, artist, or theme…" aria-label="Search charts">
+  <p id="no-results" class="no-results" hidden>No charts match your search.</p>
+
+  ${recentSection}
+
   <div class="catalog-head">
     <h2>Catalog</h2>
     <span class="catalog-count">${totalCount} chart${totalCount === 1 ? '' : 's'} · ${artistCount} artist${artistCount === 1 ? '' : 's'}</span>
   </div>
-  ${artistSections}
+  <div id="catalog-list">
+    ${artistSections}
+  </div>
 </div>
 
 <footer class="site-footer">Chord Library · built with scripts/build.js</footer>
+
+<script>
+(function(){
+  var input = document.getElementById('song-search');
+  var noResults = document.getElementById('no-results');
+  if (!input) return;
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sectionLabels = Array.prototype.slice.call(document.querySelectorAll('[data-artist-section]'));
+
+  input.addEventListener('input', function(){
+    var term = input.value.trim().toLowerCase();
+    var visibleCount = 0;
+    cards.forEach(function(card){
+      var match = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      card.toggleAttribute('hidden', !match);
+      if (match) visibleCount += 1;
+    });
+    // Hide an artist section label if every card under it is hidden.
+    sectionLabels.forEach(function(label){
+      var next = label.nextElementSibling;
+      var anyVisible = false;
+      while (next && !next.hasAttribute('data-artist-section')) {
+        if (next.classList.contains('card') && !next.hasAttribute('hidden')) anyVisible = true;
+        next = next.nextElementSibling;
+      }
+      label.toggleAttribute('hidden', !anyVisible);
+    });
+    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0 || !term);
+  });
+})();
+</script>
 
 </body>
 </html>`;
