@@ -20,11 +20,54 @@ function youtubeEmbed(url) {
   </div>`;
 }
 
+// Client-side toggler for the precomputed transpose frames build.js writes
+// into chordSheetHtml. No chord-parsing logic runs in the browser — it just
+// shows/hides the frame matching the current semitone offset.
+const TRANSPOSE_SCRIPT = `<script>
+(function(){
+  var wrap = document.querySelector('.chord-sheet-wrap');
+  if (!wrap) return;
+  var frames = wrap.querySelectorAll('.chord-sheet-frame');
+  var keyLabel = document.getElementById('current-key');
+  var capoLabel = document.getElementById('current-capo');
+  var current = 0;
+
+  function show(delta) {
+    frames.forEach(function(f){
+      var d = parseInt(f.dataset.transpose, 10);
+      if (d === delta) {
+        f.removeAttribute('hidden');
+        if (keyLabel && f.dataset.key) keyLabel.textContent = f.dataset.key;
+        if (capoLabel && f.dataset.capo !== undefined && f.dataset.capo !== '') {
+          var c = parseInt(f.dataset.capo, 10);
+          // Capo can't be negative or unreasonably high in practice;
+          // outside 0-11 there's no clean capo position for this shape.
+          capoLabel.textContent = (c >= 0 && c <= 11) ? c : 'n/a';
+        }
+      } else {
+        f.setAttribute('hidden', '');
+      }
+    });
+    current = delta;
+  }
+
+  var upBtn = document.getElementById('transpose-up');
+  var downBtn = document.getElementById('transpose-down');
+  var resetBtn = document.getElementById('transpose-reset');
+
+  if (upBtn) upBtn.addEventListener('click', function(){ if (current < 5) show(current + 1); });
+  if (downBtn) downBtn.addEventListener('click', function(){ if (current > -6) show(current - 1); });
+  if (resetBtn) resetBtn.addEventListener('click', function(){ show(0); });
+})();
+</script>`;
+
 function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, cardImage, pageUrl, slug }) {
   const themeTags = themes.map(t => `<span class="tag theme">${t}</span>`).join('');
+  const keyTag = key ? `<span class="tag">KEY <span id="current-key">${key}</span></span>` : '';
+  const capoTag = capo ? `<span class="tag">CAPO <span id="current-capo">${capo}</span></span>` : '';
   const metaTags = [
-    key ? `<span class="tag">KEY ${key}</span>` : '',
-    capo ? `<span class="tag">CAPO ${capo}</span>` : '',
+    keyTag,
+    capoTag,
     tempo ? `<span class="tag">${tempo} BPM</span>` : '',
     time ? `<span class="tag">${time}</span>` : ''
   ].join('');
@@ -70,11 +113,20 @@ ${HEAD_FONTS}
     ${info ? `<p class="info-blurb">${info}</p>` : ''}
     ${youtubeEmbed(youtube)}
 
-    <div class="chord-sheet">${chordSheetHtml}</div>
+    ${key ? `<div class="transpose-controls">
+      <button type="button" class="transpose-btn" id="transpose-down" aria-label="Transpose down">&minus;</button>
+      <span class="transpose-hint">Transpose</span>
+      <button type="button" class="transpose-btn" id="transpose-up" aria-label="Transpose up">+</button>
+      <button type="button" class="transpose-reset" id="transpose-reset">Reset</button>
+    </div>` : ''}
+
+    <div class="chord-sheet chord-sheet-wrap">${chordSheetHtml}</div>
   </div>
 </div>
 
 <footer class="site-footer">Chord Library · generated from /songs/${slug}.cho</footer>
+
+${key ? TRANSPOSE_SCRIPT : ''}
 
 </body>
 </html>`;
