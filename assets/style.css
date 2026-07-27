@@ -69,78 +69,13 @@ header.site-header{
   line-height:1.15;
   letter-spacing:-0.02em;
   margin:0.5rem 0 1rem;
-  max-width:20ch;
-}
-.hero h1 em{
-  font-family:'Fraunces',serif;
-  font-style:italic;
-  font-weight:500;
-  color:var(--teal);
 }
 .hero p.lede{
   font-size:1.05rem;
   line-height:1.6;
   color:var(--ink-soft);
-  max-width:48ch;
-  margin:0 0 2.5rem;
-}
-
-/* Signal-chain signature element: Paste -> Auto-tag & Build -> Play */
-.pipeline{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:0;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:1.5rem;
-}
-.pipeline-step{
-  display:flex;
-  flex-direction:column;
-  gap:0.35rem;
-  flex:1;
-  min-width:140px;
-}
-.pipeline-node{
-  display:flex;
-  align-items:center;
-  gap:0.55rem;
-}
-.pipeline-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--teal);
-  box-shadow:0 0 0 4px var(--teal-tint);
-  flex-shrink:0;
-}
-.pipeline-step:nth-child(3) .pipeline-dot{background:var(--brass); box-shadow:0 0 0 4px var(--brass-tint);}
-.pipeline-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:0.78rem;
-  letter-spacing:0.04em;
-  text-transform:uppercase;
-  font-weight:600;
-}
-.pipeline-desc{
-  font-size:0.85rem;
-  color:var(--ink-soft);
-  line-height:1.5;
-  padding-left:1.55rem;
-}
-.pipeline-cable{
-  flex:0 0 auto;
-  width:48px;
-  height:2px;
-  background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 10px);
-  margin:0 0.5rem;
-  align-self:flex-start;
-  margin-top:5px;
-}
-@media (max-width:720px){
-  .pipeline{flex-direction:column; align-items:stretch;}
-  .pipeline-cable{width:2px; height:24px; margin:0 0 0 5px;
-    background:repeating-linear-gradient(180deg, var(--line) 0 6px, transparent 6px 10px);}
+  max-width:58ch;
+  margin:0;
 }
 
 /* ---- Catalog section ---- */
