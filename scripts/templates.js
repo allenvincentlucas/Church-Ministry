@@ -197,8 +197,8 @@ ${HEAD_FONTS}
       </span>
     </div>` : ''}
 
-    <div class="chord-sheet chord-sheet-wrap">${chordSheetHtml}</div>
-    ${nashvilleHtml ? `<div class="chord-sheet chord-sheet-nashville" hidden>${nashvilleHtml}</div>` : ''}
+    <div class="chart-panel chord-sheet-wrap">${chordSheetHtml}</div>
+    ${nashvilleHtml ? `<div class="chart-panel chord-sheet-nashville" hidden>${nashvilleHtml}</div>` : ''}
   </div>
 </div>
 
