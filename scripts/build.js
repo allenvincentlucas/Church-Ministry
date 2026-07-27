@@ -13,30 +13,82 @@ const CARDS_DIR = path.join(SITE_DIR, 'assets', 'cards');
 // >>> Set this to your published GitHub Pages URL (no trailing slash) <<<
 const SITE_URL = 'https://allenvincentlucas.github.io/worship-chord-library';
 
-// Precomputed transpose range: -6..+5 semitones covers all 12 possible keys
-// relative to whatever key the chart was originally written in.
-const TRANSPOSE_MIN = -6;
-const TRANSPOSE_MAX = 5;
-
 const NOTES_SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const FLAT_TO_SHARP = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
-// Transposes a key label like "B", "F#m", "Bb" by `delta` semitones,
-// preserving any suffix (m, 7, maj7, sus4, etc.) after the root note.
-function transposeKeyName(key, delta) {
+// Open-chord keys most guitarists find easiest to play without a capo.
+const FRIENDLY_MAJOR_ROOTS = ['C', 'D', 'E', 'G', 'A'];
+const FRIENDLY_MINOR_ROOTS = ['A', 'D', 'E']; // Am, Dm, Em
+
+// Splits a key label like "B", "F#m", "Bb", "C#m7" into its root note and
+// whatever suffix follows (m, 7, maj7, sus4, etc.), normalizing flats to
+// the equivalent sharp so everything indexes into NOTES_SHARP consistently.
+function parseKey(key) {
   const m = key.match(/^([A-G](?:#|b)?)(.*)$/);
-  if (!m) return key;
+  if (!m) return null;
   const [, root, suffix] = m;
   const normalizedRoot = FLAT_TO_SHARP[root] || root;
   const idx = NOTES_SHARP.indexOf(normalizedRoot);
-  if (idx === -1) return key;
-  const newIdx = ((idx + delta) % 12 + 12) % 12;
-  return NOTES_SHARP[newIdx] + suffix;
+  if (idx === -1) return null;
+  return { idx, suffix };
+}
+
+// Transposes a key label by `delta` semitones, preserving its suffix.
+function transposeKeyName(key, delta) {
+  const parsed = parseKey(key);
+  if (!parsed) return key;
+  const newIdx = ((parsed.idx + delta) % 12 + 12) % 12;
+  return NOTES_SHARP[newIdx] + parsed.suffix;
+}
+
+// A key is "minor" for this purpose if its suffix starts with m but isn't
+// "maj" (so "Bm" is minor, "Bmaj7" is major).
+function isMinorSuffix(suffix) {
+  return /^m(?!aj)/.test(suffix);
+}
+
+// If `key` isn't in the open-chord-friendly set, suggests the closest
+// friendly key of the same major/minor quality and the capo fret needed
+// to sound the original key while fingering that friendlier shape.
+// Returns null if the key is already friendly or can't be parsed.
+function suggestCapoForKey(key) {
+  if (!key) return null;
+  const parsed = parseKey(key);
+  if (!parsed) return null;
+  const minor = isMinorSuffix(parsed.suffix);
+  const friendlyRoots = minor ? FRIENDLY_MINOR_ROOTS : FRIENDLY_MAJOR_ROOTS;
+  const rootName = NOTES_SHARP[parsed.idx];
+  if (friendlyRoots.includes(rootName)) return null; // already friendly
+
+  let best = null;
+  for (const fr of friendlyRoots) {
+    const frIdx = NOTES_SHARP.indexOf(fr);
+    const capoNeeded = ((parsed.idx - frIdx) % 12 + 12) % 12;
+    if (capoNeeded === 0) continue;
+    if (!best || capoNeeded < best.capo) {
+      best = { capo: capoNeeded, shapeRoot: fr };
+    }
+  }
+  if (!best) return null;
+  const shapeKey = best.shapeRoot + (minor ? 'm' : '');
+  return { capo: best.capo, shapeKey };
 }
 
 function callNumber(key, capo) {
   const k = key ? key.replace('#', 'S') : 'XX';
   return capo ? `${k}·CAPO${capo}` : k;
+}
+
+// Song only exposes transposeUp()/transposeDown() (1 semitone each), not a
+// single transpose(delta) call, so chain them to reach the target delta.
+function transposeSong(song, delta) {
+  let result = song;
+  if (delta > 0) {
+    for (let i = 0; i < delta; i++) result = result.transposeUp();
+  } else if (delta < 0) {
+    for (let i = 0; i < -delta; i++) result = result.transposeDown();
+  }
+  return result;
 }
 
 async function build() {
@@ -74,41 +126,32 @@ async function build() {
     const slug = slugify(title);
     const callnum = callNumber(key, capo);
 
-    // Render the chord chart body, precomputed at every transposition from
-    // TRANSPOSE_MIN to TRANSPOSE_MAX semitones, so the page can offer a
-    // transpose control without needing any chord-parsing logic client-side.
+    // Render the chord chart body at all 12 chromatic rotations (0-11
+    // semitones up from however it was written). Any transpose+capo
+    // combination the client asks for reduces to one of these 12 frames,
+    // since shifting by a then b is the same as shifting once by a+b.
     const parser = new ChordSheetJS.ChordProParser();
     const baseSong = parser.parse(raw);
     const formatter = new ChordSheetJS.HtmlTableFormatter();
 
-    // If a capo is specified, moving the capo by the same number of frets
-    // as the transpose delta keeps the same finger shapes usable at the
-    // new key. baseCapoNum is null when no capo directive is present.
-    const baseCapoNum = capo && !isNaN(parseInt(capo, 10)) ? parseInt(capo, 10) : null;
-
-    // Song only exposes transposeUp()/transposeDown() (1 semitone each),
-    // not a single transpose(delta) call, so chain them to reach delta.
-    function transposeSong(song, delta) {
-      let result = song;
-      if (delta > 0) {
-        for (let i = 0; i < delta; i++) result = result.transposeUp();
-      } else if (delta < 0) {
-        for (let i = 0; i < -delta; i++) result = result.transposeDown();
-      }
-      return result;
-    }
-
-    const transposedFrames = [];
-    for (let delta = TRANSPOSE_MIN; delta <= TRANSPOSE_MAX; delta++) {
-      const song = transposeSong(baseSong, delta);
+    const frames = [];
+    for (let i = 0; i < 12; i++) {
+      const song = transposeSong(baseSong, i);
       const html = formatter.format(song);
-      const transposedKey = key ? transposeKeyName(key, delta) : '';
-      const transposedCapo = baseCapoNum !== null ? baseCapoNum + delta : null;
-      transposedFrames.push({ delta, html, transposedKey, transposedCapo });
+      const frameKey = key ? transposeKeyName(key, i) : '';
+      frames.push({ index: i, html, frameKey });
     }
-    const chordSheetHtml = transposedFrames
-      .map(f => `<div class="chord-sheet-frame" data-transpose="${f.delta}" data-key="${f.transposedKey}" data-capo="${f.transposedCapo !== null ? f.transposedCapo : ''}"${f.delta === 0 ? '' : ' hidden'}>${f.html}</div>`)
+    const chordSheetHtml = frames
+      .map(f => `<div class="chord-sheet-frame" data-transpose="${f.index}" data-key="${f.frameKey}"${f.index === 0 ? '' : ' hidden'}>${f.html}</div>`)
       .join('\n');
+
+    // Default capo the picker starts on: whatever the chart specified, or
+    // no capo (0) if it didn't say.
+    const initialCapo = capo && !isNaN(parseInt(capo, 10)) ? parseInt(capo, 10) : 0;
+
+    // If the song's stated key isn't guitar-friendly, suggest an easier
+    // shape key + capo fret that sounds identical to the original key.
+    const capoSuggestion = suggestCapoForKey(key);
 
     // Generate the social card
     const cardFilename = `${slug}.png`;
@@ -125,7 +168,8 @@ async function build() {
     const cardImageUrl = `${SITE_URL}/assets/cards/${cardFilename}`;
     const html = songPage({
       title, artist, key, capo, tempo, time, callnum, themes, info, youtube,
-      chordSheetHtml, cardImage: cardImageUrl, pageUrl, slug
+      chordSheetHtml, initialCapo, capoSuggestion,
+      cardImage: cardImageUrl, pageUrl, slug
     });
     fs.writeFileSync(path.join(SITE_DIR, 'songs', `${slug}.html`), html);
 
