@@ -214,26 +214,9 @@ ${HEAD_FONTS}
 </header>
 
 <section class="hero">
-  <h1>Paste a chart. Get a page that already <em>knows the key</em>.</h1>
-  <p class="lede">Drop in a ChordPro chart and the library handles the rest: theme tagging, capo math,
-  live transpose, and a formatted page — ready to play from, not just read.</p>
-
-  <div class="pipeline">
-    <div class="pipeline-step">
-      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Paste</span></div>
-      <p class="pipeline-desc">Drop in a raw ChordPro chart — chords, directives, lyrics as-is.</p>
-    </div>
-    <div class="pipeline-cable"></div>
-    <div class="pipeline-step">
-      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Auto-tag &amp; build</span></div>
-      <p class="pipeline-desc">Theme detection, capo suggestions, and a formatted page, generated on push.</p>
-    </div>
-    <div class="pipeline-cable"></div>
-    <div class="pipeline-step">
-      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Play</span></div>
-      <p class="pipeline-desc">Transpose live, pick a capo position, and see the concert key update.</p>
-    </div>
-  </div>
+  <h1>Chord Library</h1>
+  <p class="lede">Chord charts for the worship team, ready to play from. Browse by artist, check the key
+  and capo before rehearsal, and transpose live on your phone or tablet — no printouts, no separate app.</p>
 </section>
 
 <div class="wrap">
