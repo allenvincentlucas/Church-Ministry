@@ -1,5 +1,5 @@
 const HEAD_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">`;
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">`;
 
 // assetPrefix is relative, not absolute, because GitHub Pages project sites
 // are served under a subpath (e.g. /worship-chord-library/). "" for pages at
@@ -135,8 +135,7 @@ ${HEAD_FONTS}
 <body>
 
 <header class="site-header">
-  <a href="../" class="eyebrow">Worship Tech · Song Catalog</a>
-  <h1>Chord Library</h1>
+  <a href="../" class="eyebrow">Chord Library · Smart Chart Tool</a>
 </header>
 
 <div class="wrap">
@@ -189,6 +188,8 @@ function indexPage({ songsByArtist, songsByTheme, totalCount }) {
     </a>`;
   }
 
+  const artistCount = Object.keys(songsByArtist).length;
+
   const artistSections = Object.entries(songsByArtist)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([artist, songs]) => `
@@ -209,12 +210,37 @@ ${HEAD_FONTS}
 <body>
 
 <header class="site-header">
-  <div class="eyebrow">Worship Tech · Song Catalog</div>
-  <h1>Chord Library</h1>
-  <p>${totalCount} chart${totalCount === 1 ? '' : 's'}, organized by artist. ChordPro in, formatted chart out.</p>
+  <a href="#" class="eyebrow">Chord Library · Smart Chart Tool</a>
 </header>
 
+<section class="hero">
+  <h1>Paste a chart. Get a page that already <em>knows the key</em>.</h1>
+  <p class="lede">Drop in a ChordPro chart and the library handles the rest: theme tagging, capo math,
+  live transpose, and a formatted page — ready to play from, not just read.</p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Paste</span></div>
+      <p class="pipeline-desc">Drop in a raw ChordPro chart — chords, directives, lyrics as-is.</p>
+    </div>
+    <div class="pipeline-cable"></div>
+    <div class="pipeline-step">
+      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Auto-tag &amp; build</span></div>
+      <p class="pipeline-desc">Theme detection, capo suggestions, and a formatted page, generated on push.</p>
+    </div>
+    <div class="pipeline-cable"></div>
+    <div class="pipeline-step">
+      <div class="pipeline-node"><span class="pipeline-dot"></span><span class="pipeline-label">Play</span></div>
+      <p class="pipeline-desc">Transpose live, pick a capo position, and see the concert key update.</p>
+    </div>
+  </div>
+</section>
+
 <div class="wrap">
+  <div class="catalog-head">
+    <h2>Catalog</h2>
+    <span class="catalog-count">${totalCount} chart${totalCount === 1 ? '' : 's'} · ${artistCount} artist${artistCount === 1 ? '' : 's'}</span>
+  </div>
   ${artistSections}
 </div>
 
