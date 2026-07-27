@@ -184,6 +184,7 @@ header.site-header p{
 .chord-sheet .comment{ color:var(--stone); font-style:italic; }
 .chord-sheet table.row{border-collapse:collapse; margin-bottom:0.15rem;}
 .chord-sheet td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
+.chord-sheet td{white-space:pre;}
 .chord-sheet .paragraph{margin-bottom:1.1rem;}
 
 .back-link{
