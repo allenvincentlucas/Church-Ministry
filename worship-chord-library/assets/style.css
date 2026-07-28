@@ -172,6 +172,7 @@ header.site-header{
   transition:border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
   margin-bottom:0.7rem;
 }
+.card[hidden]{display:none;}
 .card:hover{
   border-color:var(--teal);
   transform:translateY(-1px);
