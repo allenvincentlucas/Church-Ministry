@@ -1,9 +1,12 @@
 :root{
   --paper:#FAF9F6;
+  --paper-alt:#FFFFFF;
   --ink:#191B1F;
-  --blue:#2A4B8D;
-  --blue-tint:#EAEFF8;
-  --stone:#84806F;
+  --ink-soft:#4B4D52;
+  --teal:#2A4B8D;
+  --teal-tint:#FAF9F6;
+  --brass:#84806F;
+  --brass-tint:#FAF9F6;
   --line:#E3E0D8;
 }
 *{box-sizing:border-box;}
@@ -15,90 +18,165 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 a{color:inherit;}
+::selection{background:var(--teal-tint); color:var(--teal);}
 
+:focus-visible{
+  outline:2px solid var(--teal);
+  outline-offset:2px;
+}
+
+/* ---- Site header ---- */
 header.site-header{
-  padding:2.5rem 2rem 1.5rem;
-  max-width:1100px;
+  padding:1.75rem 2rem;
+  max-width:1120px;
   margin:0 auto;
-  border-bottom:1px solid var(--line);
 }
 .eyebrow{
   font-family:'JetBrains Mono',monospace;
   font-size:0.72rem;
   letter-spacing:0.08em;
   text-transform:uppercase;
-  color:var(--blue);
-  display:flex;
+  color:var(--teal);
+  display:inline-flex;
   align-items:center;
-  gap:0.4rem;
+  gap:0.45rem;
   text-decoration:none;
 }
 .eyebrow::before{
   content:'';
-  width:6px;height:6px;border-radius:50%;
-  background:var(--blue);
+  width:7px;height:7px;border-radius:50%;
+  background:var(--teal);
   display:inline-block;
-}
-h1{
-  font-family:'Space Grotesk',sans-serif;
-  font-weight:700;
-  font-size:2rem;
-  margin:0.5rem 0 0.25rem;
-  letter-spacing:-0.01em;
-}
-header.site-header p{
-  color:var(--stone);
-  margin:0;
-  font-size:0.95rem;
+  box-shadow:0 0 0 3px var(--teal-tint);
 }
 
 .wrap{
-  max-width:1100px;
+  max-width:1120px;
   margin:0 auto;
-  padding:2rem;
+  padding:0 2rem 2rem;
+}
+
+/* ---- Hero (homepage) ---- */
+.hero{
+  max-width:1120px;
+  margin:0 auto;
+  padding:1rem 2rem 3rem;
+}
+.hero h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(2rem, 4vw, 2.9rem);
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  margin:0.5rem 0 1rem;
+}
+.hero p.lede{
+  font-size:1.05rem;
+  line-height:1.6;
+  color:var(--ink-soft);
+  max-width:58ch;
+  margin:0;
+}
+
+/* ---- Search ---- */
+.search-input{
+  width:100%;
+  font-family:'Inter',sans-serif;
+  font-size:0.95rem;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:0.7rem 1rem;
+  margin:0 0 0.5rem;
+}
+.search-input:focus{border-color:var(--teal);}
+.no-results{
+  font-size:0.85rem;
+  color:var(--ink-soft);
+  margin:0.5rem 0 1.5rem;
+}
+
+.recent-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:0.7rem;
+  margin-bottom:0.5rem;
+}
+.recent-grid .card{margin-bottom:0;}
+
+.card-badges{margin-top:0.5rem;}
+.card-badges .tag{font-size:0.65rem; padding:0.12rem 0.45rem;}
+.tag.friendly-hint{color:var(--teal); background:var(--teal-tint); border-color:transparent;}
+.tag.capo-hint{color:var(--brass); background:var(--brass-tint); border-color:transparent;}
+
+/* ---- Catalog section ---- */
+.catalog-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:1rem;
+  margin:3rem 0 1.25rem;
+  padding-top:2rem;
+  border-top:1px solid var(--line);
+}
+.catalog-head h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:1.3rem;
+  margin:0;
+}
+.catalog-count{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.78rem;
+  color:var(--ink-soft);
 }
 
 /* ---- Index cards (catalog list) ---- */
 .card{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:2px;
-  padding:0.9rem 1rem;
+  border-radius:8px;
+  padding:0.95rem 1.1rem;
   position:relative;
   display:block;
   text-decoration:none;
   color:var(--ink);
-  transition:border-color 0.15s ease, transform 0.15s ease;
-  margin-bottom:0.75rem;
+  transition:border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  margin-bottom:0.7rem;
 }
-.card:hover{border-color:var(--blue); transform:translateY(-1px);}
+.card:hover{
+  border-color:var(--teal);
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px -6px rgba(32,31,26,0.15);
+}
 .card .dot{
-  position:absolute; top:0.9rem; right:1rem;
+  position:absolute; top:1rem; right:1.1rem;
   width:6px;height:6px;border-radius:50%;
   background:var(--line);
 }
 .card .title{
   font-family:'Space Grotesk',sans-serif;
-  font-weight:600;
+  font-weight:700;
   font-size:1rem;
-  margin:0 0 0.35rem;
+  margin:0 0 0.4rem;
   padding-right:1rem;
 }
 .callnum{
   font-family:'JetBrains Mono',monospace;
   font-size:0.72rem;
-  color:var(--blue);
-  background:var(--blue-tint);
+  color:var(--teal);
+  background:var(--teal-tint);
   display:inline-block;
-  padding:0.1rem 0.4rem;
-  border-radius:2px;
+  padding:0.15rem 0.5rem;
+  border-radius:20px;
   letter-spacing:0.02em;
 }
 .card .meta{
   font-family:'JetBrains Mono',monospace;
   font-size:0.72rem;
-  color:var(--stone);
-  margin-top:0.35rem;
+  color:var(--ink-soft);
+  margin-top:0.4rem;
 }
 
 .section-label{
@@ -106,7 +184,7 @@ header.site-header p{
   font-size:0.72rem;
   letter-spacing:0.08em;
   text-transform:uppercase;
-  color:var(--stone);
+  color:var(--ink-soft);
   margin:2rem 0 0.75rem;
 }
 .section-label:first-child{margin-top:0;}
@@ -115,49 +193,96 @@ header.site-header p{
 .song-card{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:2px;
+  border-radius:12px;
   padding:2rem;
 }
 .viewer-head{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  flex-wrap:wrap;
+  align-items:center;
   gap:1rem;
-  border-bottom:1px solid var(--line);
-  padding-bottom:1rem;
   margin-bottom:1.25rem;
+}
+.eyebrow-slug{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
 }
 .viewer-title{
   font-family:'Space Grotesk',sans-serif;
   font-weight:700;
-  font-size:1.6rem;
-  margin:0 0 0.25rem;
+  font-size:1.7rem;
+  margin:0 0 0.3rem;
+  letter-spacing:-0.01em;
 }
 .viewer-artist{
-  color:var(--stone);
-  font-size:0.95rem;
+  color:var(--ink-soft);
+  font-size:0.98rem;
+  font-style:italic;
   margin:0;
 }
-.tags{display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.6rem;}
+
+/* ---- Media section: video (left) + metadata (right), 50/50 ---- */
+.media-section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.75rem;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  padding-bottom:1.5rem;
+  margin-bottom:1.5rem;
+}
+.media-section--no-video{
+  grid-template-columns:1fr;
+}
+.media-col{min-width:0;}
+.media-col .video-wrap{margin-bottom:0;}
+.original-key-note{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;
+  color:var(--ink-soft);
+  margin:0.85rem 0 0;
+}
+.original-key-note strong{color:var(--ink);}
+
+@media (max-width: 720px){
+  .media-section{grid-template-columns:1fr;}
+}
+.tags{display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.7rem;}
 .tag{
   font-family:'JetBrains Mono',monospace;
   font-size:0.7rem;
-  color:var(--stone);
+  color:var(--ink-soft);
   background:var(--paper);
   border:1px solid var(--line);
-  padding:0.15rem 0.45rem;
-  border-radius:2px;
+  padding:0.2rem 0.55rem;
+  border-radius:20px;
 }
-.tag.theme{color:var(--blue); background:var(--blue-tint); border-color:transparent;}
+.tag.theme{color:var(--brass); background:var(--brass-tint); border-color:transparent;}
 
 .info-blurb{
   color:var(--ink);
-  font-size:0.92rem;
+  font-size:0.94rem;
   line-height:1.6;
   max-width:60ch;
-  margin:1rem 0 1.5rem;
+  margin:1.25rem 0 1.5rem;
 }
+
+.capo-suggestion{
+  font-size:0.85rem;
+  line-height:1.6;
+  color:var(--ink);
+  background:var(--teal-tint);
+  border:1px solid transparent;
+  border-left:3px solid var(--teal);
+  border-radius:6px;
+  padding:0.7rem 1rem;
+  max-width:60ch;
+  margin:0 0 1.5rem;
+}
+.capo-suggestion strong{color:var(--teal);}
 
 .video-wrap{
   position:relative;
@@ -165,7 +290,7 @@ header.site-header p{
   height:0;
   overflow:hidden;
   border:1px solid var(--line);
-  border-radius:2px;
+  border-radius:8px;
   margin-bottom:1.75rem;
 }
 .video-wrap iframe{
@@ -174,33 +299,173 @@ header.site-header p{
   border:0;
 }
 
-.chord-sheet{
+/* Console-strip controls: transpose + capo */
+.transpose-controls{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:0.5rem;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:0.6rem 0.75rem;
+  margin-bottom:1.5rem;
+}
+.transpose-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.9rem;
+  width:1.9rem;
+  height:1.9rem;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:6px;
+  cursor:pointer;
+  line-height:1;
+  transition:border-color 0.15s ease, color 0.15s ease;
+}
+.transpose-btn:hover{border-color:var(--teal); color:var(--teal);}
+.transpose-hint{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+}
+.transpose-reset{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem;
+  color:var(--ink-soft);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:0.2rem 0.55rem;
+  cursor:pointer;
+}
+.transpose-reset:hover{color:var(--teal); border-color:var(--teal);}
+
+.capo-picker{
+  display:flex;
+  align-items:center;
+  gap:0.4rem;
+  margin-left:auto;
+  padding-left:0.75rem;
+  border-left:1px solid var(--line);
+}
+.capo-picker select{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:0.2rem 0.45rem;
+  cursor:pointer;
+}
+.capo-picker select:hover{border-color:var(--teal);}
+
+/* Manuscript panel: the chord chart itself.
+   NOTE: named .chart-panel, not .chord-sheet — ChordSheetJS's own
+   HtmlTableFormatter output already wraps itself in a div with class
+   "chord-sheet" plus an <h1 class="title">, so reusing that name here
+   caused our panel styling (border/background) to apply twice, stacked,
+   with a duplicate title in between. */
+.chart-panel{
   font-family:'JetBrains Mono',monospace;
   font-size:0.95rem;
   line-height:1.7;
   overflow-x:auto;
+  background:var(--paper-alt);
+  border:1px solid var(--line);
+  border-top:3px solid var(--brass);
+  border-radius:8px;
+  padding:1.25rem 1.5rem;
 }
-.chord-sheet .chord{ color:var(--blue); font-weight:600; }
-.chord-sheet .comment{ color:var(--stone); font-style:italic; }
-.chord-sheet table.row{border-collapse:collapse; margin-bottom:0.15rem;}
-.chord-sheet td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
-.chord-sheet .paragraph{margin-bottom:1.1rem;}
+/* Hide ChordSheetJS's auto-generated title/subtitle — we already render
+   the song title ourselves in .viewer-title. */
+.chart-panel h1.title, .chart-panel h2.subtitle{display:none;}
+.chart-panel .chord{ color:var(--teal); font-weight:600; }
+.chart-panel .comment{ color:var(--ink-soft); font-style:italic; }
+.chart-panel table.row{border-collapse:collapse; margin-bottom:0.15rem;}
+.chart-panel td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
+.chart-panel td{white-space:pre;}
+.chart-panel .paragraph{margin-bottom:1.1rem;}
 
 .back-link{
   display:inline-block;
-  margin-bottom:1.5rem;
   font-family:'JetBrains Mono',monospace;
   font-size:0.8rem;
-  color:var(--stone);
+  color:var(--ink-soft);
   text-decoration:none;
 }
-.back-link:hover{color:var(--blue);}
+.back-link:hover{color:var(--teal);}
 
-footer.site-footer{
-  max-width:1100px;
-  margin:0 auto;
-  padding:1.5rem 2rem 3rem;
+.page-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1.5rem;
+}
+.print-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;
+  color:var(--ink-soft);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:0.35rem 0.75rem;
+  cursor:pointer;
+}
+.print-btn:hover{color:var(--teal); border-color:var(--teal);}
+
+.notation-toggle{
+  display:inline-flex;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:0.2rem;
+  margin-bottom:1rem;
+  background:var(--paper);
+}
+.notation-btn{
   font-family:'JetBrains Mono',monospace;
   font-size:0.72rem;
-  color:var(--stone);
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  color:var(--ink-soft);
+  background:none;
+  border:none;
+  border-radius:6px;
+  padding:0.35rem 0.8rem;
+  cursor:pointer;
+}
+.notation-btn.active{background:#fff; color:var(--teal); box-shadow:0 1px 3px rgba(32,31,26,0.12);}
+
+footer.site-footer{
+  max-width:1120px;
+  margin:0 auto;
+  padding:2rem 2rem 3rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  color:var(--ink-soft);
+  border-top:1px solid var(--line);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .card, .transpose-btn, .transpose-reset{ transition:none; }
+}
+
+@media print{
+  .no-print{display:none !important;}
+  body{background:#fff;}
+  .wrap{padding:0; max-width:none;}
+  .song-card{border:none; padding:0; border-radius:0;}
+  .media-section{grid-template-columns:1fr; border-bottom:none; padding-bottom:0.5rem;}
+  .chart-panel{
+    background:#fff;
+    border:none;
+    padding:0;
+  }
+  .chart-panel .chord{color:#000; font-weight:700;}
+  .callnum, .tag{border:1px solid #999; background:none; color:#000;}
 }

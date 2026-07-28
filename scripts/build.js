@@ -11,7 +11,7 @@ const SITE_DIR = path.join(ROOT, 'site');
 const CARDS_DIR = path.join(SITE_DIR, 'assets', 'cards');
 
 // >>> Set this to your published GitHub Pages URL (no trailing slash) <<<
-const SITE_URL = 'https://allenvincentlucas.github.io/worship-chord-library';
+const SITE_URL = 'https://allenvincentlucas.github.io/church-ministry/worship-chord-library';
 
 const NOTES_SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const FLAT_TO_SHARP = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };

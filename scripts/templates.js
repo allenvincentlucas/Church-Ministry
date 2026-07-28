@@ -1,5 +1,5 @@
 const HEAD_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">`;
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">`;
 
 // assetPrefix is relative, not absolute, because GitHub Pages project sites
 // are served under a subpath (e.g. /worship-chord-library/). "" for pages at
