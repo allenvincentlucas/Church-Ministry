@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chord Library</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="#" class="eyebrow">Chord Library · Smart Chart Tool</a>
+</header>
+
+<section class="hero">
+  <h1>Chord Library</h1>
+  <p class="lede">Chord charts for the worship team, ready to play from. Browse by artist, check the key
+  and capo before rehearsal, and transpose live on your phone or tablet — no printouts, no separate app.</p>
+</section>
+
+<div class="wrap">
+  <input type="search" id="song-search" class="search-input" placeholder="Search by song, artist, or theme…" aria-label="Search charts">
+  <p id="no-results" class="no-results" hidden>No charts match your search.</p>
+
+  <div class="catalog-head">
+        <h2>Recently added</h2>
+      </div>
+      <div class="recent-grid">
+        <a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko surrender & trust">
+      <div class="dot"></div>
+      <div class="title">Trust In You</div>
+      <span class="callnum">Bb</span>
+      <div class="meta">Veia Vinas, Vernon Lim, Zak Yokingko</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+    </a>
+<a class="card" href="songs/tribes.html" data-search="tribes victory worship praise & celebration">
+      <div class="dot"></div>
+      <div class="title">Tribes</div>
+      <span class="callnum">Eb</span>
+      <div class="meta">Victory Worship</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+    </a>
+<a class="card" href="songs/healer.html" data-search="healer kari jobe surrender & trust">
+      <div class="dot"></div>
+      <div class="title">Healer</div>
+      <span class="callnum">B</span>
+      <div class="meta">Kari Jobe</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 2</span></div>
+    </a>
+      </div>
+
+  <div class="catalog-head">
+    <h2>Catalog</h2>
+    <span class="catalog-count">3 charts · 3 artists</span>
+  </div>
+  <div id="catalog-list">
+    
+      <div class="section-label" data-artist-section>Kari Jobe</div>
+      <a class="card" href="songs/healer.html" data-search="healer kari jobe surrender & trust">
+      <div class="dot"></div>
+      <div class="title">Healer</div>
+      <span class="callnum">B</span>
+      <div class="meta">Kari Jobe</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 2</span></div>
+    </a>
+    
+
+      <div class="section-label" data-artist-section>Veia Vinas, Vernon Lim, Zak Yokingko</div>
+      <a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko surrender & trust">
+      <div class="dot"></div>
+      <div class="title">Trust In You</div>
+      <span class="callnum">Bb</span>
+      <div class="meta">Veia Vinas, Vernon Lim, Zak Yokingko</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+    </a>
+    
+
+      <div class="section-label" data-artist-section>Victory Worship</div>
+      <a class="card" href="songs/tribes.html" data-search="tribes victory worship praise & celebration">
+      <div class="dot"></div>
+      <div class="title">Tribes</div>
+      <span class="callnum">Eb</span>
+      <div class="meta">Victory Worship</div>
+      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+    </a>
+    
+  </div>
+</div>
+
+<footer class="site-footer">Chord Library · built with scripts/build.js</footer>
+
+<script>
+(function(){
+  var input = document.getElementById('song-search');
+  var noResults = document.getElementById('no-results');
+  if (!input) return;
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sectionLabels = Array.prototype.slice.call(document.querySelectorAll('[data-artist-section]'));
+
+  input.addEventListener('input', function(){
+    var term = input.value.trim().toLowerCase();
+    var visibleCount = 0;
+    cards.forEach(function(card){
+      var match = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      card.toggleAttribute('hidden', !match);
+      if (match) visibleCount += 1;
+    });
+    // Hide an artist section label if every card under it is hidden.
+    sectionLabels.forEach(function(label){
+      var next = label.nextElementSibling;
+      var anyVisible = false;
+      while (next && !next.hasAttribute('data-artist-section')) {
+        if (next.classList.contains('card') && !next.hasAttribute('hidden')) anyVisible = true;
+        next = next.nextElementSibling;
+      }
+      label.toggleAttribute('hidden', !anyVisible);
+    });
+    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0 || !term);
+  });
+})();
+</script>
+
+</body>
+</html>
