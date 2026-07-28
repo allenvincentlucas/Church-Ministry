@@ -109,9 +109,17 @@ Once pushed, `.github/workflows/build.yml` triggers on any change under
    - Extracts metadata directives per file
    - Auto-detects theme(s) for any file without an explicit `{theme: ...}`
    - Renders the chord chart body via ChordSheetJS
+   - If `{capo: ...}` isn't given and the stated `{key: ...}` isn't one of
+     the guitar-friendly open-position keys (C, G, D, A, E / Am, Em, Bm,
+     F#m, Dm), auto-recommends the smallest capo fret that lands on a
+     friendly shape and pre-sets the page's Capo picker to it. An explicit
+     `{capo: ...}` is always honored as-is instead.
    - Writes `site/songs/{slug}.html` from the shared template (same theme,
-     favicon, and CSS as every other page)
-   - Generates `site/assets/cards/{slug}.png`, the minimalist social card
+     favicon, and CSS as every other page), with the video and title/
+     artist/key/BPM metadata laid out side by side (50/50)
+   - Generates `site/assets/cards/{slug}.png`, the social card — tinted
+     with an accent color per theme (see `THEME_COLORS` in
+     `scripts/social-card.js`)
    - Regenerates `site/index.html` with the full, re-grouped catalog
    - Regenerates `data/artists.json` and `data/themes-in-use.json`
 4. **Deploy** the contents of `/site` to GitHub Pages.
@@ -131,6 +139,9 @@ using the Action), report back:
 - Which artist section it landed in
 - Whether a YouTube embed and info blurb are present (i.e. whether those
   optional fields were filled in)
+- The original key, and whether a capo was recommended (auto or
+  chart-declared) — e.g. "Bb, capo 1 (A shapes) recommended" — or that no
+  capo is needed because the key is already guitar-friendly
 
 This confirmation is also the natural point to ask whether they want the
 promo step (IG carousel + social post) — but only offer that, never start it

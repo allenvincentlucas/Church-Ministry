@@ -71,7 +71,7 @@ Put these as ChordPro directives anywhere in the file (top is cleanest):
 | `{title: ...}` | Yes | Song title, page title, catalog card title |
 | `{artist: ...}` | Recommended | Groups the song under that artist on the homepage |
 | `{key: ...}` | Recommended | Shown as a tag, feeds the call-number (e.g. `G·CAPO2`) |
-| `{capo: ...}` | Optional | Shown as a tag, feeds the call-number |
+| `{capo: ...}` | Optional | Honored as-is if given, feeds the call-number. If omitted and the key isn't one of the guitar-friendly open-position keys, the build recommends one automatically — see below |
 | `{tempo: ...}` | Optional | Shown as a tag (BPM) |
 | `{time: ...}` | Optional | Shown as a tag (e.g. `4/4`) |
 | `{youtube: URL}` | Optional | Embeds the official video on the song page, if given |
@@ -96,13 +96,48 @@ and renders as the actual chart.
 
 ---
 
-## Social cards
+## How the capo recommendation works
+
+Every song page has a video (if given) and a metadata panel — title,
+artist, key, BPM — side by side, 50/50 (stacking on mobile, or taking the
+full width if there's no video).
+
+The key tag always shows the **original/sounding key** of the song, and
+that's what it keeps showing regardless of which capo fret someone picks —
+capo choice only changes which chord *shapes* are displayed, not what key
+the song is labeled as.
+
+- If `{capo: ...}` is given in the chart, that's honored as-is — it's the
+  contributor's own call, and the banner explains what shape it maps to.
+- If it's omitted, the build checks whether `{key: ...}` is one of the
+  guitar-friendly open-position keys: **C, G, D, A, E** (major) or **Am,
+  Em, Bm, F#m, Dm** (minor). If it already is, no capo is suggested — open
+  chords work fine.
+- If the key isn't in that list, the build automatically finds the
+  smallest capo fret (1–11) that lands on a friendly shape and recommends
+  it — e.g. key `Bb` → capo 1, played as `A` shapes. The Capo picker on
+  the page starts pre-set to this recommendation.
+- Either way, the suggestion banner tells non-capo instrumentalists
+  (keyboard, bass, anyone reading the original chords) to choose **No
+  capo** on the picker to see the chart in the original key — capo 0
+  always shows the chart exactly as pasted.
+
+This logic lives in `computeCapoSuggestion()` in `scripts/build.js`. No
+manual tagging is needed — just set `{key: ...}` accurately and the rest
+follows automatically.
+
+
 
 Every song gets its own minimalist share card (`site/assets/cards/{slug}.png`,
 1200×630) generated automatically at build time: title, artist, key/capo call
-number, and theme tag on a plain paper card — no clutter, matches the site's
-theme. This is the image that shows up when the song's page link is shared
-on social media or messaging apps (via the page's Open Graph tags).
+number, and theme tag on a plain paper card. The card's accent color (eyebrow
+dot, call-number chip, theme tag) is tinted per theme — each taxonomy theme
+(Redemption & Grace, Praise & Celebration, etc.) has its own color in
+`THEME_COLORS` in `scripts/social-card.js`, so cards are distinguishable by
+theme at a glance, not just by their text label. Songs without a recognized
+theme fall back to a neutral tone. This is the image that shows up when the
+song's page link is shared on social media or messaging apps (via the page's
+Open Graph tags).
 
 ---
 ## A path gotcha to know about
