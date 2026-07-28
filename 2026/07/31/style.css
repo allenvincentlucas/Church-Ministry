@@ -1,11 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@400;500;600&display=swap');
-
 :root {
-  --ink: #2E2419;
-  --cream: #F5EEE1;
-  --gold: #B98B4E;
-  --accent: #56616B;
-  --stone: #B3A896;
+  --ink: #191B1F;
+  --cream: #FAF9F6;
+  --gold: #2A4B8D;
+  --accent: #84806F;
+  --stone: #E3E0D8;
   --font-display: 'Lora', serif;
   --font-body: 'Nunito Sans', sans-serif;
 }

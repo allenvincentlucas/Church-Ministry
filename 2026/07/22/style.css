@@ -1,22 +1,22 @@
 /* ============================================================
    She Knew Him When He Called Her Name
    Palette: Garden at Dawn — derived from John 20:1-2, 11-18
-   #FAF6EF ivory · #2F4A3E deep garden green · #5C7A63 moss
-   #D9A544 dawn gold · #E8B4B8 dew-rose blush · #24302A charcoal
+   #FAF9F6 ivory · #2A4B8D deep garden green · #84806F moss
+   #2A4B8D dawn gold · #2A4B8D dew-rose blush · #191B1F charcoal
    ============================================================ */
 
 :root {
-  --ivory: #FAF6EF;
-  --ivory-deep: #F2ECDF;
-  --deep-green: #2F4A3E;
-  --moss: #5C7A63;
-  --dawn-gold: #D9A544;
-  --dawn-gold-soft: #EAC788;
-  --blush: #E8B4B8;
-  --charcoal: #24302A;
-  --white: #FFFFFF;
+  --ivory: #FAF9F6;
+  --ivory-deep: #FAF9F6;
+  --deep-green: #2A4B8D;
+  --moss: #84806F;
+  --dawn-gold: #2A4B8D;
+  --dawn-gold-soft: #84806F;
+  --blush: #2A4B8D;
+  --charcoal: #191B1F;
+  --white: #FAF9F6;
 
-  --font-display: "Fraunces", "Georgia", serif;
+  --font-display: "Space Grotesk", "Georgia", serif;
   --font-body: "Karla", "Helvetica Neue", sans-serif;
 
   --max-width: 1080px;

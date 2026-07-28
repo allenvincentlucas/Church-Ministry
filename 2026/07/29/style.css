@@ -1,12 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600&display=swap');
-
 :root {
-  --ink: #2B2622;
-  --cream: #F6F0E4;
-  --gold: #C08A3E;
-  --accent: #4F6B5C;
-  --stone: #B7AA98;
-  --font-display: 'Fraunces', serif;
+  --ink: #191B1F;
+  --cream: #FAF9F6;
+  --gold: #2A4B8D;
+  --accent: #84806F;
+  --stone: #E3E0D8;
+  --font-display: 'Space Grotesk', serif;
   --font-body: 'Karla', sans-serif;
 }
 

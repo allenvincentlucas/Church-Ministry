@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600&display=swap');
-
 :root {
-  --ink: #2E2A1E;
-  --cream: #FBF6E9;
-  --gold: #C08A28;
-  --leaf-dark: #4B5A32;
-  --leaf: #8A9B5E;
-  --accent-terracotta: #A8542E;
-  --stone: #DCD3B8;
+  --ink: #191B1F;
+  --cream: #FAF9F6;
+  --gold: #2A4B8D;
+  --leaf-dark: #635F52;
+  --leaf: #84806F;
+  --accent-terracotta: #2A4B8D;
+  --stone: #E3E0D8;
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
   --font-body: 'Karla', -apple-system, sans-serif;
 }
 
@@ -24,9 +22,9 @@ html, body {
 
 /* ---------- base ---------- */
 body {
-  background: #FBF6E9;
+  background: #FAF9F6;
   background: var(--cream);
-  color: #2E2A1E;
+  color: #191B1F;
   color: var(--ink);
   font-family: Georgia, serif;
   font-family: var(--font-body);

@@ -5,20 +5,18 @@
    Palette: Pilgrim's Cup
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;600;700;800&display=swap');
-
 :root {
-  --cream: #ede3ce;
-  --ink: #1d3c4a;
+  --cream: #FAF9F6;
+  --ink: #191B1F;
   --ink-deep: #14293350;
-  --gold: #c08a2e;
-  --leaf-green: #45604a;
-  --thorn-grey: #6b7059;
-  --rust: #7a342b;
-  --card: #f8f2e4;
+  --gold: #2A4B8D;
+  --leaf-green: #84806F;
+  --thorn-grey: #2A4B8D;
+  --rust: #84806F;
+  --card: #FAF9F6;
   --line: rgba(29, 60, 74, 0.16);
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
   --font-body: 'Karla', -apple-system, sans-serif;
 }
 
@@ -27,7 +25,7 @@ html { color-scheme: light; }
 
 body {
   margin: 0;
-  background: #ede3ce;
+  background: #FAF9F6;
   background: var(--cream);
   color: #24333b;
   color: var(--ink);

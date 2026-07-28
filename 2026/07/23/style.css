@@ -5,16 +5,14 @@
    Palette: Eyes Opening to Light
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&family=Nunito+Sans:wght@400;600;700;800&display=swap');
-
 :root {
   /* fallback-first, then variable, per site known-fix */
-  --ivory: #faf6ec;
-  --ink: #2b2a28;
-  --dawn-gold: #c9963c;
-  --dusk-slate: #45596b;
-  --terracotta: #b15a3e;
-  --pale-sky: #e4ebee;
+  --ivory: #FAF9F6;
+  --ink: #191B1F;
+  --dawn-gold: #2A4B8D;
+  --dusk-slate: #84806F;
+  --terracotta: #2A4B8D;
+  --pale-sky: #FAF9F6;
   --line: rgba(43, 42, 40, 0.14);
 
   --font-display: 'Literata', Georgia, serif;
@@ -27,9 +25,9 @@ html { color-scheme: light; }
 
 body {
   margin: 0;
-  background: #faf6ec;
+  background: #FAF9F6;
   background: var(--ivory);
-  color: #2b2a28;
+  color: #191B1F;
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.65;

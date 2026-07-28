@@ -6,14 +6,14 @@
    own bespoke, re-derived palette — these tokens never override that. */
 
 :root {
-  --tmg-paper: #EFE9DC;      /* warm linen page background */
-  --tmg-ink: #262220;        /* warm near-black for body text */
-  --tmg-ribbon: #8B2E3B;     /* ribbon-marker red — CTAs, "today" accents */
-  --tmg-green: #45604A;      /* ordinary-time green — secondary accent, tags */
-  --tmg-gold: #B7934B;       /* gold rule — dividers, fine details */
-  --tmg-stone: #D8CFBB;      /* card borders, quiet fills */
-  --tmg-paper-raised: #F6F2E8; /* slightly lighter paper, for cards on paper */
+  --tmg-paper: #FAF9F6;      /* warm linen page background */
+  --tmg-ink: #191B1F;        /* warm near-black for body text */
+  --tmg-ribbon: #2A4B8D;     /* ribbon-marker red — CTAs, "today" accents */
+  --tmg-green: #84806F;      /* ordinary-time green — secondary accent, tags */
+  --tmg-gold: #2A4B8D;       /* gold rule — dividers, fine details */
+  --tmg-stone: #E3E0D8;      /* card borders, quiet fills */
+  --tmg-paper-raised: #FFFFFF; /* slightly lighter paper, for cards on paper */
 
-  --tmg-font-display: "Spectral", Georgia, "Times New Roman", serif;
-  --tmg-font-body: "Work Sans", -apple-system, Helvetica, Arial, sans-serif;
+  --tmg-font-display: "Space Grotesk", Georgia, "Times New Roman", serif;
+  --tmg-font-body: "Inter", -apple-system, Helvetica, Arial, sans-serif;
 }

@@ -5,15 +5,13 @@
    Palette: Buried Treasure
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Bitter:opsz,wght@12..96,400;12..96,500;12..96,700&family=Nunito+Sans:wght@400;600;800&display=swap');
-
 :root {
-  --pearl: #f6f1e7;
-  --loam: #3b2a1e;
-  --gold: #c9a227;
-  --leaf-green: #2f5d62;
-  --clay: #a85736;
-  --card: #f6f1e7;
+  --pearl: #FAF9F6;
+  --loam: #191B1F;
+  --gold: #2A4B8D;
+  --leaf-green: #84806F;
+  --clay: #2A4B8D;
+  --card: #FAF9F6;
   --line: rgba(59, 42, 30, 0.16);
 
   --font-display: 'Bitter', Georgia, serif;

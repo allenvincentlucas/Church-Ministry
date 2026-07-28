@@ -1,17 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600&display=swap');
-
 :root {
-  --ink: #241B18;
-  --cream: #FBF2E0;
-  --gold: #D98A2B;
-  --ember: #A63A2C;
-  --dusk: #3F4F63;
-  --stone: #E3D6BE;
-  --field: #EFE0BE;
-  --stalk: #8C6A2E;
+  --ink: #191B1F;
+  --cream: #FAF9F6;
+  --gold: #2A4B8D;
+  --ember: #84806F;
+  --dusk: #2A4B8D;
+  --stone: #E3E0D8;
+  --field: #FAF9F6;
+  --stalk: #84806F;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Mulish', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 /* ---------- reset ---------- */
@@ -25,9 +23,9 @@ html, body {
 
 /* ---------- base ---------- */
 body {
-  background: #FBF2E0;
+  background: #FAF9F6;
   background: var(--cream);
-  color: #241B18;
+  color: #191B1F;
   color: var(--ink);
   font-family: Georgia, serif;
   font-family: var(--font-body);
@@ -199,7 +197,7 @@ a {
 }
 .question-callout {
   background: var(--dusk);
-  color: #fbf2e0;
+  color: #FAF9F6;
   border-radius: 10px;
   padding: 22px 24px;
   font-family: var(--font-display);
@@ -288,7 +286,7 @@ a {
 }
 .btn-primary {
   background: var(--dusk);
-  color: #fbf2e0;
+  color: #FAF9F6;
 }
 .btn-secondary {
   background: transparent;

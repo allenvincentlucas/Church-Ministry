@@ -1,6 +1,6 @@
 /* Ten Minutes with the Gospel — shared site nav + footer chrome.
    Scoped under .tmg-chrome so it can sit on top of ANY day page's own
-   bespoke palette (Fraunces/Karla, terracotta, whatever that day chose)
+   bespoke palette (Space Grotesk/Karla, terracotta, whatever that day chose)
    without fighting it. Link this AFTER tokens.css. */
 
 .tmg-chrome, .tmg-chrome * {
