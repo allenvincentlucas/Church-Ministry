@@ -8,7 +8,12 @@
   without touching it — scoped under .tmg-chrome / .tmg-nav / .tmg-breadcrumb,
   which don't exist in any day page's own CSS.
 
-  Also add these two lines inside that day's <head>, ABOVE its own
+  Also add these two lines inside that day's <head>
+<link rel="icon" type="image/svg+xml" href="../../_shared/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../_shared/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../_shared/favicon-16.png">
+<link rel="apple-touch-icon" href="../../_shared/apple-touch-icon.png">
+, ABOVE its own
   style.css link, so the day's own styles can still override anything
   they need to:
 

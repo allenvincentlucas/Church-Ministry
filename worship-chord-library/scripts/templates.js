@@ -4,8 +4,11 @@ const HEAD_FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
 // assetPrefix is relative, not absolute, because GitHub Pages project sites
 // are served under a subpath (e.g. /worship-chord-library/). "" for pages at
 // site root (index.html), "../" for pages one level down (songs/*.html).
-function favicon(assetPrefix) {
-  return `<link rel="icon" type="image/svg+xml" href="${assetPrefix}assets/favicon.svg">`;
+function favicon(rootPrefix) {
+  return `<link rel="icon" type="image/svg+xml" href="${rootPrefix}_shared/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="${rootPrefix}_shared/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${rootPrefix}_shared/favicon-16.png">
+<link rel="apple-touch-icon" href="${rootPrefix}_shared/apple-touch-icon.png">`;
 }
 
 function youtubeEmbed(url) {
@@ -162,7 +165,7 @@ function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title} — Chord Library</title>
-${favicon('../')}
+${favicon('../../../')}
 ${HEAD_FONTS}
 <link rel="stylesheet" href="../assets/style.css">
 
@@ -268,7 +271,7 @@ function indexPage({ songsByArtist, songsByTheme, totalCount, recentSongs }) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chord Library</title>
-${favicon('')}
+${favicon('../../')}
 ${HEAD_FONTS}
 <link rel="stylesheet" href="assets/style.css">
 </head>
