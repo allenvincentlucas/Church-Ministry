@@ -168,7 +168,6 @@ async function build() {
 
   // Copy shared assets into the site output
   fs.copyFileSync(path.join(ROOT, 'assets', 'style.css'), path.join(SITE_DIR, 'assets', 'style.css'));
-  fs.copyFileSync(path.join(ROOT, 'assets', 'favicon.svg'), path.join(SITE_DIR, 'assets', 'favicon.svg'));
 
   const files = fs.readdirSync(SONGS_DIR).filter(f => /\.(cho|crd|pro|chopro)$/i.test(f));
 
@@ -179,6 +178,7 @@ async function build() {
 
   const songsByArtist = {};
   const songsByTheme = {};
+  const songsByCategory = {};
 
   for (const file of files) {
     const raw = fs.readFileSync(path.join(SONGS_DIR, file), 'utf8');
@@ -193,6 +193,7 @@ async function build() {
     const youtube = toDisplayString(meta.youtube || meta.video);
     const info = toDisplayString(meta.info || meta.comment);
     const themes = detectThemes(raw, meta.theme);
+    const category = toDisplayString(meta.category) || 'Worship Song';
     const slug = slugify(title);
     const callnum = callNumber(key, capo);
 
@@ -246,7 +247,7 @@ async function build() {
     const pageUrl = `${SITE_URL}/songs/${slug}.html`;
     const cardImageUrl = `${SITE_URL}/assets/cards/${cardFilename}`;
     const html = songPage({
-      title, artist, key, capo, tempo, time, callnum, themes, info, youtube,
+      title, artist, key, capo, tempo, time, callnum, themes, category, info, youtube,
       chordSheetHtml, nashvilleHtml, initialCapo, capoSuggestion,
       cardImage: cardImageUrl, pageUrl, slug
     });
@@ -254,7 +255,7 @@ async function build() {
 
     // Index for the homepage
     const entry = {
-      title, artist, callnum, slug, themes, dateAdded,
+      title, artist, callnum, slug, themes, category, dateAdded,
       friendly: key ? !capoSuggestion : null,
       capoHint: capoSuggestion ? capoSuggestion.capo : null
     };
@@ -262,8 +263,9 @@ async function build() {
     for (const t of themes) {
       (songsByTheme[t] ||= []).push(entry);
     }
+    (songsByCategory[category] ||= []).push(entry);
 
-    console.log(`Built: ${title} (${artist}) -> /songs/${slug}.html [${themes.join(', ')}]`);
+    console.log(`Built: ${title} (${artist}) -> /songs/${slug}.html [${category}] [${themes.join(', ')}]`);
   }
 
   // Sort each artist's songs alphabetically by title
@@ -279,12 +281,13 @@ async function build() {
     .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
     .slice(0, 5);
 
-  const html = indexPage({ songsByArtist, songsByTheme, totalCount: files.length, recentSongs });
+  const html = indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount: files.length, recentSongs });
   fs.writeFileSync(path.join(SITE_DIR, 'index.html'), html);
 
   // Save taxonomy indexes for reference / future tooling
   fs.writeFileSync(path.join(ROOT, 'data', 'artists.json'), JSON.stringify(Object.keys(songsByArtist).sort(), null, 2));
   fs.writeFileSync(path.join(ROOT, 'data', 'themes-in-use.json'), JSON.stringify(Object.keys(songsByTheme).sort(), null, 2));
+  fs.writeFileSync(path.join(ROOT, 'data', 'categories-in-use.json'), JSON.stringify(Object.keys(songsByCategory).sort(), null, 2));
 
   console.log(`\nDone. ${files.length} song page(s) written to /site.`);
 }

@@ -91,6 +91,33 @@ header.site-header{
   margin:0 0 0.5rem;
 }
 .search-input:focus{border-color:var(--teal);}
+
+/* ---- Category filter pills ---- */
+.category-filters{
+  display:flex;
+  gap:0.5rem;
+  flex-wrap:wrap;
+  margin:0 0 1.25rem;
+}
+.category-pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  color:var(--ink-soft);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:0.35rem 0.85rem;
+  cursor:pointer;
+  transition:background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.category-pill:hover{border-color:var(--teal);}
+.category-pill.active{
+  color:#fff;
+  background:var(--teal);
+  border-color:var(--teal);
+}
+.category-pill .pill-count{opacity:0.7; margin-left:0.3rem;}
+.category-pill.active .pill-count{opacity:0.85;}
 .no-results{
   font-size:0.85rem;
   color:var(--ink-soft);
@@ -261,6 +288,7 @@ header.site-header{
   border-radius:20px;
 }
 .tag.theme{color:var(--brass); background:var(--brass-tint); border-color:transparent;}
+.tag.category-tag{color:#fff; background:var(--teal); border-color:transparent; font-weight:600;}
 
 .info-blurb{
   color:var(--ink);

@@ -28,39 +28,44 @@
 
 <div class="wrap">
   <input type="search" id="song-search" class="search-input" placeholder="Search by song, artist, or theme…" aria-label="Search charts">
+  <div class="category-filters no-print" role="group" aria-label="Filter by category">
+        <button type="button" class="category-pill active" data-category-filter="">All <span class="pill-count">4</span></button>
+        <button type="button" class="category-pill" data-category-filter="Worship Song">Worship Song <span class="pill-count">3</span></button>
+        <button type="button" class="category-pill" data-category-filter="Liturgical Songs">Liturgical Songs <span class="pill-count">1</span></button>
+      </div>
   <p id="no-results" class="no-results" hidden>No charts match your search.</p>
 
   <div class="catalog-head">
         <h2>Recently added</h2>
       </div>
       <div class="recent-grid">
-        <a class="card" href="songs/let-him-enter.html" data-search="let him enter unknown artist praise & celebration">
+        <a class="card" href="songs/let-him-enter.html" data-search="let him enter unknown artist liturgical songs praise & celebration" data-category="Liturgical Songs">
       <div class="dot"></div>
       <div class="title">Let Him Enter</div>
       <span class="callnum">G</span>
       <div class="meta">Unknown Artist</div>
-      <div class="card-badges"><span class="tag friendly-hint">Open chords</span></div>
+      <div class="card-badges"><span class="tag category-tag">Liturgical Songs</span><span class="tag friendly-hint">Open chords</span></div>
     </a>
-<a class="card" href="songs/tribes.html" data-search="tribes victory worship praise & celebration">
+<a class="card" href="songs/tribes.html" data-search="tribes victory worship worship song praise & celebration" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Tribes</div>
       <span class="callnum">Eb</span>
       <div class="meta">Victory Worship</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 1</span></div>
     </a>
-<a class="card" href="songs/healer.html" data-search="healer kari jobe surrender & trust">
+<a class="card" href="songs/healer.html" data-search="healer kari jobe worship song surrender & trust" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Healer</div>
       <span class="callnum">B</span>
       <div class="meta">Kari Jobe</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 2</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 2</span></div>
     </a>
-<a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko surrender & trust">
+<a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko worship song surrender & trust" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Trust In You</div>
       <span class="callnum">Bb</span>
       <div class="meta">Veia Vinas, Vernon Lim, Zak Yokingko</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 1</span></div>
     </a>
       </div>
 
@@ -71,42 +76,42 @@
   <div id="catalog-list">
     
       <div class="section-label" data-artist-section>Kari Jobe</div>
-      <a class="card" href="songs/healer.html" data-search="healer kari jobe surrender & trust">
+      <a class="card" href="songs/healer.html" data-search="healer kari jobe worship song surrender & trust" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Healer</div>
       <span class="callnum">B</span>
       <div class="meta">Kari Jobe</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 2</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 2</span></div>
     </a>
     
 
       <div class="section-label" data-artist-section>Unknown Artist</div>
-      <a class="card" href="songs/let-him-enter.html" data-search="let him enter unknown artist praise & celebration">
+      <a class="card" href="songs/let-him-enter.html" data-search="let him enter unknown artist liturgical songs praise & celebration" data-category="Liturgical Songs">
       <div class="dot"></div>
       <div class="title">Let Him Enter</div>
       <span class="callnum">G</span>
       <div class="meta">Unknown Artist</div>
-      <div class="card-badges"><span class="tag friendly-hint">Open chords</span></div>
+      <div class="card-badges"><span class="tag category-tag">Liturgical Songs</span><span class="tag friendly-hint">Open chords</span></div>
     </a>
     
 
       <div class="section-label" data-artist-section>Veia Vinas, Vernon Lim, Zak Yokingko</div>
-      <a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko surrender & trust">
+      <a class="card" href="songs/trust-in-you.html" data-search="trust in you veia vinas, vernon lim, zak yokingko worship song surrender & trust" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Trust In You</div>
       <span class="callnum">Bb</span>
       <div class="meta">Veia Vinas, Vernon Lim, Zak Yokingko</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 1</span></div>
     </a>
     
 
       <div class="section-label" data-artist-section>Victory Worship</div>
-      <a class="card" href="songs/tribes.html" data-search="tribes victory worship praise & celebration">
+      <a class="card" href="songs/tribes.html" data-search="tribes victory worship worship song praise & celebration" data-category="Worship Song">
       <div class="dot"></div>
       <div class="title">Tribes</div>
       <span class="callnum">Eb</span>
       <div class="meta">Victory Worship</div>
-      <div class="card-badges"><span class="tag capo-hint">Capo 1</span></div>
+      <div class="card-badges"><span class="tag category-tag">Worship Song</span><span class="tag capo-hint">Capo 1</span></div>
     </a>
     
   </div>
@@ -121,12 +126,16 @@
   if (!input) return;
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var sectionLabels = Array.prototype.slice.call(document.querySelectorAll('[data-artist-section]'));
+  var pills = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
+  var activeCategory = '';
 
-  input.addEventListener('input', function(){
+  function applyFilters(){
     var term = input.value.trim().toLowerCase();
     var visibleCount = 0;
     cards.forEach(function(card){
-      var match = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      var matchesSearch = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      var matchesCategory = !activeCategory || card.dataset.category === activeCategory;
+      var match = matchesSearch && matchesCategory;
       card.toggleAttribute('hidden', !match);
       if (match) visibleCount += 1;
     });
@@ -140,7 +149,17 @@
       }
       label.toggleAttribute('hidden', !anyVisible);
     });
-    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0 || !term);
+    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0);
+  }
+
+  input.addEventListener('input', applyFilters);
+
+  pills.forEach(function(pill){
+    pill.addEventListener('click', function(){
+      activeCategory = pill.getAttribute('data-category-filter') || '';
+      pills.forEach(function(p){ p.classList.toggle('active', p === pill); });
+      applyFilters();
+    });
   });
 })();
 </script>

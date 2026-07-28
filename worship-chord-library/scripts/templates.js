@@ -123,8 +123,9 @@ function buildTransposeScript(initialCapo) {
 </script>`;
 }
 
-function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info, youtube, chordSheetHtml, nashvilleHtml, initialCapo, capoSuggestion, cardImage, pageUrl, slug }) {
+function songPage({ title, artist, key, capo, tempo, time, callnum, themes, category, info, youtube, chordSheetHtml, nashvilleHtml, initialCapo, capoSuggestion, cardImage, pageUrl, slug }) {
   const themeTags = themes.map(t => `<span class="tag theme">${t}</span>`).join('');
+  const categoryTag = category ? `<span class="tag category-tag">${category}</span>` : '';
   const keyTag = key ? `<span class="tag">KEY <span id="current-key">${key}</span></span>` : '';
   const metaTags = [
     keyTag,
@@ -148,7 +149,7 @@ function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info
   const metaPanel = `<div class="meta-panel">
     <h2 class="viewer-title">${title}</h2>
     ${artist ? `<p class="viewer-artist">${artist}</p>` : ''}
-    <div class="tags">${metaTags}${themeTags}</div>
+    <div class="tags">${categoryTag}${metaTags}${themeTags}</div>
     ${capoSuggestion ? `<p class="original-key-note">Original key: <strong>${key}</strong> (no capo)</p>` : ''}
   </div>`;
 
@@ -229,7 +230,7 @@ ${key ? buildTransposeScript(initialCapo || 0) : ''}
 </html>`;
 }
 
-function indexPage({ songsByArtist, songsByTheme, totalCount, recentSongs }) {
+function indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount, recentSongs }) {
   function badgeHtml(song) {
     if (song.friendly === true) return `<span class="tag friendly-hint">Open chords</span>`;
     if (song.friendly === false && song.capoHint) return `<span class="tag capo-hint">Capo ${song.capoHint}</span>`;
@@ -237,17 +238,34 @@ function indexPage({ songsByArtist, songsByTheme, totalCount, recentSongs }) {
   }
 
   function cardHtml(song) {
-    const searchIndex = [song.title, song.artist, ...(song.themes || [])].join(' ').toLowerCase();
-    return `<a class="card" href="songs/${song.slug}.html" data-search="${searchIndex.replace(/"/g, '&quot;')}">
+    const searchIndex = [song.title, song.artist, song.category, ...(song.themes || [])].join(' ').toLowerCase();
+    return `<a class="card" href="songs/${song.slug}.html" data-search="${searchIndex.replace(/"/g, '&quot;')}" data-category="${(song.category || '').replace(/"/g, '&quot;')}">
       <div class="dot"></div>
       <div class="title">${song.title}</div>
       <span class="callnum">${song.callnum}</span>
       <div class="meta">${song.artist || ''}</div>
-      <div class="card-badges">${badgeHtml(song)}</div>
+      <div class="card-badges"><span class="tag category-tag">${song.category || ''}</span>${badgeHtml(song)}</div>
     </a>`;
   }
 
   const artistCount = Object.keys(songsByArtist).length;
+
+  const categoryOrder = ['Worship Song', 'Liturgical Songs'];
+  const categoryNames = Object.keys(songsByCategory || {}).sort((a, b) => {
+    const ia = categoryOrder.indexOf(a);
+    const ib = categoryOrder.indexOf(b);
+    if (ia !== -1 && ib !== -1) return ia - ib;
+    if (ia !== -1) return -1;
+    if (ib !== -1) return 1;
+    return a.localeCompare(b);
+  });
+
+  const categoryPills = categoryNames.length
+    ? `<div class="category-filters no-print" role="group" aria-label="Filter by category">
+        <button type="button" class="category-pill active" data-category-filter="">All <span class="pill-count">${totalCount}</span></button>
+        ${categoryNames.map(name => `<button type="button" class="category-pill" data-category-filter="${name.replace(/"/g, '&quot;')}">${name} <span class="pill-count">${(songsByCategory[name] || []).length}</span></button>`).join('\n        ')}
+      </div>`
+    : '';
 
   const artistSections = Object.entries(songsByArtist)
     .sort(([a], [b]) => a.localeCompare(b))
@@ -289,6 +307,7 @@ ${HEAD_FONTS}
 
 <div class="wrap">
   <input type="search" id="song-search" class="search-input" placeholder="Search by song, artist, or theme…" aria-label="Search charts">
+  ${categoryPills}
   <p id="no-results" class="no-results" hidden>No charts match your search.</p>
 
   ${recentSection}
@@ -311,12 +330,16 @@ ${HEAD_FONTS}
   if (!input) return;
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var sectionLabels = Array.prototype.slice.call(document.querySelectorAll('[data-artist-section]'));
+  var pills = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
+  var activeCategory = '';
 
-  input.addEventListener('input', function(){
+  function applyFilters(){
     var term = input.value.trim().toLowerCase();
     var visibleCount = 0;
     cards.forEach(function(card){
-      var match = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      var matchesSearch = !term || (card.dataset.search || '').indexOf(term) !== -1;
+      var matchesCategory = !activeCategory || card.dataset.category === activeCategory;
+      var match = matchesSearch && matchesCategory;
       card.toggleAttribute('hidden', !match);
       if (match) visibleCount += 1;
     });
@@ -330,7 +353,17 @@ ${HEAD_FONTS}
       }
       label.toggleAttribute('hidden', !anyVisible);
     });
-    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0 || !term);
+    if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0);
+  }
+
+  input.addEventListener('input', applyFilters);
+
+  pills.forEach(function(pill){
+    pill.addEventListener('click', function(){
+      activeCategory = pill.getAttribute('data-category-filter') || '';
+      pills.forEach(function(p){ p.classList.toggle('active', p === pill); });
+      applyFilters();
+    });
   });
 })();
 </script>
