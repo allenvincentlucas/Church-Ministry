@@ -275,11 +275,13 @@ function indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount, r
     `).join('\n');
 
   const recentSection = recentSongs && recentSongs.length
-    ? `<div class="catalog-head">
-        <h2>Recently added</h2>
-      </div>
-      <div class="recent-grid">
-        ${recentSongs.map(cardHtml).join('\n')}
+    ? `<div id="recent-section">
+        <div class="catalog-head">
+          <h2>Recently added</h2>
+        </div>
+        <div class="recent-grid">
+          ${recentSongs.map(cardHtml).join('\n')}
+        </div>
       </div>`
     : '';
 
@@ -314,7 +316,7 @@ ${HEAD_FONTS}
 
   <div class="catalog-head">
     <h2>Catalog</h2>
-    <span class="catalog-count">${totalCount} chart${totalCount === 1 ? '' : 's'} · ${artistCount} artist${artistCount === 1 ? '' : 's'}</span>
+    <span class="catalog-count" id="catalog-count">${totalCount} chart${totalCount === 1 ? '' : 's'} · ${artistCount} artist${artistCount === 1 ? '' : 's'}</span>
   </div>
   <div id="catalog-list">
     ${artistSections}
@@ -331,17 +333,24 @@ ${HEAD_FONTS}
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
   var sectionLabels = Array.prototype.slice.call(document.querySelectorAll('[data-artist-section]'));
   var pills = Array.prototype.slice.call(document.querySelectorAll('[data-category-filter]'));
+  var recentSection = document.getElementById('recent-section');
+  var catalogCount = document.getElementById('catalog-count');
+  var totalCount = cards.length;
   var activeCategory = '';
 
   function applyFilters(){
     var term = input.value.trim().toLowerCase();
     var visibleCount = 0;
+    var recentVisibleCount = 0;
     cards.forEach(function(card){
       var matchesSearch = !term || (card.dataset.search || '').indexOf(term) !== -1;
       var matchesCategory = !activeCategory || card.dataset.category === activeCategory;
       var match = matchesSearch && matchesCategory;
       card.toggleAttribute('hidden', !match);
-      if (match) visibleCount += 1;
+      if (match) {
+        visibleCount += 1;
+        if (recentSection && recentSection.contains(card)) recentVisibleCount += 1;
+      }
     });
     // Hide an artist section label if every card under it is hidden.
     sectionLabels.forEach(function(label){
@@ -353,8 +362,19 @@ ${HEAD_FONTS}
       }
       label.toggleAttribute('hidden', !anyVisible);
     });
+    // Hide the whole "Recently added" block (heading included) if none of
+    // its cards match the current filter/search.
+    if (recentSection) recentSection.toggleAttribute('hidden', recentVisibleCount === 0);
+    // Reflect the active filter/search in the catalog count.
+    if (catalogCount) {
+      catalogCount.textContent = (term || activeCategory)
+        ? (visibleCount + ' of ' + totalCount + ' chart' + (totalCount === 1 ? '' : 's') + ' shown')
+        : catalogCount.dataset.default;
+    }
     if (noResults) noResults.toggleAttribute('hidden', visibleCount !== 0);
   }
+
+  if (catalogCount) catalogCount.dataset.default = catalogCount.textContent;
 
   input.addEventListener('input', applyFilters);
 
