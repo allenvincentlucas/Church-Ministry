@@ -1,0 +1,136 @@
+html {
+  color-scheme: light;
+}
+body {
+  margin: 0;
+  background: #EFE9DC;
+  background: var(--tmg-paper);
+  color: #262220;
+  color: var(--tmg-ink);
+  font-family: Georgia, serif;
+  font-family: var(--tmg-font-body);
+}
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+.eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--tmg-green);
+  margin: 0 0 0.75rem;
+}
+h1 {
+  font-family: var(--tmg-font-display);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin: 0 0 2rem;
+}
+.empty-note {
+  color: var(--tmg-ink);
+  opacity: 0.7;
+  font-style: italic;
+}
+.month-card {
+  display: block;
+  background: var(--tmg-paper-raised);
+  border: 1px solid var(--tmg-stone);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 0.9rem;
+  text-decoration: none;
+  color: var(--tmg-ink);
+}
+.month-card:hover, .month-card:focus-visible {
+  border-color: var(--tmg-ribbon);
+}
+.month-card h2 {
+  font-family: var(--tmg-font-display);
+  font-size: 1.2rem;
+  margin: 0 0 0.2rem;
+}
+.month-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* Archive — month sections & entry list
+   Reuses the same visual language as .month-card (raised paper, stone
+   border, ribbon-red hover) and the token palette's own intent for gold
+   ("dividers, fine details") as the rule between individual entries. */
+
+.archive-month {
+  background: var(--tmg-paper-raised);
+  border: 1px solid var(--tmg-stone);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.archive-month h2 {
+  font-family: var(--tmg-font-display);
+  font-size: 1.2rem;
+  margin: 0 0 0.85rem;
+}
+
+.archive-month h2 a {
+  color: var(--tmg-ink);
+  text-decoration: none;
+}
+
+.archive-month h2 a:hover,
+.archive-month h2 a:focus-visible {
+  color: var(--tmg-ribbon);
+}
+
+.archive-entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--tmg-gold);
+}
+
+.archive-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--tmg-gold);
+}
+
+.archive-entry:last-child {
+  border-bottom: none;
+}
+
+.archive-entry-date {
+  font-family: var(--tmg-font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tmg-green);
+}
+
+.archive-entry-title {
+  font-family: var(--tmg-font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--tmg-ink);
+  text-decoration: none;
+}
+
+.archive-entry-title:hover,
+.archive-entry-title:focus-visible {
+  color: var(--tmg-ribbon);
+  text-decoration: underline;
+}
+
+.archive-entry-day {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--tmg-ink);
+  opacity: 0.65;
+}

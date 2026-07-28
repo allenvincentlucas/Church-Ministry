@@ -1,0 +1,35 @@
+<!--
+  TEN MINUTES WITH THE GOSPEL — day page nav snippet
+  =====================================================
+  Paste this right after <body ...> on every new day page, at
+  /YYYY/MM/DD/index.html. It sits on top of that day's own bespoke design
+  without touching it — scoped under .tmg-chrome / .tmg-nav / .tmg-breadcrumb,
+  which don't exist in any day page's own CSS.
+
+  Also add these two lines inside that day's <head>, ABOVE its own
+  style.css link, so the day's own styles can still override anything
+  they need to:
+
+    <link rel="stylesheet" href="../../../assets/tokens.css">
+    <link rel="stylesheet" href="../../../assets/site-nav.css">
+
+  Replace MONTH_YEAR below (e.g. "July 2026") and MONTH_LINK
+  (e.g. "../index.html" — the month folder one level up from this day).
+-->
+
+<nav class="tmg-nav">
+  <a class="tmg-nav__brand" href="../../../index.html">
+    <svg class="tmg-nav__ribbon" viewBox="0 0 12 18" aria-hidden="true">
+      <path d="M0 0 H12 V18 L6 13 L0 18 Z" fill="var(--tmg-ribbon)"/>
+    </svg>
+    Ten Minutes with the Gospel
+  </a>
+  <div class="tmg-nav__links">
+    <a href="../../../index.html">Home</a>
+    <a href="../../../archive/index.html">Archive</a>
+  </div>
+</nav>
+
+<div class="tmg-breadcrumb">
+  <a href="../../../index.html">Home</a><span aria-hidden="true">/</span><a href="../../../archive/index.html">Archive</a><span aria-hidden="true">/</span><a href="MONTH_LINK">MONTH_YEAR</a>
+</div>

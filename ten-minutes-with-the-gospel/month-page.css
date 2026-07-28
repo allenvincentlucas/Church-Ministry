@@ -1,0 +1,118 @@
+/* Ten Minutes with the Gospel — shared month-page styling.
+   Used by EVERY /YYYY/MM/index.html. Never edited per month — the same
+   file is linked from every month folder as ../../month-page.css.
+   Relies on assets/tokens.css being linked first for --tmg-* variables. */
+
+body.tmg-chrome {
+  margin: 0;
+  background: var(--tmg-paper);
+  color: var(--tmg-ink);
+  font-family: var(--tmg-font-body);
+  line-height: 1.6;
+}
+
+.month-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.month-hero {
+  padding: 3rem 0 1.5rem;
+  text-align: center;
+}
+
+.month-hero .eyebrow {
+  font-family: var(--tmg-font-body);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--tmg-ribbon);
+  margin: 0 0 0.5rem;
+}
+
+.month-hero h1 {
+  font-family: var(--tmg-font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  margin: 0 0 0.75rem;
+  color: var(--tmg-ink);
+}
+
+.month-hero p {
+  max-width: 52ch;
+  margin: 0 auto;
+  color: var(--tmg-ink);
+  opacity: 0.75;
+}
+
+.month-entries {
+  padding: 1rem 0 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.month-card {
+  display: block;
+  background: var(--tmg-paper-raised);
+  border: 1px solid var(--tmg-stone);
+  border-left: 4px solid var(--tmg-gold);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: var(--tmg-ink);
+  transition: border-color 0.15s ease;
+}
+
+.month-card:hover {
+  border-left-color: var(--tmg-ribbon);
+}
+
+.month-card .month-card-date {
+  display: block;
+  font-family: var(--tmg-font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--tmg-green);
+  margin-bottom: 0.3rem;
+}
+
+.month-card .month-card-title {
+  display: block;
+  font-family: var(--tmg-font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--tmg-ink);
+  margin-bottom: 0.25rem;
+}
+
+.month-card .month-card-day {
+  display: block;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--tmg-ink);
+  opacity: 0.7;
+}
+
+.empty-note {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--tmg-ink);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.month-nav-back {
+  text-align: center;
+  padding: 0 0 3rem;
+}
+
+.month-nav-back a {
+  color: var(--tmg-ribbon);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--tmg-gold);
+  padding-bottom: 2px;
+}

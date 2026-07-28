@@ -1,0 +1,142 @@
+/* ============================================================
+   "The Cup Before the Seat" — July 25, 2026
+   Feast of Saint James, Apostle
+   Matthew 20:20-28 — The Sons of Zebedee
+   Palette: Pilgrim's Cup
+   ============================================================ */
+
+:root {
+  --cream: #FAF9F6;
+  --ink: #191B1F;
+  --ink-deep: #14293350;
+  --gold: #2A4B8D;
+  --leaf-green: #84806F;
+  --thorn-grey: #2A4B8D;
+  --rust: #84806F;
+  --card: #FAF9F6;
+  --line: rgba(29, 60, 74, 0.16);
+
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Karla', -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: #FAF9F6;
+  background: var(--cream);
+  color: #24333b;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+a { color: var(--rust); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover { color: var(--gold); }
+
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- Header (this day's own secondary bar, below the shared site nav) ---------- */
+.site-header { padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--ink); text-decoration: none; }
+.site-nav { display: flex; gap: 1.25rem; font-size: 0.92rem; }
+.site-nav a { color: var(--leaf-green); font-weight: 700; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 3.2rem 0 2.2rem; }
+.eyebrow {
+  font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 0.78rem; color: var(--rust); margin: 0 0 0.35rem;
+}
+.date-line {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #56504a;
+  margin: 0 0 0.9rem;
+}
+.hero h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3rem); line-height: 1.12; margin: 0 0 1rem; color: var(--ink);
+}
+.lede { font-size: 1.15rem; max-width: 54ch; color: #3a4a52; margin: 0 0 1.6rem; }
+.citation-pull {
+  display: inline-block; font-family: var(--font-display); font-style: italic; font-size: 1.05rem;
+  color: var(--rust); border-left: 3px solid var(--gold); padding: 0.3rem 0 0.3rem 0.9rem; margin-bottom: 2.2rem;
+}
+.hero-art { margin: 0 auto; max-width: 280px; }
+
+.divider { padding: 0.4rem 0 1.4rem; }
+
+section.block { padding: 2.6rem 0; border-top: 1px solid var(--line); }
+section.block h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.55rem; margin: 0 0 1.2rem; color: var(--ink);
+}
+section.block h2 .glyph { color: var(--gold); margin-right: 0.5rem; }
+
+/* ---------- Gospel reading ---------- */
+.reading-card {
+  background: var(--card); border-radius: 14px; padding: 1.8rem 1.9rem;
+  font-family: var(--font-display); font-size: 1.05rem; color: var(--ink);
+}
+.reading-card p { margin: 0 0 1rem; }
+.reading-card p:last-of-type { margin-bottom: 0; }
+.translation-note {
+  margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px dashed var(--line);
+  font-family: var(--font-body); font-size: 0.92rem; color: #5a4d3e;
+}
+.translation-note strong { color: var(--ink); }
+
+/* ---------- Reflection ---------- */
+.scenario-box {
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--rust);
+  border-radius: 10px; padding: 1.4rem 1.6rem; margin: 1.4rem 0;
+}
+.scenario-box p:first-child { margin-top: 0; }
+.scenario-box p:last-child { margin-bottom: 0; }
+.question-callout {
+  background: var(--ink); color: var(--cream); border-radius: 10px; padding: 1.5rem 1.7rem;
+  font-family: var(--font-display); font-size: 1.2rem; font-style: italic; margin-top: 1.6rem;
+}
+
+/* ---------- Video grid ---------- */
+.video-grid { display: grid; grid-template-columns: 1fr; gap: 1.8rem; }
+.video-card iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+.video-card .credit { margin-top: 0.6rem; font-size: 0.92rem; color: #5a4d3e; }
+.video-card .credit strong { color: var(--ink); }
+.video-card .note { font-size: 0.9rem; color: var(--leaf-green); margin-top: 0.3rem; }
+
+/* ---------- Catechism ---------- */
+.ccc-card { background: var(--card); border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 1rem; }
+.ccc-card .num { font-family: var(--font-display); font-weight: 700; color: var(--rust); margin-right: 0.4rem; }
+.ccc-callout { margin-top: 1.4rem; font-size: 0.95rem; }
+
+/* ---------- Closing ---------- */
+.closing-prayer {
+  background: linear-gradient(180deg, var(--gold) 0%, #8a5f22 100%);
+  color: #2b1d05; border-radius: 16px; padding: 2rem 2rem 2.2rem;
+  text-align: center;
+}
+.closing-prayer h2 { color: #2b1d05; }
+.closing-prayer p { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; max-width: 56ch; margin-left: auto; margin-right: auto; }
+.cta-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.4rem; justify-content: center; }
+.cta-row a {
+  display: inline-block; background: var(--ink); color: var(--cream); padding: 0.65rem 1.2rem;
+  border-radius: 999px; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+}
+.cta-row a.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 2.4rem 0 3.5rem; font-size: 0.85rem; color: #56504a; border-top: 1px solid var(--line); margin-top: 1rem;
+}
+.site-footer p { margin: 0 0 0.6rem; }
+
+@media (max-width: 640px) {
+  .site-nav { gap: 0.9rem; }
+  .closing-prayer { padding: 1.6rem 1.4rem 1.8rem; }
+}

@@ -1,0 +1,94 @@
+/* Ten Minutes with the Gospel — shared site nav + footer chrome.
+   Scoped under .tmg-chrome so it can sit on top of ANY day page's own
+   bespoke palette (Space Grotesk/Karla, terracotta, whatever that day chose)
+   without fighting it. Link this AFTER tokens.css. */
+
+.tmg-chrome, .tmg-chrome * {
+  box-sizing: border-box;
+}
+
+.tmg-nav {
+  font-family: var(--tmg-font-body);
+  background: var(--tmg-ink);
+  color: var(--tmg-paper);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+}
+
+.tmg-nav a {
+  color: var(--tmg-paper);
+  text-decoration: none;
+}
+
+.tmg-nav a:hover,
+.tmg-nav a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tmg-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.tmg-nav__ribbon {
+  width: 12px;
+  height: 18px;
+  flex: none;
+}
+
+.tmg-nav__links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.tmg-breadcrumb {
+  font-family: var(--tmg-font-body);
+  background: var(--tmg-paper-raised);
+  color: var(--tmg-ink);
+  border-bottom: 1px solid var(--tmg-stone);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+.tmg-breadcrumb a {
+  color: var(--tmg-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tmg-breadcrumb span[aria-hidden="true"] {
+  margin: 0 0.35rem;
+  color: var(--tmg-stone);
+}
+
+.tmg-footer {
+  font-family: var(--tmg-font-body);
+  background: var(--tmg-ink);
+  color: var(--tmg-paper);
+  padding: 1.75rem 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.tmg-footer a {
+  color: var(--tmg-paper);
+}
+
+.tmg-footer__row {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .tmg-nav__links { gap: 0.85rem; }
+}
