@@ -120,6 +120,19 @@ function buildNashvilleHtml(baseSong, key, formatter) {
   }
 }
 
+// extractDirectives collects REPEATED directive keys (e.g. multiple
+// {comment: ...} lines, as in a chart with "Post Chorus" / "Tag" / "Last
+// Chorus" comments) into an array rather than a single string. `info` is
+// rendered as plain text/HTML-escaped text downstream (songPage's
+// info-blurb and og:description), which expects a string, not an array.
+// Normalize here so any directive value — single or repeated — becomes a
+// single display-ready string, regardless of how many times it appeared
+// in the source chart.
+function toDisplayString(value) {
+  if (Array.isArray(value)) return value.join(' · ');
+  return value || '';
+}
+
 async function build() {
   fs.mkdirSync(path.join(SITE_DIR, 'songs'), { recursive: true });
   fs.mkdirSync(CARDS_DIR, { recursive: true });
@@ -144,13 +157,13 @@ async function build() {
     const meta = extractDirectives(raw);
 
     const title = meta.title || meta.t || file.replace(/\.(cho|crd|pro|chopro)$/i, '');
-    const artist = meta.artist || meta.subtitle || 'Unknown Artist';
-    const key = meta.key || '';
-    const capo = meta.capo || '';
-    const tempo = meta.tempo || '';
-    const time = meta.time || '';
-    const youtube = meta.youtube || meta.video || '';
-    const info = meta.info || meta.comment || '';
+    const artist = toDisplayString(meta.artist || meta.subtitle) || 'Unknown Artist';
+    const key = toDisplayString(meta.key);
+    const capo = toDisplayString(meta.capo);
+    const tempo = toDisplayString(meta.tempo);
+    const time = toDisplayString(meta.time);
+    const youtube = toDisplayString(meta.youtube || meta.video);
+    const info = toDisplayString(meta.info || meta.comment);
     const themes = detectThemes(raw, meta.theme);
     const slug = slugify(title);
     const callnum = callNumber(key, capo);
