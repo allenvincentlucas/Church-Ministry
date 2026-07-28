@@ -37,19 +37,47 @@ function transposeKeyName(key, delta) {
   return NOTES_SHARP[newIdx] + parsed.suffix;
 }
 
-// Uses whatever capo the chart itself specifies (its {capo: ...}
-// directive) to work out what shape/key the guitarist is actually
-// fingering. A capo raises pitch, so the shape played is `capo` semitones
-// BELOW the sounding key — e.g. key Bb with {capo: 3} means the guitarist
-// fingers G shapes (Bb - 3 semitones = G) and the capo brings it up to Bb.
-// Returns null whenever the chart doesn't specify a capo (no directive,
-// blank, "0", or unparseable) — no suggestion is shown in that case.
-function suggestCapoFromChart(key, capo) {
-  if (!key || !capo) return null;
-  const capoNum = parseInt(capo, 10);
-  if (isNaN(capoNum) || capoNum <= 0) return null;
-  const shapeKey = transposeKeyName(key, -capoNum);
-  return { capo: capoNum, shapeKey };
+// Keys an open-position guitarist can play without a capo. Anything else
+// gets an automatic capo recommendation (see computeCapoSuggestion below).
+const FRIENDLY_MAJOR = ['C', 'G', 'D', 'A', 'E'];
+const FRIENDLY_MINOR = ['A', 'E', 'B', 'F#', 'D']; // Am, Em, Bm, F#m, Dm
+
+function isGuitarFriendly(key) {
+  const parsed = parseKey(key);
+  if (!parsed) return false;
+  const root = NOTES_SHARP[parsed.idx];
+  const suffix = parsed.suffix.toLowerCase();
+  const isMinor = suffix.startsWith('m') && !suffix.startsWith('maj');
+  return isMinor ? FRIENDLY_MINOR.includes(root) : FRIENDLY_MAJOR.includes(root);
+}
+
+// Works out what shape/key a guitarist should finger. A capo raises pitch,
+// so the shape played is `capo` semitones BELOW the sounding key — e.g. key
+// Bb with capo 1 means the guitarist fingers A shapes (Bb - 1 semitone = A)
+// and the capo brings it back up to Bb.
+//
+// If the chart itself declares a {capo: ...}, that's the contributor's own
+// call and is honored as-is. Otherwise, if the stated key isn't one of the
+// guitar-friendly open-position keys, the smallest capo fret (1-11) that
+// lands on a friendly shape is recommended automatically. Returns null when
+// no capo is needed — no directive AND an already-friendly key.
+function computeCapoSuggestion(key, capo) {
+  if (!key) return null;
+
+  const explicit = parseInt(capo, 10);
+  if (!isNaN(explicit) && explicit > 0) {
+    return { capo: explicit, shapeKey: transposeKeyName(key, -explicit), source: 'chart' };
+  }
+
+  if (isGuitarFriendly(key)) return null;
+
+  for (let c = 1; c <= 11; c++) {
+    const shapeKey = transposeKeyName(key, -c);
+    if (isGuitarFriendly(shapeKey)) {
+      return { capo: c, shapeKey, source: 'auto' };
+    }
+  }
+  return null; // shouldn't happen — every key has a friendly shape within an octave
 }
 
 function callNumber(key, capo) {
@@ -191,13 +219,14 @@ async function build() {
     // toggle, not tied to the transpose/capo frames above).
     const nashvilleHtml = buildNashvilleHtml(baseSong, key, formatter);
 
-    // Default capo the picker starts on: whatever the chart specified, or
-    // no capo (0) if it didn't say.
-    const initialCapo = capo && !isNaN(parseInt(capo, 10)) ? parseInt(capo, 10) : 0;
-
     // If the song's stated key isn't guitar-friendly, suggest an easier
-    // shape key + capo fret that sounds identical to the original key.
-    const capoSuggestion = suggestCapoFromChart(key, capo);
+    // shape key + capo fret that sounds identical to the original key
+    // (auto-computed unless the chart already declares its own {capo: ...}).
+    const capoSuggestion = computeCapoSuggestion(key, capo);
+
+    // Default capo the picker starts on: the suggestion (auto or
+    // chart-declared), or no capo (0) if the key is already guitar-friendly.
+    const initialCapo = capoSuggestion ? capoSuggestion.capo : 0;
 
     // When was this chart added? Used for the homepage's recently-added
     // list. See getDateAdded's caveat about shallow CI checkouts.

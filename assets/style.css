@@ -199,12 +199,16 @@ header.site-header{
 .viewer-head{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  flex-wrap:wrap;
+  align-items:center;
   gap:1rem;
-  border-bottom:1px solid var(--line);
-  padding-bottom:1.25rem;
   margin-bottom:1.25rem;
+}
+.eyebrow-slug{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
 }
 .viewer-title{
   font-family:'Manrope',sans-serif;
@@ -218,6 +222,33 @@ header.site-header{
   font-size:0.98rem;
   font-style:italic;
   margin:0;
+}
+
+/* ---- Media section: video (left) + metadata (right), 50/50 ---- */
+.media-section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.75rem;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  padding-bottom:1.5rem;
+  margin-bottom:1.5rem;
+}
+.media-section--no-video{
+  grid-template-columns:1fr;
+}
+.media-col{min-width:0;}
+.media-col .video-wrap{margin-bottom:0;}
+.original-key-note{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem;
+  color:var(--ink-soft);
+  margin:0.85rem 0 0;
+}
+.original-key-note strong{color:var(--ink);}
+
+@media (max-width: 720px){
+  .media-section{grid-template-columns:1fr;}
 }
 .tags{display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.7rem;}
 .tag{
@@ -429,6 +460,7 @@ footer.site-footer{
   body{background:#fff;}
   .wrap{padding:0; max-width:none;}
   .song-card{border:none; padding:0; border-radius:0;}
+  .media-section{grid-template-columns:1fr; border-bottom:none; padding-bottom:0.5rem;}
   .chart-panel{
     background:#fff;
     border:none;

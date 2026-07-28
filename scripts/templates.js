@@ -131,11 +131,30 @@ function songPage({ title, artist, key, capo, tempo, time, callnum, themes, info
 
   const suggestionBanner = capoSuggestion
     ? `<p class="capo-suggestion">
-        This chart is written for <strong>capo ${capoSuggestion.capo}</strong>, sounding in <strong>${key}</strong>.
-        Finger it as <strong>${capoSuggestion.shapeKey}</strong> shapes
-        — the Capo picker below is already set to try this out.
+        ${capoSuggestion.source === 'auto'
+          ? `<strong>${key}</strong> isn't the easiest key for open chords, so we recommend <strong>capo ${capoSuggestion.capo}</strong>, fingered as <strong>${capoSuggestion.shapeKey}</strong> shapes.`
+          : `This chart is written for <strong>capo ${capoSuggestion.capo}</strong>, sounding in <strong>${key}</strong>. Finger it as <strong>${capoSuggestion.shapeKey}</strong> shapes.`}
+        The Capo picker below is already set to try this out.
+        Playing without a capo — keys, bass, or anyone reading the original chords — just choose
+        <strong>No capo</strong> to see it in the original key of <strong>${key}</strong>.
       </p>`
     : '';
+
+  // Side-by-side video + metadata section. If there's no video, the
+  // metadata panel just takes the full width instead of leaving a blank half.
+  const metaPanel = `<div class="meta-panel">
+    <h2 class="viewer-title">${title}</h2>
+    ${artist ? `<p class="viewer-artist">${artist}</p>` : ''}
+    <div class="tags">${metaTags}${themeTags}</div>
+    ${capoSuggestion ? `<p class="original-key-note">Original key: <strong>${key}</strong> (no capo)</p>` : ''}
+  </div>`;
+
+  const mediaSection = youtube
+    ? `<div class="media-section">
+        <div class="media-col no-print">${youtubeEmbed(youtube)}</div>
+        <div class="media-col">${metaPanel}</div>
+      </div>`
+    : `<div class="media-section media-section--no-video">${metaPanel}</div>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -169,16 +188,13 @@ ${HEAD_FONTS}
 
   <div class="song-card">
     <div class="viewer-head">
-      <div>
-        <h2 class="viewer-title">${title}</h2>
-        ${artist ? `<p class="viewer-artist">${artist}</p>` : ''}
-        <div class="tags">${metaTags}${themeTags}</div>
-      </div>
+      <span class="eyebrow-slug">Chord chart</span>
       <span class="callnum">${callnum}</span>
     </div>
 
+    ${mediaSection}
+
     ${info ? `<p class="info-blurb">${info}</p>` : ''}
-    <div class="no-print">${youtubeEmbed(youtube)}</div>
     ${suggestionBanner}
 
     ${key && nashvilleHtml ? `<div class="notation-toggle no-print">
