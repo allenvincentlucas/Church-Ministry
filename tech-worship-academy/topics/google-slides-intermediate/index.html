@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Slides for Worship: Intermediate — Tech &amp; Worship Academy</title>
+<meta name="description" content="Gemini AI workflows for church media teams: drafting sermon decks, generating imagery, converting slides to narrated video, and a NotebookLM prompt library.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Google Slides for Worship: Intermediate — Tech &amp; Worship Academy">
+<meta property="og:description" content="Gemini AI workflows for church media teams: drafting sermon decks, generating imagery, converting slides to narrated video, and a NotebookLM prompt library.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/tech-worship-academy/topics/google-slides-intermediate/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google Slides for Worship: Intermediate — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Gemini AI workflows for church media teams: drafting sermon decks, generating imagery, converting slides to narrated video, and a NotebookLM prompt library.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/tech-worship-academy/topics/google-slides-intermediate/og-image.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #FAF9F6;
+  --paper-raised: #FFFFFF;
+  --paper-line: #E3E0D8;
+
+  /* ink */
+  --ink: #191B1F;
+  --ink-soft: #4B4D52;
+  --ink-faint: #7C7E82;
+
+  /* accents */
+  --brass: #2A4B8D;
+  --brass-deep: #1E3868;
+  --teal: #84806F;
+  --teal-deep: #635F52;
+  --cue-live: #2A4B8D;
+
+  /* type */
+  --font-display: "Space Grotesk", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#FAF9F6; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="google-slides-intermediate">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/presentation-software/index.html">Presentation Software</a> / Google Slides Intermediate</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 4 · Channel 05</span>
+    <h1>Let Gemini build the first draft.</h1>
+    <p class="hero-lede">Drafting sermon decks and imagery with Gemini, converting a finished presentation into a narrated devotional video, and a NotebookLM prompt library for training your own team — the AI workflow layer on top of Google Slides fundamentals.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">Setlist</div>
+      <a class="rail-link" data-lesson-link="gs2-01" href="#lesson-gs2-01"><span class="rail-led"></span>GS2-01 Gemini deck drafting</a>
+      <a class="rail-link" data-lesson-link="gs2-02" href="#lesson-gs2-02"><span class="rail-led"></span>GS2-02 Gemini imagery</a>
+      <a class="rail-link" data-lesson-link="gs2-03" href="#lesson-gs2-03"><span class="rail-led"></span>GS2-03 Slides-to-Vids</a>
+      <a class="rail-link" data-lesson-link="gs2-04" href="#lesson-gs2-04"><span class="rail-led"></span>GS2-04 NotebookLM prompts</a>
+      <a class="rail-link" data-lesson-link="gs2-05" href="#lesson-gs2-05"><span class="rail-led"></span>GS2-05 Implementation checklist</a>
+      <div class="rail-progress-label">0 of 5 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-gs2-01" data-lesson="gs2-01">
+        <div class="lesson-head-top"><span>GS2-01 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Gemini "Help me create" for sermon deck drafting</h2>
+        <p>Gemini can draft a complete slide from a plain-language prompt, and it can reference your own files in Google Drive — sermon notes, Bible study outlines, event documents — using the @ symbol, so the draft pulls from your actual source material instead of generic filler.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="LOBexhRgf78">
+            <img src="https://img.youtube.com/vi/LOBexhRgf78/hqdefault.jpg" alt="How to create Slide presentations with Gemini video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to create Slide presentations with Gemini</span>
+            <a href="https://www.youtube.com/watch?v=LOBexhRgf78" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Open Ask Gemini, or Insert / Slide → Help me create a slide</li>
+          <li><input type="checkbox"> Reference a specific source with @ (e.g. @Sermon_Notes_Week1.docx) instead of writing a generic prompt</li>
+          <li><input type="checkbox"> Review every generated slide before inserting it — treat the output as a first draft, not a final copy</li>
+          <li><input type="checkbox"> Click Retry for a different version, or write a follow-up prompt to refine wording and structure</li>
+        </ul>
+        <div class="callout warn"><strong>Fact-check before Sunday:</strong> AI-drafted scripture references and quotes need a human check against the actual text before they go on the sanctuary screen.</div>
+      </section>
+
+      <section class="lesson" id="lesson-gs2-02" data-lesson="gs2-02">
+        <div class="lesson-head-top"><span>GS2-02 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Image generation &amp; background removal with Gemini</h2>
+        <p>Gemini's image tools cover two different jobs: generating original background art or series graphics from a text prompt, and cleanly removing the background from an existing photo — useful for speaker headshots and ministry team photos.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="j9L4pUu5E_k">
+            <img src="https://img.youtube.com/vi/j9L4pUu5E_k/hqdefault.jpg" alt="Remove Image Background with Gemini in Google Slides video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Remove Image Background with Gemini in Google Slides (Graphics)</span>
+            <a href="https://www.youtube.com/watch?v=j9L4pUu5E_k" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Use Tools → Create images with a plain, descriptive prompt for sermon series art or backgrounds</li>
+          <li><input type="checkbox"> Avoid figurative or metaphorical language in prompts — describe subject, setting, and materials directly</li>
+          <li><input type="checkbox"> Select an image → Remove background to isolate a subject with a clear, contrasting background</li>
+          <li><input type="checkbox"> Confirm your church's Gemini/Workspace AI plan actually includes this feature before building a lesson around it</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="lesson-gs2-03" data-lesson="gs2-03">
+        <div class="lesson-head-top"><span>GS2-03 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Slides-to-Vids: turning decks into narrated devotionals</h2>
+        <p>Google Vids can convert a finished slide deck into a scripted, narrated video — pulling in your text, images, and slide layout automatically, with an AI voiceover or avatar if you want one.</p>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="mrTaBh9EksE">
+            <img src="https://img.youtube.com/vi/mrTaBh9EksE/hqdefault.jpg" alt="Turn Slides into Videos in Google Vids video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Turn Slides into Videos in Google Vids – Easy Tutorial</span>
+            <a href="https://www.youtube.com/watch?v=mrTaBh9EksE" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+        <ul class="checklist">
+          <li><input type="checkbox"> In Slides: File → Convert to Video, or start a new Vid and Import Slides</li>
+          <li><input type="checkbox"> Let Gemini generate a script and AI voiceover, or click Replace with speaker notes to use your own notes verbatim</li>
+          <li><input type="checkbox"> Choose an AI avatar and voiceover, or turn narration off if you'd rather record it yourself</li>
+          <li><input type="checkbox"> Use exported videos for midweek devotionals or social recaps — not as a replacement for the live Sunday deck</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="lesson-gs2-04" data-lesson="gs2-04">
+        <div class="lesson-head-top"><span>GS2-04 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>NotebookLM prompt library for ministry teams</h2>
+        <p>Upload this topic's source documentation (or your own church media docs) into NotebookLM, then run one of these prompts to generate training materials tailored to your team.</p>
+        <table>
+          <tr><th>Prompt</th><th>Use it for</th></tr>
+          <tr><td>Booth SOP prompt</td><td>Converts setup instructions into a three-part Sunday morning checklist: pre-service setup, service execution, and emergency protocols</td></tr>
+          <tr><td>Lyric &amp; scripture style guide prompt</td><td>Generates a house style guide covering Theme Builder locking, spacing rules, and why layout placeholders beat manual text boxes</td></tr>
+          <tr><td>Speaker quick-reference prompt</td><td>Builds a one-page cheat sheet for pastors/guest speakers on Presenter View, annotation tools, and Audience Q&amp;A</td></tr>
+          <tr><td>AI devotional workflow prompt</td><td>Builds a step-by-step guide for staff on drafting, illustrating, and converting decks into weekly devotional video content</td></tr>
+        </table>
+        <div class="callout">These are starting prompts, not fixed scripts — adjust names, ministry terms, and structure to match how your own team actually talks.</div>
+      </section>
+
+      <section class="lesson" id="lesson-gs2-05" data-lesson="gs2-05">
+        <div class="lesson-head-top"><span>GS2-05 · 8 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Implementation checklist for church media teams</h2>
+        <p>A rollout checklist for bringing this whole workflow online, not just a single lesson's worth of steps.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Build master templates in Theme Builder with locked lower-thirds, backgrounds, and sermon title layouts</li>
+          <li><input type="checkbox"> Standardize on paragraph-spacing rules instead of blank lines for clean wrapping on wide sanctuary screens</li>
+          <li><input type="checkbox"> Set tech booth displays to Extended (never Mirrored) with Presenter View running live timers and next-slide previews</li>
+          <li><input type="checkbox"> Enable offline caching (Google Docs Offline) on every booth device so decks run through a Wi-Fi drop</li>
+          <li><input type="checkbox"> Post a live-shortcut sheet in the booth — B/W blackout, laser pointer, number-jump — for every new volunteer</li>
+          <li><input type="checkbox"> Train staff to use @ mentions with Gemini so drafts pull from real sermon notes, not generic prompts</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/presentation-software/index.html">← Back to Presentation Software</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>
