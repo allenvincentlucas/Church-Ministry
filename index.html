@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Church Ministry — Allen Vincent Lucas</title>
+<meta name="description" content="Tools and teaching for church tech and worship ministry: AV volunteer training, daily Gospel reflections, and a smart chord chart library.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared/theme.css">
+<style>
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--brand-paper);
+    color:var(--brand-ink);
+    font-family:var(--brand-font-body);
+  }
+  main{ max-width:1120px; margin:0 auto; padding:0 2rem; }
+  .hero{ padding:3.5rem 0 2.5rem; }
+  .hero .eyebrow{
+    font-family:var(--brand-font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brand-accent);
+  }
+  .hero h1{
+    font-family:var(--brand-font-display);
+    font-size:2.4rem;
+    line-height:1.15;
+    margin:0.6rem 0 1rem;
+  }
+  .hero p{
+    max-width:60ch;
+    color:var(--brand-ink-soft);
+    font-size:1.05rem;
+    line-height:1.6;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:1.5rem;
+    padding-bottom:3rem;
+  }
+  .card{
+    background:var(--brand-paper-raised);
+    border:1px solid var(--brand-paper-line);
+    border-radius:10px;
+    padding:1.75rem;
+    text-decoration:none;
+    color:var(--brand-ink);
+    display:flex;
+    flex-direction:column;
+    gap:0.75rem;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(25,27,31,0.08);
+  }
+  .card .tag{
+    font-family:var(--brand-font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brand-stone);
+  }
+  .card h2{
+    font-family:var(--brand-font-display);
+    font-size:1.3rem;
+    margin:0;
+  }
+  .card p{
+    color:var(--brand-ink-soft);
+    font-size:0.95rem;
+    line-height:1.55;
+    margin:0;
+  }
+  .card .cta{
+    margin-top:auto;
+    font-family:var(--brand-font-mono);
+    font-size:0.82rem;
+    color:var(--brand-accent);
+  }
+</style>
+</head>
+<body>
+
+<nav class="hub-nav">
+  <a class="hub-brand" href="index.html">Church Ministry</a>
+  <div class="hub-links">
+    <a href="tech-worship-academy/index.html">Tech Worship Academy</a>
+    <a href="ten-minutes-with-the-gospel/index.html">Gospel Reflections</a>
+    <a href="worship-chord-library/site/index.html">Chord Library</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Allen Vincent Lucas</div>
+    <h1>Tools and teaching for church tech &amp; worship ministry</h1>
+    <p>Training for AV volunteers, a daily Gospel reflection archive, and a smart chord chart tool — built to help worship teams run Sunday well.</p>
+  </section>
+
+  <section class="grid">
+    <a class="card" href="tech-worship-academy/index.html">
+      <span class="tag">Training</span>
+      <h2>Tech Worship Academy</h2>
+      <p>Volunteer training for OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers — module by module.</p>
+      <span class="cta">Start learning →</span>
+    </a>
+
+    <a class="card" href="ten-minutes-with-the-gospel/index.html">
+      <span class="tag">Daily Reflection</span>
+      <h2>Ten Minutes with the Gospel</h2>
+      <p>A short daily reflection on the Gospel reading, archived by month — ten minutes to sit with the day's Word.</p>
+      <span class="cta">Read today's Gospel →</span>
+    </a>
+
+    <a class="card" href="worship-chord-library/site/index.html">
+      <span class="tag">Song Catalog</span>
+      <h2>Worship Chord Library</h2>
+      <p>Paste a ChordPro file, get a themed chart page with transpose, capo recommendation, and a ready-to-share social card.</p>
+      <span class="cta">Browse the catalog →</span>
+    </a>
+  </section>
+</main>
+
+<footer class="hub-footer">
+  Church Ministry — Allen Vincent Lucas · Doha, Qatar
+</footer>
+
+</body>
+</html>
