@@ -14,8 +14,8 @@
   --card: #FAF9F6;
   --line: rgba(59, 42, 30, 0.16);
 
-  --font-display: 'Bitter', Georgia, serif;
-  --font-body: 'Nunito Sans', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; }

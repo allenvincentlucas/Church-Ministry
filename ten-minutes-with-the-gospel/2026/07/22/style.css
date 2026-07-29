@@ -16,8 +16,8 @@
   --charcoal: #191B1F;
   --white: #FAF9F6;
 
-  --font-display: "Space Grotesk", "Georgia", serif;
-  --font-body: "Karla", "Helvetica Neue", sans-serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 
   --max-width: 1080px;
   --radius: 14px;

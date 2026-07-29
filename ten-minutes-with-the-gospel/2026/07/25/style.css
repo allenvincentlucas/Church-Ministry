@@ -17,7 +17,7 @@
   --line: rgba(29, 60, 74, 0.16);
 
   --font-display: 'Space Grotesk', Georgia, serif;
-  --font-body: 'Karla', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; }

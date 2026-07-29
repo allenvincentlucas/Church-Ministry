@@ -15,8 +15,8 @@
   --pale-sky: #FAF9F6;
   --line: rgba(43, 42, 40, 0.14);
 
-  --font-display: 'Literata', Georgia, serif;
-  --font-body: 'Nunito Sans', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; }

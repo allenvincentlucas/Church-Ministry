@@ -4,8 +4,8 @@
   --gold: #2A4B8D;
   --accent: #84806F;
   --stone: #E3E0D8;
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; }
