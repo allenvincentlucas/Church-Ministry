@@ -417,6 +417,10 @@ header.site-header{
 .chart-panel .comment{ color:var(--ink-soft); font-style:italic; }
 .chart-panel table.row{border-collapse:collapse; margin-bottom:0.15rem;}
 .chart-panel td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}
+/* Chord-only lines (e.g. instrumental intros) have no lyric text under them,
+   so give the chords a bit more breathing room than the tight inline spacing
+   used when chords sit directly above specific syllables. */
+.chart-panel .row:has(td.lyrics:empty) td.chord{padding-right:0.6rem;}
 .chart-panel td{white-space:pre;}
 .chart-panel .paragraph{margin-bottom:1.1rem;}
 
