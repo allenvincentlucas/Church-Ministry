@@ -414,6 +414,7 @@ header.site-header{
    the song title ourselves in .viewer-title. */
 .chart-panel h1.title, .chart-panel h2.subtitle{display:none;}
 .chart-panel .chord{ color:var(--teal); font-weight:600; }
+.chart-panel .chord.repeat-marker{ color:var(--ink-soft); font-weight:400; font-style:italic; }
 .chart-panel .comment{ color:var(--ink-soft); font-style:italic; }
 .chart-panel table.row{border-collapse:collapse; margin-bottom:0.15rem;}
 .chart-panel td.chord{padding:0 0.15rem 0 0; vertical-align:bottom;}

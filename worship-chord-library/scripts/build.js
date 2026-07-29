@@ -142,7 +142,7 @@ function buildNashvilleHtml(baseSong, key, formatter) {
       }
       return item;
     });
-    return formatter.format(numericSong);
+    return formatter.format(numericSong).replace(/(<td class="chord)(">\(\d+x\)<\/td>)/gi, '$1 repeat-marker$2');
   } catch (e) {
     return '';
   }
@@ -206,9 +206,15 @@ async function build() {
     const formatter = new ChordSheetJS.HtmlTableFormatter();
 
     const frames = [];
+    // ChordSheetJS renders any bracketed token as a `.chord` cell, including
+    // repeat-count markers like [(2x)] used to keep them on the same visual
+    // line as the chords they follow. Tag those specifically so they can be
+    // styled as plain annotations instead of colored/bolded like real chords.
+    const REPEAT_MARKER_RE = /(<td class="chord)(">\(\d+x\)<\/td>)/gi;
     for (let i = 0; i < 12; i++) {
       const song = transposeSong(baseSong, i);
-      const html = formatter.format(song);
+      let html = formatter.format(song);
+      html = html.replace(REPEAT_MARKER_RE, '$1 repeat-marker$2');
       const frameKey = key ? transposeKeyName(key, i) : '';
       frames.push({ index: i, html, frameKey });
     }
