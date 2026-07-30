@@ -15,7 +15,7 @@ Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint
 The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has one topic live (**MU.01 Guitar Capo for Worship**). Planned topics, in build order:
 
 - [x] MU.01 — Guitar Capo for Worship *(live)*
-- [ ] MU.02 — Finding Your Vocal Range
+- [x] MU.02 — Finding Your Vocal Range *(live)*
 - [ ] MU.03 — Leading Congregational Singing vs. Performing
 - [ ] MU.04 — Harmony Basics for Backup Vocalists
 - [ ] MU.05 — Keyboard Basics for Worship (voicing, pads vs. piano)

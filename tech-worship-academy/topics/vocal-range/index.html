@@ -8,21 +8,24 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Ministry — Tech &amp; Worship Academy</title>
-<meta name="description" content="Practical training for worship musicians — starting with using a capo confidently in worship sets.">
+<title>Finding Your Vocal Range — Tech &amp; Worship Academy</title>
+<meta name="description" content="A practical guide for worship singers — test your range, learn your voice type, warm up properly, and communicate your key with the band.">
+
+<!-- Favicon (shared site-wide icon) -->
 <rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%232C4B44%22/><rect x=%2230%22 y=%2226%22 width=%2240%22 height=%2248%22 rx=%224%22 fill=%22%23F1EEE5%22/><rect x=%2238%22 y=%2238%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/><rect x=%2238%22 y=%2250%22 width=%2224%22 height=%224%22 fill=%22%23A6782C%22/></svg>">
 
 <!-- Social preview card (Open Graph + Twitter) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Music Ministry — Tech &amp; Worship Academy">
-<meta property="og:description" content="Practical training for worship musicians, starting with using a capo confidently in worship sets.">
-<meta property="og:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/social-preview.png">
+<meta property="og:title" content="Finding Your Vocal Range — Tech &amp; Worship Academy">
+<meta property="og:description" content="Test your range, learn your voice type, and communicate your key with confidence.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/vocal-range/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Music Ministry — Tech &amp; Worship Academy">
-<meta name="twitter:description" content="Practical training for worship musicians, starting with using a capo confidently in worship sets.">
-<meta name="twitter:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/social-preview.png">
+<meta name="twitter:title" content="Finding Your Vocal Range — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Test your range, learn your voice type, and communicate your key with confidence.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/vocal-range/og-image.png">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 /* ============================================================
@@ -336,6 +339,17 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
 }
 .checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
 
+/* ---------- song video library grid ---------- */
+.song-video-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.song-video-grid .video-card{ margin:0; }
+.song-video-grid .video-foot{ flex-direction:column; align-items:flex-start; gap:.35rem; }
+.song-video-grid .video-foot span{ font-size:.86rem; font-weight:600; }
+.song-video-grid .video-foot a{ font-size:.74rem; }
+.song-video-grid .play-btn{ width:44px; height:44px; font-size:1rem; }
+
 /* ---------- footer ---------- */
 .site-footer{
   border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
@@ -363,7 +377,7 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
 
 </style>
 </head>
-<body>
+<body data-topic="vocal-range">
 <a href="../../../index.html" class="hub-back-link" style="position:fixed;bottom:12px;left:12px;z-index:9999;background:var(--brand-paper-raised,#FFFFFF);color:var(--brand-ink,#191B1F);font-family:var(--brand-font-mono,'JetBrains Mono',monospace);font-size:0.72rem;letter-spacing:0.04em;text-decoration:none;padding:0.4rem 0.7rem;border-radius:6px;border:1px solid var(--brand-paper-line,#E3E0D8);box-shadow:0 2px 8px rgba(25,27,31,0.10);">&larr; Church Ministry</a>
 <style>@media print{.hub-back-link{display:none !important;}}</style>
 
@@ -375,46 +389,225 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
       <span class="brand-mark">TWA</span>
       Tech &amp; Worship Academy
     </a>
-    <span class="crumb-nav"><a href="../../index.html">Home</a> / Music Ministry</span>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/music/index.html">Music Ministry</a> / Vocal Range</span>
   </div>
 </header>
 
 <main id="main">
   <section class="wrap hero">
-    <span class="hero-eyebrow">Cue 2 — Music Ministry</span>
-    <h1>Worship Musician Training</h1>
-    <p class="hero-lede">Practical playing skills for people leading or accompanying sung worship — built around real worship songs, not just theory.</p>
+    <span class="hero-eyebrow">Cue 2 · MU.02</span>
+    <h1>Finding Your Vocal Range</h1>
+    <p class="hero-lede">Every singer on a worship team needs to know their range before they can pick a key, blend into harmony, or tell the band "that's too high for me" with confidence. Work through these in order.</p>
   </section>
 
-  <section class="wrap">
-    <div class="rundown topic-list">
-      <a class="cue-row" href="../../topics/guitar-capo/index.html">
-        <span class="cue-num">MU.01</span>
-        <span class="cue-body">
-          <h3>Guitar Capo for Worship</h3>
-          <p>What a capo actually does, choosing the right position, and transposing worship songs with confidence.</p>
-        </span>
-        <span class="cue-arrow">→</span>
-      </a>
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">Lessons</div>
+      <a class="rail-link" data-lesson-link="why" href="#lesson-why"><span class="rail-led"></span>Why your range matters</a>
+      <a class="rail-link" data-lesson-link="testing" href="#lesson-testing"><span class="rail-led"></span>Testing your range</a>
+      <a class="rail-link" data-lesson-link="voicetypes" href="#lesson-voicetypes"><span class="rail-led"></span>Voice types &amp; where you fit</a>
+      <a class="rail-link" data-lesson-link="warmup" href="#lesson-warmup"><span class="rail-led"></span>Warming up before you sing</a>
+      <a class="rail-link" data-lesson-link="applying" href="#lesson-applying"><span class="rail-led"></span>Picking keys &amp; talking to the band</a>
+      <div class="rail-progress-label">0 of 5 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
 
-      <a class="cue-row" href="../../topics/vocal-range/index.html">
-        <span class="cue-num">MU.02</span>
-        <span class="cue-body">
-          <h3>Finding Your Vocal Range</h3>
-          <p>Testing your range, learning your voice type, warming up properly, and communicating your key with the band.</p>
-        </span>
-        <span class="cue-arrow">→</span>
-      </a>
-    </div>
+    <div>
+      <section class="lesson" id="lesson-why" data-lesson="why">
+        <div class="lesson-head-top"><span>Lesson 1 · 8 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Why knowing your range matters</h2>
+        <p>Your vocal range is simply the span between the lowest and highest notes you can sing comfortably, without straining or cracking. On a worship team, knowing that range isn't just useful for solo singing — it's how you avoid getting stuck singing a verse that's too low to project or a chorus that's too high to hit cleanly on a Sunday morning.</p>
+        <div class="callout">A singer who knows their range can say "can we drop this a step?" instead of just struggling through it. That one sentence saves every rehearsal.</div>
+        <p>It also matters for the team around you: the worship leader picking keys, the keys player choosing voicings, and anyone singing harmony above or below the melody. Your range is one piece of information that makes the whole team's job easier.</p>
+      </section>
 
-    <div class="growth-note">
-      <strong>More music topics are on the way.</strong> Keys, click tracks, and more will land here as they're built.
+      <section class="lesson" id="lesson-testing" data-lesson="testing">
+        <div class="lesson-head-top"><span>Lesson 2 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Testing your range, step by step</h2>
+        <ul class="checklist">
+          <li><input type="checkbox"> Sit or stand with relaxed shoulders — tension in your neck and jaw shrinks your usable range</li>
+          <li><input type="checkbox"> Starting from a comfortable middle note, slide down note by note until your tone gets breathy, weak, or cracks</li>
+          <li><input type="checkbox"> That's your lowest note. Note it down (even "around the D below middle C" is fine to start)</li>
+          <li><input type="checkbox"> Now slide up from the middle note until a note feels strained, thin, or forces you into falsetto/head voice unintentionally</li>
+          <li><input type="checkbox"> That's your comfortable highest note — not your absolute screaming limit, your <em>comfortable</em> one</li>
+        </ul>
+        <div class="callout warn">Test your comfortable range, not your maximum range. The note you can hit once by straining isn't a note you want to be singing every Sunday.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="grMJpG5UKbo">
+            <img src="https://img.youtube.com/vi/grMJpG5UKbo/hqdefault.jpg" alt="How to find your vocal range and sing in the right key video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How To Find Your Vocal Range &amp; Sing in the Right Key</span>
+            <a href="https://www.youtube.com/watch?v=grMJpG5UKbo" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-voicetypes" data-lesson="voicetypes">
+        <div class="lesson-head-top"><span>Lesson 3 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Voice types &amp; where you fit</h2>
+        <p>Voice types are just rough labels for common range zones — useful for talking about harmony parts, not a box you're locked into. Most volunteer singers land somewhere between these, and that's completely normal.</p>
+        <table>
+          <tr><th>Voice type</th><th>Typical range (approx.)</th><th>Common role</th></tr>
+          <tr><td>Soprano</td><td>C4 – C6</td><td>Melody, high harmony</td></tr>
+          <tr><td>Alto</td><td>F3 – F5</td><td>Melody, low harmony</td></tr>
+          <tr><td>Tenor</td><td>C3 – C5</td><td>Melody, high male harmony</td></tr>
+          <tr><td>Bass</td><td>E2 – E4</td><td>Low harmony, root notes</td></tr>
+        </table>
+        <div class="callout">These ranges overlap on purpose. A high alto and a low soprano can often sing the exact same line — the label matters less than knowing your own comfortable notes.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="QTt_lMlmZMk">
+            <img src="https://img.youtube.com/vi/QTt_lMlmZMk/hqdefault.jpg" alt="How to find your vocal range video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How To Find Your Vocal Range</span>
+            <a href="https://www.youtube.com/watch?v=QTt_lMlmZMk" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-warmup" data-lesson="warmup">
+        <div class="lesson-head-top"><span>Lesson 4 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Warming up before you sing</h2>
+        <p>A cold voice has a smaller usable range than a warmed-up one — the same singer can lose their top or bottom notes simply from not warming up before serving. Five minutes before soundcheck is enough for most volunteers.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Gentle humming, sliding from low to high and back</li>
+          <li><input type="checkbox"> Lip trills ("brrr") through a scale to release jaw and throat tension</li>
+          <li><input type="checkbox"> A few slow sirens (like an ambulance sound) to stretch your full range gently</li>
+          <li><input type="checkbox"> Light stretching of neck and shoulders — tension there shows up in your tone</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="PQUo7eimhWA">
+            <img src="https://img.youtube.com/vi/PQUo7eimhWA/hqdefault.jpg" alt="10 minute vocal warm up video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>10 Minute Vocal Warm Up — Do This Before You Sing</span>
+            <a href="https://www.youtube.com/watch?v=PQUo7eimhWA" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-applying" data-lesson="applying">
+        <div class="lesson-head-top"><span>Lesson 5 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Picking keys &amp; talking to the band</h2>
+        <p>Once you know your range, you can speak the same language as the worship leader and keys player. Instead of "this feels weird," you can say something specific — and specific requests are far easier for a band to act on quickly.</p>
+        <table>
+          <tr><th>Instead of saying...</th><th>Try saying...</th></tr>
+          <tr><td>"This is too high."</td><td>"Can we drop it a whole step? The bridge peaks right at my limit."</td></tr>
+          <tr><td>"I can't hit that note."</td><td>"I can do this melody comfortably up to about a D5 — anything above that gets thin."</td></tr>
+          <tr><td>"It just feels off."</td><td>"I'm straining on the last chorus — could we try capo 2 instead of open?"</td></tr>
+        </table>
+        <div class="callout">Your range isn't fixed forever — it can grow with regular, gentle practice. But for Sunday, work with the range you actually have today, not the one you're hoping to have someday.</div>
+      </section>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <div class="wrap"><p><a href="../../index.html">← Back to all ministry areas</a></p></div>
+  <div class="wrap"><p><a href="../../categories/music/index.html">← Back to Music Ministry</a></p></div>
 </footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
 </body>
 </html>
