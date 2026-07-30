@@ -91,6 +91,10 @@ Colors and fonts are baked directly into each page's own CSS (not all pages refe
 
 **Workflow rule:** every shareable page (topic pages, category pages, daily reflections, chord library songs) has its own unique `og:image`/`twitter:image` social preview card — never a generic image reused across multiple pages. Sharing the direct link to any page should show a preview specific to that page's content.
 
+**Workflow rule:** every page's `<head>` — including hub/index pages (the root `index.html` and each sub-project's homepage), not just individual content pages — must have complete, valid Open Graph + Twitter meta tags (`og:type`, `og:url`, `og:title`, `og:description`, `og:image` + width/height/type, `twitter:card`, `twitter:image`), with zero broken or orphaned markup in `<head>`. Watch for a known leftover bug: an orphaned `<rect width=%22100%22...>` SVG fragment from an old favicon implementation, which can break crawler parsing and cause the wrong image (e.g. a video thumbnail) to show when a link is shared on social media.
+
+**Note on the Worship Chord Library build:** its homepage's social preview tags are generated from `worship-chord-library/scripts/templates.js` (`indexPage()`) and `scripts/build.js`, not editable directly in `site/index.html`. Fix the template source, then re-run `npm run build`. Rebuilding regenerates every song page and wipes the separately-injected "← Church Ministry" back-link on each one — re-inject it after every rebuild.
+
 ### Add or edit a Tech Worship Academy topic
 Copy an existing folder under `tech-worship-academy/topics/`, edit the content, and add a link to it from `tech-worship-academy/index.html` and the relevant category page.
 
