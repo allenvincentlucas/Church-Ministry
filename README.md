@@ -97,6 +97,12 @@ Copy an existing folder under `tech-worship-academy/topics/`, edit the content, 
 
 ---
 
+## License
+
+All rights reserved. See [LICENSE](LICENSE) for details. Third-party content (embedded videos, songs, Catechism text) remains the property of its respective owners; public-domain Scripture (Douay-Rheims) is not subject to this license.
+
+---
+
 ## Deployment
 
 Served via **GitHub Pages** from the root of the `main` branch (Settings → Pages). A `.nojekyll` file at the repo root disables Jekyll processing — without it, GitHub Pages silently excludes any folder starting with an underscore (like `_shared/`), which would break every page's fonts, colors, and favicon.
