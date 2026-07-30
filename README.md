@@ -9,7 +9,7 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 ## What's here
 
 ### 🎛️ [Tech Worship Academy](tech-worship-academy/index.html)
-Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 11 topic pages and 4 category pages. Static HTML, no build step.
+Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 12 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
 The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has one topic live (**MU.01 Guitar Capo for Worship**). Planned topics, in build order:
