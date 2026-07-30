@@ -230,7 +230,7 @@ ${key ? buildTransposeScript(initialCapo || 0) : ''}
 </html>`;
 }
 
-function indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount, recentSongs }) {
+function indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount, recentSongs, cardImage, pageUrl }) {
   function badgeHtml(song) {
     if (song.friendly === true) return `<span class="tag friendly-hint">Open chords</span>`;
     if (song.friendly === false && song.capoHint) return `<span class="tag capo-hint">Capo ${song.capoHint}</span>`;
@@ -291,9 +291,24 @@ function indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount, r
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chord Library</title>
+<meta name="description" content="Chord charts for the worship team, ready to play from. Browse by artist, check the key and capo, and transpose live.">
 ${favicon('../../')}
 ${HEAD_FONTS}
 <link rel="stylesheet" href="assets/style.css">
+
+<!-- Social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chord Library">
+<meta property="og:description" content="Chord charts for the worship team, ready to play from. Browse by artist, check the key and capo, and transpose live.">
+<meta property="og:image" content="${cardImage}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:url" content="${pageUrl}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chord Library">
+<meta name="twitter:description" content="Chord charts for the worship team, ready to play from. Browse by artist, check the key and capo, and transpose live.">
+<meta name="twitter:image" content="${cardImage}">
 </head>
 <body>
 

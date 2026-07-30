@@ -287,7 +287,17 @@ async function build() {
     .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
     .slice(0, 5);
 
-  const html = indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount: files.length, recentSongs });
+  // Generate the homepage's own social card (distinct from any song card)
+  await generateCard({
+    title: 'Chord Library',
+    artist: 'Worship chord charts, ready to play from',
+    callnum: `${files.length} SONGS`,
+    theme: '',
+    outPath: path.join(CARDS_DIR, 'home.png')
+  });
+  const homeCardUrl = `${SITE_URL}/assets/cards/home.png`;
+
+  const html = indexPage({ songsByArtist, songsByTheme, songsByCategory, totalCount: files.length, recentSongs, cardImage: homeCardUrl, pageUrl: `${SITE_URL}/index.html` });
   fs.writeFileSync(path.join(SITE_DIR, 'index.html'), html);
 
   // Save taxonomy indexes for reference / future tooling
