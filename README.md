@@ -87,6 +87,8 @@ Colors and fonts are baked directly into each page's own CSS (not all pages refe
 
 ## Editing guide
 
+**Workflow rule:** every new piece of content added to this repo (a new Tech Worship Academy topic, a new daily Gospel reflection, or a new song in the Chord Library) is accompanied by drafted social media posts (Facebook, Instagram, X/Twitter) promoting it, generated at the same time as the content itself.
+
 ### Add or edit a Tech Worship Academy topic
 Copy an existing folder under `tech-worship-academy/topics/`, edit the content, and add a link to it from `tech-worship-academy/index.html` and the relevant category page.
 
