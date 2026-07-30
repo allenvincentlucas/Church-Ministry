@@ -34,7 +34,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   gap: 10px;
 }
 .site-header .brand {
@@ -44,12 +43,15 @@ body {
   color: var(--ink);
   text-decoration: none;
 }
+.site-nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
 .site-nav a {
   color: var(--accent);
-  margin-left: 18px;
   font-size: 0.95rem;
 }
-.site-nav a:first-child { margin-left: 0; }
 
 /* Hero */
 .hero {
