@@ -89,6 +89,8 @@ Colors and fonts are baked directly into each page's own CSS (not all pages refe
 
 **Workflow rule:** every new piece of content added to this repo (a new Tech Worship Academy topic, a new daily Gospel reflection, or a new song in the Chord Library) is accompanied by drafted social media posts (Facebook, Instagram, X/Twitter) promoting it, generated at the same time as the content itself.
 
+**Workflow rule:** every shareable page (topic pages, category pages, daily reflections, chord library songs) has its own unique `og:image`/`twitter:image` social preview card — never a generic image reused across multiple pages. Sharing the direct link to any page should show a preview specific to that page's content.
+
 ### Add or edit a Tech Worship Academy topic
 Copy an existing folder under `tech-worship-academy/topics/`, edit the content, and add a link to it from `tech-worship-academy/index.html` and the relevant category page.
 
