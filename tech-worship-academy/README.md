@@ -13,6 +13,7 @@ categories/music/index.html        Music Ministry — lists its topics
 topics/l12next/index.html          Topic: Zoom LiveTrak L12next
 topics/freeshow/index.html         Topic: FreeShow
 topics/guitar-capo/index.html      Topic: Guitar Capo for Worship
+topics/guitar-beginner-30day/index.html   Topic: 30-Day Guitar Journey for Worship Team Musicians
 ```
 
 **Important — the CSS and JS are inlined in every page.** Each `index.html` file already contains its own copy of the theme (inside a `<style>` block) and the progress-tracking script (inside a `<script>` block at the bottom). This is deliberate: GitHub's drag-and-drop uploader can silently flatten subfolders, which breaks the link to `assets/css/style.css` and leaves the page unstyled. Inlining removes that failure point entirely — every page renders correctly on its own, no matter how the folder structure survives upload.

@@ -12,21 +12,22 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 13 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
-The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has one topic live (**MU.01 Guitar Capo for Worship**). Planned topics, in build order:
+The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has four topics live. Planned topics, in build order:
 
 - [x] MU.01 — Guitar Capo for Worship *(live)*
 - [x] MU.02 — Finding Your Vocal Range *(live)*
 - [x] MU.03 — Leading Congregational Singing vs. Performing *(live)*
-- [ ] MU.04 — Harmony Basics for Backup Vocalists
-- [ ] MU.05 — Keyboard Basics for Worship (voicing, pads vs. piano)
-- [ ] MU.06 — Transposing on Keys Without Losing the Groove
-- [ ] MU.07 — Layering Keys with a Full Band
-- [ ] MU.08 — What a Click Track Is (and Why We Use One)
-- [ ] MU.09 — Building a Click + Guide Track in FreeShow/Ableton
-- [ ] MU.10 — Troubleshooting Click/Track Sync Issues
-- [ ] MU.11 — Strumming Patterns for Worship Dynamics
-- [ ] MU.12 — Bass Basics: Locking in with the Drummer/Click
-- [ ] MU.13 — Electric Guitar Textures (ambient, lead fills)
+- [x] MU.04 — 30-Day Guitar Journey for Worship Team Musicians *(live)* — 4-week roadmap (open chords → strumming → barre chords/fingerpicking → theory), with real worship songs to play along with at every stage, sourced from the Worship Chord Library. See [content-calendar.md](tech-worship-academy/topics/guitar-beginner-30day/content-calendar.md) for the full day-by-day breakdown.
+- [ ] MU.05 — Harmony Basics for Backup Vocalists
+- [ ] MU.06 — Keyboard Basics for Worship (voicing, pads vs. piano)
+- [ ] MU.07 — Transposing on Keys Without Losing the Groove
+- [ ] MU.08 — Layering Keys with a Full Band
+- [ ] MU.09 — What a Click Track Is (and Why We Use One)
+- [ ] MU.10 — Building a Click + Guide Track in FreeShow/Ableton
+- [ ] MU.11 — Troubleshooting Click/Track Sync Issues
+- [ ] MU.12 — Strumming Patterns for Worship Dynamics
+- [ ] MU.13 — Bass Basics: Locking in with the Drummer/Click
+- [ ] MU.14 — Electric Guitar Textures (ambient, lead fills)
 
 Each new topic gets its own folder under `tech-worship-academy/topics/`, following the pattern in the editing guide below, plus a link from `categories/music/index.html`.
 
