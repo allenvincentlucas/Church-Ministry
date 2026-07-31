@@ -1,5 +1,9 @@
 # 30-Day Guitar Journey for Worship Team Musicians — Content Calendar
-Matches: tech-worship-academy/topics/guitar-beginner-30day/index.html (MU.04, Music Ministry)
+This series is now built as 4 standalone topic pages (not one bundled page):
+- Part 1 (Days 1&ndash;7): `tech-worship-academy/topics/guitar-open-chords-foundations/index.html` (MU.04)
+- Part 2 (Days 8&ndash;14): `tech-worship-academy/topics/guitar-rhythm-strumming/index.html` (MU.05)
+- Part 3 (Days 15&ndash;21): `tech-worship-academy/topics/guitar-barre-fingerpicking/index.html` (MU.06)
+- Part 4 (Days 22&ndash;30): `tech-worship-academy/topics/guitar-theory-essentials/index.html` (MU.07)
 
 Built for church and worship team guitarists. Every week pairs the technique focus with real worship songs to play along with — most sourced directly from the Worship Chord Library, so what you practice is repertoire you can actually bring to the team.
 
