@@ -12,27 +12,87 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 14 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
-The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has seven topics live. Planned topics, in build order:
+The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has 8 topics live, organized into 4 weekly themes. Planned topics are outlined lesson-by-lesson below so this doubles as a build tracker.
 
+**Week 1 — Vocal Leading** *(live)*
+- [x] MU.02 — Finding Your Vocal Range *(live · 6 lessons)*
+  1. Why knowing your range matters
+  2. Testing your range, step by step
+  3. Voice types & where you fit
+  4. Warming up before you sing
+  5. Breathing technique for sustained notes
+  6. Picking keys & talking to the band
+- [x] MU.03 — Leading Congregational Singing vs. Performing *(live · 6 lessons)*
+  1. The core difference
+  2. Vocal cues that help people follow you
+  3. Mic technique: distance & handling
+  4. Body language & eye contact
+  5. Staying out of the spotlight
+  6. Nerves & staying focused on the room
+- [x] MU.08 — Harmony Basics for Backup Vocalists *(live · 5 lessons)*
+  1. Why harmony matters
+  2. Hearing intervals: thirds & sixths
+  3. Finding your part by ear
+  4. Blending: volume, tone & vowels
+  5. Staying in your lane
+
+**Week 2 — Keys** *(planned)*
+- [ ] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano)
+  1. Why keys matter in a worship band
+  2. Piano vs. pad sounds — when to use each
+  3. Basic voicing technique (block chords vs. spread voicings)
+  4. Building a simple pad sound in your patch
+  5. Reading a Nashville Number chart on keys
+- [ ] MU.10 — Transposing on Keys Without Losing the Groove
+  1. Why transposing on keys works differently than on guitar
+  2. Recognizing chord shapes across keys (relative motion)
+  3. Transposition drills to build speed
+  4. Keeping rhythm and groove steady while transposing
+  5. Common transposing mistakes in live sets
+- [ ] MU.11 — Layering Keys with a Full Band
+  1. Understanding your role in the mix — supporting, not competing
+  2. Frequency awareness: staying out of guitar's and bass's space
+  3. Dynamic layering — building through a song and pulling back
+  4. Communicating with the sound engineer about your levels
+  5. Staying out of the way: knowing when not to play
+
+**Week 3 — Click Tracks & In-Ears** *(planned)*
+- [ ] MU.12 — What a Click Track Is (and Why We Use One)
+  1. What a click track actually is
+  2. Why worship teams use them
+  3. How a click reaches you (in-ears, monitor mix)
+  4. Common misconceptions about clicks
+  5. What to expect the first time you play with one
+- [ ] MU.13 — Building a Click + Guide Track in FreeShow/Ableton
+  1. What a guide track adds beyond a plain click
+  2. Setting up a click track in FreeShow (or Ableton)
+  3. Building a guide track: cues, count-ins, structure markers
+  4. Syncing the guide track to the song's tempo map
+  5. Exporting/routing it to the team's in-ears
+- [ ] MU.14 — Troubleshooting Click/Track Sync Issues
+  1. Common causes of drift/sync issues
+  2. What to do if you lose the click mid-song
+  3. Latency issues between click and in-ear monitors
+  4. Testing your setup before service
+  5. When to fall back to no click
+
+**Week 4 — Guitar & Bass** *(guitar content live, bass/electric pending)*
 - [x] MU.01 — Guitar Capo for Worship *(live)*
-- [x] MU.02 — Finding Your Vocal Range *(live)*
-- [x] MU.03 — Leading Congregational Singing vs. Performing *(live)*
-- [x] MU.04 — Worship Guitar, Part 1: Open Chord Foundations (Days 1–7) *(live)*
-- [x] MU.05 — Worship Guitar, Part 2: Rhythm & Strumming (Days 8–14) *(live)*
-- [x] MU.06 — Worship Guitar, Part 3: Barre Chords & Fingerpicking (Days 15–21) *(live)*
-- [x] MU.07 — Worship Guitar, Part 4: Theory Essentials (Days 22–30) *(live)*
+- [x] MU.04–MU.07 — 30-Day Worship Guitar Journey *(live, see below)*
+- [ ] MU.15 — Bass Basics: Locking in with the Drummer/Click
+  1. The bass player's core job: locking with the drummer
+  2. Playing to a click without rushing or dragging
+  3. Root note fundamentals and when to add movement
+  4. Listening to the kick drum vs. the click
+  5. Common mistakes bass players make live
+- [ ] MU.16 — Electric Guitar Textures (ambient, lead fills)
+  1. Texture vs. rhythm guitar roles
+  2. Ambient/pad-like electric guitar tones
+  3. Using effects (reverb, delay) tastefully
+  4. Lead fills: when and how much
+  5. Leaving space for vocals and other instruments
 
 MU.04–MU.07 form a single 30-day worship guitar journey, split into 4 standalone topic pages (one per week) rather than one bundled page, each with a real worship song to play along with — sourced from the Worship Chord Library. See [content-calendar.md](tech-worship-academy/topics/guitar-beginner-30day/content-calendar.md) for the full day-by-day breakdown and which page covers which days.
-
-- [x] MU.08 — Harmony Basics for Backup Vocalists *(live)*
-- [ ] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano)
-- [ ] MU.10 — Transposing on Keys Without Losing the Groove
-- [ ] MU.11 — Layering Keys with a Full Band
-- [ ] MU.12 — What a Click Track Is (and Why We Use One)
-- [ ] MU.13 — Building a Click + Guide Track in FreeShow/Ableton
-- [ ] MU.14 — Troubleshooting Click/Track Sync Issues
-- [ ] MU.15 — Bass Basics: Locking in with the Drummer/Click
-- [ ] MU.16 — Electric Guitar Textures (ambient, lead fills)
 
 Each new topic gets its own folder under `tech-worship-academy/topics/`, following the pattern in the editing guide below, plus a link from `categories/music/index.html`.
 
