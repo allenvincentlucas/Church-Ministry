@@ -9,7 +9,7 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 ## What's here
 
 ### 🎛️ [Tech Worship Academy](tech-worship-academy/index.html)
-Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 13 topic pages and 4 category pages. Static HTML, no build step.
+Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 14 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
 The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has seven topics live. Planned topics, in build order:
@@ -24,7 +24,7 @@ The [Music Ministry category](tech-worship-academy/categories/music/index.html) 
 
 MU.04–MU.07 form a single 30-day worship guitar journey, split into 4 standalone topic pages (one per week) rather than one bundled page, each with a real worship song to play along with — sourced from the Worship Chord Library. See [content-calendar.md](tech-worship-academy/topics/guitar-beginner-30day/content-calendar.md) for the full day-by-day breakdown and which page covers which days.
 
-- [ ] MU.08 — Harmony Basics for Backup Vocalists
+- [x] MU.08 — Harmony Basics for Backup Vocalists *(live)*
 - [ ] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano)
 - [ ] MU.10 — Transposing on Keys Without Losing the Groove
 - [ ] MU.11 — Layering Keys with a Full Band
