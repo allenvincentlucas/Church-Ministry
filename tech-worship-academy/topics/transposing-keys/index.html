@@ -8,21 +8,22 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Ministry — Tech &amp; Worship Academy</title>
-<meta name="description" content="Practical training for worship musicians — starting with using a capo confidently in worship sets.">
+<title>Transposing on Keys Without Losing the Groove — Tech &amp; Worship Academy</title>
+<meta name="description" content="A practical guide for worship keys players — recognizing chord shapes across keys, transposition drills, and keeping rhythm steady while you transpose.">
 
 <!-- Social preview card (Open Graph + Twitter) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Music Ministry — Tech &amp; Worship Academy">
-<meta property="og:description" content="Practical training for worship musicians, starting with using a capo confidently in worship sets.">
-<meta property="og:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/categories/music/og-image.png">
+<meta property="og:title" content="Transposing on Keys Without Losing the Groove — Tech &amp; Worship Academy">
+<meta property="og:description" content="Recognizing chord shapes across keys, transposition drills, and keeping rhythm steady while you transpose.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/transposing-keys/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Music Ministry — Tech &amp; Worship Academy">
-<meta name="twitter:description" content="Practical training for worship musicians, starting with using a capo confidently in worship sets.">
-<meta name="twitter:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/categories/music/og-image.png">
+<meta name="twitter:title" content="Transposing on Keys Without Losing the Groove — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Recognizing chord shapes across keys, transposition drills, and keeping rhythm steady while you transpose.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/transposing-keys/og-image.png">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 /* ============================================================
@@ -336,6 +337,17 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
 }
 .checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
 
+/* ---------- song video library grid ---------- */
+.song-video-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.song-video-grid .video-card{ margin:0; }
+.song-video-grid .video-foot{ flex-direction:column; align-items:flex-start; gap:.35rem; }
+.song-video-grid .video-foot span{ font-size:.86rem; font-weight:600; }
+.song-video-grid .video-foot a{ font-size:.74rem; }
+.song-video-grid .play-btn{ width:44px; height:44px; font-size:1rem; }
+
 /* ---------- footer ---------- */
 .site-footer{
   border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
@@ -363,7 +375,7 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
 
 </style>
 </head>
-<body>
+<body data-topic="transposing-keys">
 <a href="../../../index.html" class="hub-back-link" style="position:fixed;bottom:12px;left:12px;z-index:9999;background:var(--brand-paper-raised,#FFFFFF);color:var(--brand-ink,#191B1F);font-family:var(--brand-font-mono,'JetBrains Mono',monospace);font-size:0.72rem;letter-spacing:0.04em;text-decoration:none;padding:0.4rem 0.7rem;border-radius:6px;border:1px solid var(--brand-paper-line,#E3E0D8);box-shadow:0 2px 8px rgba(25,27,31,0.10);">&larr; Church Ministry</a>
 <style>@media print{.hub-back-link{display:none !important;}}</style>
 
@@ -375,86 +387,211 @@ th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; le
       <span class="brand-mark">TWA</span>
       Tech &amp; Worship Academy
     </a>
-    <span class="crumb-nav"><a href="../../index.html">Home</a> / Music Ministry</span>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/music/index.html">Music Ministry</a> / Transposing on Keys</span>
   </div>
 </header>
 
 <main id="main">
   <section class="wrap hero">
-    <span class="hero-eyebrow">Cue 2 — Music Ministry</span>
-    <h1>Worship Musician Training</h1>
-    <p class="hero-lede">Practical playing skills for people leading or accompanying sung worship — built around real worship songs, not just theory.</p>
+    <span class="hero-eyebrow">Cue 2 · MU.10</span>
+    <h1>Transposing on Keys Without Losing the Groove</h1>
+    <p class="hero-lede">On guitar, a capo can bail you out of a key change. On keys, there's no shortcut — you either know the shapes or you don't. This lesson builds that skill so a last-minute key change doesn't throw off your rhythm. Work through these in order.</p>
   </section>
 
-  <section class="wrap">
-    <div class="rundown" style="margin-top:0;">
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">Lessons</div>
+      <a class="rail-link" data-lesson-link="why" href="#lesson-why"><span class="rail-led"></span>Why keys transposing is different</a>
+      <a class="rail-link" data-lesson-link="shapes" href="#lesson-shapes"><span class="rail-led"></span>Recognizing chord shapes across keys</a>
+      <a class="rail-link" data-lesson-link="drills" href="#lesson-drills"><span class="rail-led"></span>Transposition drills</a>
+      <a class="rail-link" data-lesson-link="groove" href="#lesson-groove"><span class="rail-led"></span>Keeping the groove while you transpose</a>
+      <a class="rail-link" data-lesson-link="mistakes" href="#lesson-mistakes"><span class="rail-led"></span>Common transposing mistakes</a>
+      <div class="rail-progress-label">0 of 5 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
 
-      <div class="cue-row" style="grid-template-columns:64px 1fr auto; align-items:start;">
-        <span class="cue-num" style="color:var(--brass-deep);">WK 1</span>
-        <span class="cue-body">
-          <h3 style="margin-bottom:.3rem;">Week 1 — Vocal Leading</h3>
-          <p style="margin-bottom:.9rem;">Vocal range, leading vs. performing, and harmony for backup vocalists.</p>
-          <div style="display:flex; flex-direction:column; gap:.6rem;">
-            <a href="../../topics/vocal-range/index.html" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--ink); font-size:.95rem; padding:.5rem .75rem; background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:5px;">
-              <span><strong style="font-family:var(--font-mono); font-size:.78rem; color:var(--brass-deep); margin-right:.6rem;">MU.02</strong>Finding Your Vocal Range</span>
-              <span class="cue-arrow">→</span>
-            </a>
-            <a href="../../topics/leading-vs-performing/index.html" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--ink); font-size:.95rem; padding:.5rem .75rem; background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:5px;">
-              <span><strong style="font-family:var(--font-mono); font-size:.78rem; color:var(--brass-deep); margin-right:.6rem;">MU.03</strong>Leading Congregational Singing vs. Performing</span>
-              <span class="cue-arrow">→</span>
-            </a>
-            <a href="../../topics/harmony-basics/index.html" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--ink); font-size:.95rem; padding:.5rem .75rem; background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:5px;">
-              <span><strong style="font-family:var(--font-mono); font-size:.78rem; color:var(--brass-deep); margin-right:.6rem;">MU.08</strong>Harmony Basics for Backup Vocalists</span>
-              <span class="cue-arrow">→</span>
-            </a>
+    <div>
+      <section class="lesson" id="lesson-why" data-lesson="why">
+        <div class="lesson-head-top"><span>Lesson 1 · 8 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Why keys transposing is different</h2>
+        <p>A guitarist can slide a capo up two frets and play the exact same shapes in a new key. A keys player doesn't get that shortcut — the physical shape of every chord changes when the key changes, which is exactly why transposing on keys feels so much harder at first.</p>
+        <div class="callout">This isn't a sign you're behind. Transposing on keys is a genuinely different skill than transposing on guitar, and it takes deliberate practice to build — not just more time playing.</div>
+        <p>The good news is that the skill is learnable through pattern recognition, not memorizing every possible chord in every possible key from scratch. Once you can see the relationships between chords instead of just their individual shapes, transposing gets dramatically faster.</p>
+      </section>
+
+      <section class="lesson" id="lesson-shapes" data-lesson="shapes">
+        <div class="lesson-head-top"><span>Lesson 2 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Recognizing chord shapes across keys</h2>
+        <p>Every major key has the same underlying pattern of chords built from its scale — what changes is only where that pattern starts. Once you can see a song as "1, 4, 5, 6 minor" instead of "C, F, G, A minor," the actual key becomes almost irrelevant to how you think about the song.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Learn the 1-4-5-6m pattern in your three or four most common keys until it's automatic</li>
+          <li><input type="checkbox"> Practice naming the chord relationships in a familiar song instead of just its letter names</li>
+          <li><input type="checkbox"> Notice that the physical distance between chords (a 4th up, a step down, etc.) stays the same shape-to-shape even as the starting note changes</li>
+          <li><input type="checkbox"> Use the Nashville Number chart from MU.09 as your bridge between "the numbers" and "the actual notes" while this becomes automatic</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="PclNsOvo9ow">
+            <img src="https://img.youtube.com/vi/PclNsOvo9ow/hqdefault.jpg" alt="Learn how to transpose quickly on piano video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
           </div>
-        </span>
-        <span class="live-chip" style="align-self:start; margin-top:.2rem;"><span class="live-dot"></span>Live</span>
-      </div>
-
-      <div class="cue-row" style="grid-template-columns:64px 1fr auto; align-items:start;">
-        <span class="cue-num" style="color:var(--brass-deep);">WK 2</span>
-        <span class="cue-body">
-          <h3 style="margin-bottom:.3rem;">Week 2 — Keys</h3>
-          <p style="margin-bottom:.9rem;">Keyboard basics and transposing are live now. Layering with a full band is still on the way.</p>
-          <div style="display:flex; flex-direction:column; gap:.6rem;">
-            <a href="../../topics/keyboard-basics/index.html" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--ink); font-size:.95rem; padding:.5rem .75rem; background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:5px;">
-              <span><strong style="font-family:var(--font-mono); font-size:.78rem; color:var(--brass-deep); margin-right:.6rem;">MU.09</strong>Keyboard Basics for Worship</span>
-              <span class="cue-arrow">→</span>
-            </a>
-            <a href="../../topics/transposing-keys/index.html" style="display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--ink); font-size:.95rem; padding:.5rem .75rem; background:var(--paper-raised); border:1px solid var(--paper-line); border-radius:5px;">
-              <span><strong style="font-family:var(--font-mono); font-size:.78rem; color:var(--brass-deep); margin-right:.6rem;">MU.10</strong>Transposing on Keys Without Losing the Groove</span>
-              <span class="cue-arrow">→</span>
-            </a>
+          <div class="video-foot">
+            <span>Learn How to Transpose Quickly on Piano</span>
+            <a href="https://www.youtube.com/watch?v=PclNsOvo9ow" target="_blank" rel="noopener">Watch on YouTube ↗</a>
           </div>
-        </span>
-        <span class="live-chip" style="align-self:start; margin-top:.2rem;"><span class="live-dot"></span>Live</span>
-      </div>
+        </div>
+      </section>
 
-      <div class="cue-row" style="grid-template-columns:64px 1fr auto; opacity:.6;">
-        <span class="cue-num">WK 3</span>
-        <span class="cue-body">
-          <h3 style="margin-bottom:.3rem;">Week 3 — Click Tracks &amp; In-Ears</h3>
-          <p>Click tracks, in-ear monitor setup, and troubleshooting sync issues.</p>
-        </span>
-        <span style="font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;">Coming up</span>
-      </div>
+      <section class="lesson" id="lesson-drills" data-lesson="drills">
+        <div class="lesson-head-top"><span>Lesson 3 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Transposition drills</h2>
+        <p>Transposing under pressure on a Sunday is a different skill than transposing slowly at home — the only way to close that gap is deliberate, low-stakes repetition well before you need it live.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Pick one simple, familiar progression and play it in every key, one at a time, without stopping to think between them</li>
+          <li><input type="checkbox"> Time yourself moving from one key to the next — speed comes from repetition, not from thinking harder in the moment</li>
+          <li><input type="checkbox"> Practice with a metronome running so you're also training your rhythm to stay steady through the change</li>
+          <li><input type="checkbox"> Once comfortable, have someone call out random keys while you play, simulating an unpredictable live moment</li>
+        </ul>
 
-      <div class="cue-row" style="grid-template-columns:64px 1fr auto; opacity:.6;">
-        <span class="cue-num">WK 4</span>
-        <span class="cue-body">
-          <h3 style="margin-bottom:.3rem;">Week 4 — Guitar &amp; Bass</h3>
-          <p>Bass fundamentals and electric guitar textures. (Guitar capo and the 30-day guitar journey are already available from the academy home page.)</p>
-        </span>
-        <span style="font-family:var(--font-mono); font-size:.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;">Coming up</span>
-      </div>
+        <div class="video-card">
+          <div class="video-frame" data-video-id="iaS1Wj0RJtw">
+            <img src="https://img.youtube.com/vi/iaS1Wj0RJtw/hqdefault.jpg" alt="How to transpose keys on the piano video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>How to Transpose Keys on the Piano</span>
+            <a href="https://www.youtube.com/watch?v=iaS1Wj0RJtw" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
 
+      <section class="lesson" id="lesson-groove" data-lesson="groove">
+        <div class="lesson-head-top"><span>Lesson 4 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Keeping the groove while you transpose</h2>
+        <p>The most common failure point isn't hitting wrong notes — it's losing the rhythm entirely for a beat or two while your brain works out the new chord shape. A wrong note in the right rhythm is far less noticeable than the right note landing at the wrong time.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Simplify the voicing during a transition if needed — a simple chord played on time beats a complex one played late</li>
+          <li><input type="checkbox"> Keep your right hand rhythm pattern going even if your left hand needs an extra beat to find the new chord</li>
+          <li><input type="checkbox"> Practice transposing mid-groove, not just chord-to-chord in isolation, so your rhythm muscle memory stays engaged</li>
+          <li><input type="checkbox"> If you genuinely need a beat to catch up, drop to a single sustained note rather than stopping outright</li>
+        </ul>
+        <div class="callout">A band can absorb one slightly-off chord voicing. It's much harder to absorb the whole rhythm section stumbling because the keys player went silent for a bar.</div>
+      </section>
+
+      <section class="lesson" id="lesson-mistakes" data-lesson="mistakes">
+        <div class="lesson-head-top"><span>Lesson 5 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Common transposing mistakes in live sets</h2>
+        <table>
+          <tr><th>Mistake</th><th>What to do instead</th></tr>
+          <tr><td>Freezing up when a key change is called last-minute</td><td>Default to the number system — think "1-4-5" instead of scrambling for letter names</td></tr>
+          <tr><td>Overcomplicating the voicing mid-transition</td><td>Simplify first, add complexity back in once you're settled in the new key</td></tr>
+          <tr><td>Practicing only in your most comfortable keys</td><td>Deliberately rotate through less-familiar keys in practice so nothing catches you off guard</td></tr>
+          <tr><td>Watching your hands instead of the room/leader during a change</td><td>Trust the muscle memory you've built and keep your eyes up for cues</td></tr>
+        </table>
+      </section>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <div class="wrap"><p><a href="../../index.html">← Back to all ministry areas</a></p></div>
+  <div class="wrap"><p><a href="../../categories/music/index.html">← Back to Music Ministry</a></p></div>
 </footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
 </body>
 </html>

@@ -9,10 +9,10 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 ## What's here
 
 ### 🎛️ [Tech Worship Academy](tech-worship-academy/index.html)
-Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 15 topic pages and 4 category pages. Static HTML, no build step.
+Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 16 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
-The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has 9 topics live, organized into 4 weekly themes. Planned topics are outlined lesson-by-lesson below so this doubles as a build tracker.
+The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has 10 topics live, organized into 4 weekly themes. Planned topics are outlined lesson-by-lesson below so this doubles as a build tracker.
 
 **Week 1 — Vocal Leading** *(live)*
 - [x] MU.02 — Finding Your Vocal Range *(live · 6 lessons)*
@@ -36,18 +36,18 @@ The [Music Ministry category](tech-worship-academy/categories/music/index.html) 
   4. Blending: volume, tone & vowels
   5. Staying in your lane
 
-**Week 2 — Keys** *(MU.09 live; MU.10/11 planned)*
+**Week 2 — Keys** *(MU.09/10 live; MU.11 planned)*
 - [x] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano) *(live · 5 lessons)*
   1. Why keys matter in a worship band
   2. Piano vs. pad sounds — when to use each
   3. Basic voicing technique
   4. Building a simple pad sound in your patch
   5. Reading a Nashville Number chart on keys
-- [ ] MU.10 — Transposing on Keys Without Losing the Groove
-  1. Why transposing on keys works differently than on guitar
-  2. Recognizing chord shapes across keys (relative motion)
-  3. Transposition drills to build speed
-  4. Keeping rhythm and groove steady while transposing
+- [x] MU.10 — Transposing on Keys Without Losing the Groove *(live · 5 lessons)*
+  1. Why keys transposing is different
+  2. Recognizing chord shapes across keys
+  3. Transposition drills
+  4. Keeping the groove while you transpose
   5. Common transposing mistakes in live sets
 - [ ] MU.11 — Layering Keys with a Full Band
   1. Understanding your role in the mix — supporting, not competing
