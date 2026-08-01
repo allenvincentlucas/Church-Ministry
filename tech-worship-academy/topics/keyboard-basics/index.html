@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="../../../_shared/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../_shared/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../_shared/favicon-16.png">
+<link rel="apple-touch-icon" href="../../../_shared/apple-touch-icon.png">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyboard Basics for Worship — Tech &amp; Worship Academy</title>
+<meta name="description" content="A practical guide for worship keys players — piano vs. pads, basic voicing, building a pad patch, and reading a Nashville Number chart.">
+
+<!-- Social preview card (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Keyboard Basics for Worship — Tech &amp; Worship Academy">
+<meta property="og:description" content="Piano vs. pads, basic voicing, building a pad patch, and reading a Nashville Number chart.">
+<meta property="og:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/keyboard-basics/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keyboard Basics for Worship — Tech &amp; Worship Academy">
+<meta name="twitter:description" content="Piano vs. pads, basic voicing, building a pad patch, and reading a Nashville Number chart.">
+<meta name="twitter:image" content="https://allenvincentlucas.github.io/Church-Ministry/tech-worship-academy/topics/keyboard-basics/og-image.png">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* ============================================================
+   TECH & WORSHIP ACADEMY — shared design system
+   Concept: "Run of Show" — every Sunday runs on a cue sheet.
+   Tech ministry and music ministry both work from cues, so the
+   whole site borrows that vocabulary: cue numbers, a rundown,
+   a live status light. Numbering here is not decorative — it
+   mirrors the literal order volunteers follow on a real cue sheet.
+   ============================================================ */
+
+:root{
+  /* paper */
+  --paper: #FAF9F6;
+  --paper-raised: #FFFFFF;
+  --paper-line: #E3E0D8;
+
+  /* ink */
+  --ink: #191B1F;
+  --ink-soft: #4B4D52;
+  --ink-faint: #7C7E82;
+
+  /* accents */
+  --brass: #2A4B8D;
+  --brass-deep: #1E3868;
+  --teal: #84806F;
+  --teal-deep: #635F52;
+  --cue-live: #2A4B8D;
+
+  /* type */
+  --font-display: "Space Grotesk", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+
+  --radius: 6px;
+  --shadow-card: 0 1px 2px rgba(28,43,46,0.06), 0 4px 14px rgba(28,43,46,0.06);
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: var(--teal-deep); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover{ color: var(--brass-deep); }
+
+h1,h2,h3,h4{
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.15;
+  margin: 0 0 .5em 0;
+  font-weight: 600;
+}
+h1{ font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 620; }
+h2{ font-size: clamp(1.5rem, 2.6vw, 2.05rem); }
+h3{ font-size: 1.25rem; }
+
+p{ margin: 0 0 1em 0; }
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--ink); color:#fff;
+  padding:.7em 1.2em; z-index:200; border-radius: var(--radius);
+}
+.skip-link:focus{ left: 1em; top: 1em; }
+
+/* ---------- layout shells ---------- */
+.wrap{ max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+.wrap-narrow{ max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ---------- top bar / masthead ---------- */
+.masthead{
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-raised);
+  position: sticky; top:0; z-index: 50;
+}
+.masthead-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: .85rem 1.5rem; max-width: 1120px; margin:0 auto;
+  gap: 1rem; flex-wrap: wrap;
+}
+.brand{
+  display:flex; align-items:center; gap:.65rem;
+  font-family: var(--font-display); font-weight:650; font-size:1.15rem;
+  color: var(--ink); text-decoration:none;
+}
+.brand-mark{
+  width: 30px; height:30px; border-radius:7px;
+  background: linear-gradient(155deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center;
+  color:#FAF9F6; font-family: var(--font-mono); font-size:.68rem; font-weight:700;
+  flex-shrink:0;
+}
+.brand:hover{ color: var(--ink); }
+
+.crumb-nav{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  letter-spacing:.02em;
+}
+.crumb-nav a{ color: var(--ink-soft); }
+
+.live-chip{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em;
+  color: var(--ink-soft); text-transform:uppercase;
+}
+.live-dot{
+  width:7px; height:7px; border-radius:50%; background: var(--cue-live);
+  box-shadow: 0 0 0 3px rgba(181,67,46,0.15);
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding: 3.5rem 0 2.75rem;
+  border-bottom: 1px solid var(--paper-line);
+}
+.hero-eyebrow{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.09em;
+  text-transform: uppercase; color: var(--brass-deep); font-weight:600;
+  display:inline-block; margin-bottom: .9rem;
+}
+.hero-lede{ font-size:1.12rem; color: var(--ink-soft); max-width: 62ch; }
+
+/* ---------- rundown (cue list) ---------- */
+.rundown{
+  border-top: 1px solid var(--paper-line);
+  margin-top: 2rem;
+}
+.cue-row{
+  display:grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items:center;
+  gap: 1.25rem;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--paper-line);
+  text-decoration:none;
+  color: var(--ink);
+  transition: padding-left .18s ease, background .18s ease;
+}
+.cue-row:hover{
+  background: var(--paper-raised);
+  padding-left: .5rem;
+}
+.cue-num{
+  font-family: var(--font-mono); font-size:.82rem; color: var(--brass-deep);
+  font-weight:600; letter-spacing:.02em;
+}
+.cue-body h3{ margin:0 0 .25rem 0; }
+.cue-body p{ margin:0; color: var(--ink-soft); font-size:.96rem; }
+.cue-arrow{ font-family: var(--font-mono); color: var(--ink-faint); font-size:1.1rem; }
+
+/* ---------- category grid on home ---------- */
+.category-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap:1.25rem; margin: 2rem 0 3rem;
+}
+.category-card{
+  background: var(--paper-raised);
+  border:1px solid var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration:none; color:var(--ink);
+  box-shadow: var(--shadow-card);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition: transform .18s ease, border-color .18s ease;
+}
+.category-card:hover{ transform: translateY(-3px); border-color: var(--teal); }
+.category-eyebrow{
+  font-family: var(--font-mono); font-size:.74rem; text-transform:uppercase;
+  letter-spacing:.08em; color: var(--teal-deep); font-weight:700;
+}
+.category-card p{ color: var(--ink-soft); font-size:.95rem; margin:0; }
+.category-count{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.4rem;
+}
+
+/* ---------- growth note ---------- */
+.growth-note{
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.growth-note strong{ color: var(--ink); }
+
+/* ---------- topic list on category page ---------- */
+.topic-list{ margin: 1.5rem 0 3rem; }
+.topic-row{
+  display:grid; grid-template-columns: 1fr auto; gap:1rem; align-items:center;
+  padding: 1.5rem 0; border-bottom:1px solid var(--paper-line);
+}
+.topic-row h3{ margin:0 0 .35rem; }
+.topic-row p{ margin:0; color:var(--ink-soft); font-size:.95rem; max-width:56ch; }
+.topic-meta{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--ink-faint);
+  margin-top:.5rem; display:flex; gap:1rem;
+}
+.btn{
+  display:inline-block; font-family: var(--font-mono); font-size:.82rem;
+  font-weight:600; letter-spacing:.02em; text-decoration:none;
+  padding:.65rem 1.15rem; border-radius: var(--radius);
+  background: var(--teal-deep); color:#F6F4EC; white-space:nowrap;
+}
+.btn:hover{ background: var(--ink); color:#F6F4EC; }
+.btn-ghost{
+  background:transparent; color: var(--ink); border:1px solid var(--paper-line);
+}
+.btn-ghost:hover{ border-color: var(--teal); color: var(--teal-deep); background:transparent; }
+
+/* ---------- module page shell ---------- */
+.module-shell{ display:grid; grid-template-columns: 250px 1fr; gap: 2.5rem; padding: 2rem 0 4rem; }
+.module-rail{
+  position: sticky; top: 74px; align-self:start;
+  font-family: var(--font-mono); font-size:.83rem;
+}
+.module-rail-title{
+  text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint);
+  font-size:.7rem; margin-bottom:.8rem;
+}
+.rail-link{
+  display:flex; align-items:center; gap:.55rem;
+  padding:.5rem .4rem; border-radius:5px; color: var(--ink-soft);
+  text-decoration:none; border-left: 2px solid transparent;
+}
+.rail-link:hover{ color:var(--ink); background: var(--paper-raised); }
+.rail-link.done .rail-led{ background: var(--teal); box-shadow:0 0 0 3px rgba(62,98,89,.15); }
+.rail-led{
+  width:8px; height:8px; border-radius:50%; background: var(--paper-line);
+  flex-shrink:0; transition: background .2s ease;
+}
+.rail-progress-label{
+  margin-top:1rem; font-size:.72rem; color: var(--ink-faint);
+}
+.reset-link{
+  margin-top: .8rem; font-size: .72rem; background:none; border:none;
+  color: var(--ink-faint); text-decoration:underline; cursor:pointer; padding:0;
+  font-family: var(--font-mono);
+}
+
+.lesson{ scroll-margin-top: 90px; padding-bottom: 3rem; border-bottom:1px solid var(--paper-line); margin-bottom: 3rem; }
+.lesson:last-child{ border-bottom:none; }
+.lesson-head-top{
+  display:flex; justify-content:space-between; align-items:center;
+  font-family: var(--font-mono); font-size:.78rem; color: var(--brass-deep);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.6rem;
+}
+.mark-complete{
+  font-family: var(--font-mono); font-size:.76rem; border:1px solid var(--paper-line);
+  background: var(--paper-raised); border-radius:5px; padding:.4rem .8rem;
+  cursor:pointer; color: var(--ink-soft);
+}
+.mark-complete.is-done{ background: var(--teal-deep); color:#fff; border-color: var(--teal-deep); }
+
+.callout{
+  background: var(--paper-raised); border-left:3px solid var(--brass);
+  padding: 1rem 1.25rem; border-radius:0 var(--radius) var(--radius) 0;
+  margin: 1.25rem 0; font-size:.96rem;
+}
+.callout.warn{ border-left-color: var(--cue-live); }
+.callout strong{ color: var(--ink); }
+
+.video-card{
+  border:1px solid var(--paper-line); border-radius: var(--radius);
+  overflow:hidden; background: var(--paper-raised); margin: 1.25rem 0;
+}
+.video-frame{ position:relative; aspect-ratio:16/9; background:#0f1516; cursor:pointer; }
+.video-frame img{ width:100%; height:100%; object-fit:cover; opacity:.85; }
+.video-frame iframe{ width:100%; height:100%; border:0; position:absolute; inset:0; }
+.play-btn{
+  position:absolute; inset:0; margin:auto; width:56px; height:56px; border-radius:50%;
+  background: rgba(241,238,229,.92); display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; color: var(--ink);
+}
+.video-foot{ padding:.7rem 1rem; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; }
+.video-foot a{ font-family: var(--font-mono); font-size:.78rem; }
+
+.quiz{
+  background: var(--paper-raised); border:1px solid var(--paper-line);
+  border-radius: var(--radius); padding: 1.25rem 1.4rem; margin:1.5rem 0;
+}
+.quiz-q{ font-weight:600; margin-bottom:.7rem; }
+.quiz-opts{ display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opt{
+  text-align:left; padding:.6rem .85rem; border:1px solid var(--paper-line);
+  border-radius:5px; background:var(--paper); cursor:pointer; font-family:var(--font-body);
+  font-size:.95rem; color: var(--ink);
+}
+.quiz-opt.correct{ border-color: var(--teal); background: #E7EFEA; }
+.quiz-opt.wrong{ border-color: var(--cue-live); background: #F5E7E2; }
+.quiz-explain{ margin-top:.7rem; font-size:.9rem; color:var(--ink-soft); display:none; }
+.quiz-explain.show{ display:block; }
+
+table{ width:100%; border-collapse:collapse; margin: 1.25rem 0; font-size:.94rem; }
+th,td{ text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--paper-line); }
+th{ font-family:var(--font-mono); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); }
+
+.checklist{ list-style:none; padding:0; margin: 1rem 0; }
+.checklist li{
+  display:flex; gap:.7rem; align-items:flex-start; padding:.55rem 0;
+  border-bottom:1px solid var(--paper-line);
+}
+.checklist input{ margin-top:.3rem; accent-color: var(--teal-deep); }
+
+/* ---------- song video library grid ---------- */
+.song-video-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem; margin: 1.5rem 0;
+}
+.song-video-grid .video-card{ margin:0; }
+.song-video-grid .video-foot{ flex-direction:column; align-items:flex-start; gap:.35rem; }
+.song-video-grid .video-foot span{ font-size:.86rem; font-weight:600; }
+.song-video-grid .video-foot a{ font-size:.74rem; }
+.song-video-grid .play-btn{ width:44px; height:44px; font-size:1rem; }
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--paper-line); padding: 2.5rem 0; margin-top:3rem;
+  color: var(--ink-faint); font-size:.85rem;
+}
+.site-footer a{ color: var(--ink-soft); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  .module-shell{ grid-template-columns: 1fr; }
+  .module-rail{ position:static; display:flex; overflow-x:auto; gap:.5rem; padding-bottom:.5rem; }
+  .module-rail-title{ display:none; }
+  .rail-link{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; }
+  .cue-row{ grid-template-columns: 44px 1fr; }
+  .cue-arrow{ display:none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; }
+}
+
+:focus-visible{ outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+
+</style>
+</head>
+<body data-topic="keyboard-basics">
+<a href="../../../index.html" class="hub-back-link" style="position:fixed;bottom:12px;left:12px;z-index:9999;background:var(--brand-paper-raised,#FFFFFF);color:var(--brand-ink,#191B1F);font-family:var(--brand-font-mono,'JetBrains Mono',monospace);font-size:0.72rem;letter-spacing:0.04em;text-decoration:none;padding:0.4rem 0.7rem;border-radius:6px;border:1px solid var(--brand-paper-line,#E3E0D8);box-shadow:0 2px 8px rgba(25,27,31,0.10);">&larr; Church Ministry</a>
+<style>@media print{.hub-back-link{display:none !important;}}</style>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand-mark">TWA</span>
+      Tech &amp; Worship Academy
+    </a>
+    <span class="crumb-nav"><a href="../../index.html">Home</a> / <a href="../../categories/music/index.html">Music Ministry</a> / Keyboard Basics</span>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero">
+    <span class="hero-eyebrow">Cue 2 · MU.09</span>
+    <h1>Keyboard Basics for Worship</h1>
+    <p class="hero-lede">Keys can glue a worship band together or completely disappear into the mix — the difference is understanding what your sound is doing at any given moment. This lesson covers piano vs. pads, basic voicing, and reading a chart on the fly. Work through these in order.</p>
+  </section>
+
+  <section class="wrap module-shell">
+    <nav class="module-rail" aria-label="Lesson navigation">
+      <div class="module-rail-title">Lessons</div>
+      <a class="rail-link" data-lesson-link="why" href="#lesson-why"><span class="rail-led"></span>Why keys matter in a worship band</a>
+      <a class="rail-link" data-lesson-link="pianovspad" href="#lesson-pianovspad"><span class="rail-led"></span>Piano vs. pad sounds</a>
+      <a class="rail-link" data-lesson-link="voicing" href="#lesson-voicing"><span class="rail-led"></span>Basic voicing technique</a>
+      <a class="rail-link" data-lesson-link="padpatch" href="#lesson-padpatch"><span class="rail-led"></span>Building a simple pad sound</a>
+      <a class="rail-link" data-lesson-link="nashville" href="#lesson-nashville"><span class="rail-led"></span>Reading a Nashville Number chart</a>
+      <div class="rail-progress-label">0 of 5 lessons complete</div>
+      <button class="reset-link" type="button">Reset my progress</button>
+    </nav>
+
+    <div>
+      <section class="lesson" id="lesson-why" data-lesson="why">
+        <div class="lesson-head-top"><span>Lesson 1 · 8 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Why keys matter in a worship band</h2>
+        <p>A keys player can do more with a worship song's emotional shape than almost anyone else on the team. Guitars and drums drive rhythm; keys drive atmosphere — the difference between a verse that feels sparse and expectant and a chorus that feels like the room just opened up is very often what's happening on keys.</p>
+        <div class="callout">A great keys part is rarely the loudest thing in the mix. It's the thing that, if you muted it, would make the whole song suddenly feel thinner without anyone being able to say exactly why.</div>
+        <p>That means your job isn't to fill every available space with notes — it's to notice what the song needs at each moment and supply exactly that, whether that's a single sustained chord or nothing at all.</p>
+      </section>
+
+      <section class="lesson" id="lesson-pianovspad" data-lesson="pianovspad">
+        <div class="lesson-head-top"><span>Lesson 2 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Piano vs. pad sounds — when to use each</h2>
+        <p>Piano and pads do fundamentally different jobs, even though they're both usually played from the same keyboard. Confusing the two is one of the most common reasons a keys part feels like it's fighting the song instead of supporting it.</p>
+        <table>
+          <tr><th>Sound</th><th>Best for</th></tr>
+          <tr><td>Piano</td><td>Rhythmic definition, verses with clear melodic movement, songs that need a percussive anchor</td></tr>
+          <tr><td>Pad</td><td>Sustained atmosphere, transitions between sections, filling space during long held notes or spoken moments</td></tr>
+          <tr><td>Both layered</td><td>Big choruses and bridges that need both rhythmic drive and a wash of sound underneath it</td></tr>
+        </table>
+        <div class="callout">If you're not sure which to use, ask what the moment needs: movement and definition call for piano; space and atmosphere call for pads.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="2VuUHk2c0c0">
+            <img src="https://img.youtube.com/vi/2VuUHk2c0c0/hqdefault.jpg" alt="Beginner's guide to playing worship piano video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Beginner's Guide to Playing Worship Piano</span>
+            <a href="https://www.youtube.com/watch?v=2VuUHk2c0c0" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-voicing" data-lesson="voicing">
+        <div class="lesson-head-top"><span>Lesson 3 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Basic voicing technique</h2>
+        <p>How you arrange the notes of a chord — its voicing — changes how big or small it sounds, even when the chord itself doesn't change. Two keys players can play the exact same chord progression and sound completely different depending on their voicings.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Block voicing: all notes of the chord stacked closely together, good for a tight, defined sound in verses</li>
+          <li><input type="checkbox"> Spread voicing: notes spaced further apart across both hands, good for big, open-sounding choruses</li>
+          <li><input type="checkbox"> Avoid muddying the low end — leave true bass duties to the bass player and keep your left hand higher than you might think</li>
+          <li><input type="checkbox"> Simplify before a big moment — a simple voicing played with confidence often sounds bigger than a busy one played nervously</li>
+        </ul>
+      </section>
+
+      <section class="lesson" id="lesson-padpatch" data-lesson="padpatch">
+        <div class="lesson-head-top"><span>Lesson 4 · 10 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Building a simple pad sound in your patch</h2>
+        <p>You don't need an expensive synth rig to build a usable pad sound — most keyboards and free plugins have something workable built in. The goal for a first patch is simplicity: one reliable pad sound you can reach for every week, not a library of a hundred you never learn well.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Start with a string or choir-style pad patch already built into your keyboard rather than building one from scratch</li>
+          <li><input type="checkbox"> Add a slow attack time if your patch allows it, so notes swell in gently instead of hitting all at once</li>
+          <li><input type="checkbox"> Roll off some of the low end on the pad so it doesn't compete with the bass guitar</li>
+          <li><input type="checkbox"> Save it as your own preset once it sounds right, so you're not rebuilding it every rehearsal</li>
+        </ul>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="P5qaPm8_DaU">
+            <img src="https://img.youtube.com/vi/P5qaPm8_DaU/hqdefault.jpg" alt="Beginner's guide to playing worship pads video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Beginner's Guide to Playing Worship Pads</span>
+            <a href="https://www.youtube.com/watch?v=P5qaPm8_DaU" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="lesson" id="lesson-nashville" data-lesson="nashville">
+        <div class="lesson-head-top"><span>Lesson 5 · 12 min</span><button class="mark-complete">Mark this lesson complete</button></div>
+        <h2>Reading a Nashville Number chart on keys</h2>
+        <p>A Nashville Number chart writes chords as scale-degree numbers instead of letter names — a "1" instead of "C," a "4" instead of "F," and so on. Once you know it, the same chart works in any key without anyone rewriting a thing, which is exactly why it's the standard in most worship bands.</p>
+        <ul class="checklist">
+          <li><input type="checkbox"> Learn the number-to-chord relationship in your most common keys first (1, 4, 5, and 6 minor cover most worship songs)</li>
+          <li><input type="checkbox"> A dash after a number means minor (like "6-" for the 6 minor chord); no dash means major</li>
+          <li><input type="checkbox"> Practice reading a simple chart while playing along with a recording, pausing to check yourself against the actual key</li>
+          <li><input type="checkbox"> Once comfortable, try transposing a familiar song's chart into a new key on the spot as practice</li>
+        </ul>
+        <div class="callout">The number system isn't extra work to learn on top of playing keys — it's what makes last-minute key changes and new songs manageable without a full rehearsal every time.</div>
+
+        <div class="video-card">
+          <div class="video-frame" data-video-id="iR6x14EWCUw">
+            <img src="https://img.youtube.com/vi/iR6x14EWCUw/hqdefault.jpg" alt="Learn the Nashville Number System for piano video thumbnail" loading="lazy">
+            <span class="play-btn" aria-hidden="true">▶</span>
+          </div>
+          <div class="video-foot">
+            <span>Learn the Nashville Number System for Piano</span>
+            <a href="https://www.youtube.com/watch?v=iR6x14EWCUw" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p><a href="../../categories/music/index.html">← Back to Music Ministry</a></p></div>
+</footer>
+
+<script>
+// Tech & Worship Academy — shared site behavior
+// Progress is stored per-topic in localStorage, scoped to this browser/device.
+
+(function(){
+  const topicId = document.body.dataset.topic;
+  if(!topicId) return;
+
+  const storeKey = `twa-progress:${topicId}`;
+
+  function getDone(){
+    try{ return JSON.parse(localStorage.getItem(storeKey) || "[]"); }
+    catch(e){ return []; }
+  }
+  function setDone(arr){
+    try{ localStorage.setItem(storeKey, JSON.stringify(arr)); }catch(e){}
+  }
+
+  function refreshUI(){
+    const done = getDone();
+    document.querySelectorAll("[data-lesson]").forEach(section => {
+      const id = section.dataset.lesson;
+      const isDone = done.includes(id);
+      const btn = section.querySelector(".mark-complete");
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "✓ Completed" : "Mark this lesson complete";
+      }
+      const railLink = document.querySelector(`.rail-link[data-lesson-link="${id}"]`);
+      if(railLink) railLink.classList.toggle("done", isDone);
+    });
+    const total = document.querySelectorAll("[data-lesson]").length;
+    const label = document.querySelector(".rail-progress-label");
+    if(label) label.textContent = `${done.length} of ${total} lessons complete`;
+  }
+
+  document.querySelectorAll(".mark-complete").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.closest("[data-lesson]");
+      const id = section.dataset.lesson;
+      let done = getDone();
+      if(done.includes(id)) done = done.filter(x => x !== id);
+      else done.push(id);
+      setDone(done);
+      refreshUI();
+    });
+  });
+
+  const resetBtn = document.querySelector(".reset-link");
+  if(resetBtn){
+    resetBtn.addEventListener("click", () => {
+      if(confirm("Reset your progress on this topic?")){
+        setDone([]);
+        refreshUI();
+      }
+    });
+  }
+
+  refreshUI();
+})();
+
+// Video facades: load the iframe only after the user clicks play.
+document.querySelectorAll(".video-frame[data-video-id]").forEach(frame => {
+  frame.addEventListener("click", function handler(){
+    const id = frame.dataset.videoId;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+    iframe.title = "Video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+    iframe.allowFullscreen = true;
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    frame.removeEventListener("click", handler);
+  }, { once:false });
+});
+
+// Quiz reveals
+document.querySelectorAll(".quiz").forEach(quiz => {
+  const opts = quiz.querySelectorAll(".quiz-opt");
+  const explain = quiz.querySelector(".quiz-explain");
+  opts.forEach(opt => {
+    opt.addEventListener("click", () => {
+      opts.forEach(o => o.classList.remove("correct","wrong"));
+      if(opt.dataset.correct === "true"){
+        opt.classList.add("correct");
+      }else{
+        opt.classList.add("wrong");
+        const correctOpt = [...opts].find(o => o.dataset.correct === "true");
+        if(correctOpt) correctOpt.classList.add("correct");
+      }
+      if(explain) explain.classList.add("show");
+    });
+  });
+});
+
+</script>
+</body>
+</html>

@@ -9,10 +9,10 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 ## What's here
 
 ### 🎛️ [Tech Worship Academy](tech-worship-academy/index.html)
-Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 14 topic pages and 4 category pages. Static HTML, no build step.
+Volunteer training for church AV/media teams — OBS, Zoom, FreeShow, PowerPoint, Google Slides, and the Behringer X32/L12 mixers, organized module by module across 15 topic pages and 4 category pages. Static HTML, no build step.
 
 #### 🎵 Music Ministry — content roadmap
-The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has 8 topics live, organized into 4 weekly themes. Planned topics are outlined lesson-by-lesson below so this doubles as a build tracker.
+The [Music Ministry category](tech-worship-academy/categories/music/index.html) currently has 9 topics live, organized into 4 weekly themes. Planned topics are outlined lesson-by-lesson below so this doubles as a build tracker.
 
 **Week 1 — Vocal Leading** *(live)*
 - [x] MU.02 — Finding Your Vocal Range *(live · 6 lessons)*
@@ -36,11 +36,11 @@ The [Music Ministry category](tech-worship-academy/categories/music/index.html) 
   4. Blending: volume, tone & vowels
   5. Staying in your lane
 
-**Week 2 — Keys** *(planned)*
-- [ ] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano)
+**Week 2 — Keys** *(MU.09 live; MU.10/11 planned)*
+- [x] MU.09 — Keyboard Basics for Worship (voicing, pads vs. piano) *(live · 5 lessons)*
   1. Why keys matter in a worship band
   2. Piano vs. pad sounds — when to use each
-  3. Basic voicing technique (block chords vs. spread voicings)
+  3. Basic voicing technique
   4. Building a simple pad sound in your patch
   5. Reading a Nashville Number chart on keys
 - [ ] MU.10 — Transposing on Keys Without Losing the Groove
