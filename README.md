@@ -4,6 +4,11 @@ Official hub site for Allen Vincent Lucas's church tech and worship ministry pro
 
 **Live site:** https://allenvincentlucas.github.io/Church-Ministry/
 
+**Building or editing content here?** Read **[WORKFLOW.md](WORKFLOW.md)**
+first — it's the build standard for every sub-project (topic pages,
+Gospel reflections, chord library songs) and applies regardless of which
+session or conversation you're starting from.
+
 ---
 
 ## What's here
