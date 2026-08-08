@@ -191,7 +191,12 @@ async function build() {
     const tempo = toDisplayString(meta.tempo);
     const time = toDisplayString(meta.time);
     const youtube = toDisplayString(meta.youtube || meta.video);
-    const info = toDisplayString(meta.info || meta.comment);
+    // info-blurb only comes from an explicit {info: ...} tag. {comment: ...}
+    // lines are structural markers (Intro, Outro, Tag, etc.) meant to render
+    // inline in the chord chart -- they were never meant to double as a
+    // descriptive blurb, and concatenating them produces nonsense like
+    // "Intro Who's with me? Who's with me? Interlude...".
+    const info = toDisplayString(meta.info);
     const themes = detectThemes(raw, meta.theme);
     const category = toDisplayString(meta.category) || 'Worship Song';
     const slug = slugify(title);
